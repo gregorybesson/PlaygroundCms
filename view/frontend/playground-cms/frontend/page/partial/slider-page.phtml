@@ -1,0 +1,21 @@
+<div class="item <?php if($first): ?>active<?php $first=false;endif; ?> ">
+    <div class="span12">
+        <a href="<?php echo $this->url('winner/page', array('id' => $this->page->getIdentifier())); ?>">
+	        <div class="img-content">
+	            <img src="<?php echo $this->basePath($page->getSecondImage());?>" border="0" alt="<?php echo $page->getTitle(); ?>" />
+	            <div class="dark-overlay row-fluid">
+	                <h1 class="title-promo span8"><?php echo $page->getTitle(); ?></h1>
+	            </div>
+	        </div>
+        </a>
+        <div class="promo-infos">
+            <div class=""></div>
+            <div class="social-share">
+                <a href="http://www.facebook.com/sharer.php?u=<?php echo urlencode($this->url('winner/page', array('id' => $page->getIdentifier()), array('force_canonical' => true))); ?>" class="dark-fb" target="_blank"></a>
+				<a href="https://twitter.com/intent/tweet?text=<?php echo urlencode($page->getTitle()); ?>&url=<?php echo urlencode($this->url('winner/page', array('id' => $page->getIdentifier()), array('force_canonical' => true))); ?>" class="dark-tw" target="_blank"></a>
+				<a href="https://plus.google.com/share?url=<?php echo urlencode($this->url('winner/page', array('id' => $page->getIdentifier()), array('force_canonical' => true))); ?>" class="dark-gl" target="_blank"></a>
+			</div>
+        </div>
+        <div class="shadow-toppromo"></div>
+    </div>
+</div>

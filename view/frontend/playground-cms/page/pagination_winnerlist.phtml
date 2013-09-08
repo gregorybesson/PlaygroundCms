@@ -1,0 +1,40 @@
+<?php $this->plugin('translate')->setTranslatorTextDomain('playgroundcms'); ?>
+
+<?php if ($this->pageCount): ?>
+<div class="pagination">
+	<ul class="paginate-first span2">
+		<li>
+		    <a class="first<?php echo (isset($this->previous)) ? '' : ' inactive'; ?>" href="<?php echo $this->url('frontend/winner/pagination', array('p' => $this->first)); ?>"><?php echo $this->translate('Premier'); ?></a>
+		</li>
+		<li>
+            <a class="prev<?php echo (isset($this->previous)) ? '' : ' inactive'; ?>" href="<?php echo $this->url('frontend/winner/pagination', array('p' => $this->previous-9)); ?>"><?php echo $this->translate('Précédent'); ?></a>
+        </li>
+	</ul>
+	<ul class="paginate-nb span8">
+		<?php foreach ($this->pagesInRange as $page): ?>
+        <li<?php echo ($page == $this->current) ? ' class="active"' : ''; ?>>
+            <a href="<?php echo $this->url('frontend/winner/pagination', array('p' => $page)); ?>"><?php echo $page; ?></a>
+        </li>
+        <?php endforeach; ?>
+	</ul>
+	<ul class="paginate-last span2">
+		<li<?php echo (isset($this->next)) ? '' : ' class="disabled"'; ?>>
+            <a class="next<?php echo (isset($this->next)) ? '' : ' inactive'; ?>" href="<?php echo $this->url('frontend/winner/pagination', array('p' => $this->next+9)); ?>"><?php echo $this->translate('Suivant'); ?></a>
+        </li>
+		<li>
+            <a class="last<?php echo (isset($this->next)) ? '' : ' inactive'; ?>" href="<?php echo $this->url('frontend/winner/pagination', array('p' => $this->last)); ?>"><?php echo $this->translate('Dernier'); ?></a>
+        </li>
+	</ul>    
+</div>
+<?php endif; ?>
+
+<?php
+$script = $this->inlineScript();
+$script->appendScript(<<<'EOT'
+    
+$(".pagination .disabled a").click(function() {
+  return false;
+});
+
+EOT
+);

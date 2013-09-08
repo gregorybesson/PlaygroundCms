@@ -1,0 +1,44 @@
+<?php
+/*$fm = $this->flashMessenger()->setNamespace('playgroundcms')->getMessages();
+if (isset($fm[0]))
+{
+    print '<span class=>' . $fm[0] . '</span>';
+}*/
+?>
+<ul class="liste-buttons">
+	<li class="btn-admin"></li>
+</ul>
+
+<h1>Liste des blocs dynamiques</h1>
+
+<table class="table">
+    <tr>
+        <th><?php echo $this->translate('Dynarea'); ?></th>
+        <th><?php echo $this->translate('Dynablocks'); ?></th>
+        <th></th>
+    </tr>
+    <?php foreach ($this->activeDynareas as $dynarea => $dynablocks): ?>
+        <tr>
+            <td><?php echo $dynarea ?></td>
+            <td><?php echo count($dynablocks);?></td>
+
+            <?php $editLink = $this->url('admin/playgroundcmsadmin/dynablocks/create', array('dynareaId' => $dynarea));?>
+            <?php $deleteLink = $this->url('admin/playgroundcmsadmin/dynablocks/remove', array('dynareaId' => $dynarea));?>
+            <td><a href='<?php echo $editLink ?>'><?php echo $this->translate('Edit'); ?></a> | <a href='<?php echo $deleteLink ?>'><?php echo $this->translate('Delete'); ?></a></td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+<?php //echo $this->paginationControl($this->blocks, 'Sliding', 'playground-cms/block/pagination_pagelist.phtml'); ?>
+
+<?php echo $this->translate('Available Dynareas'); ?>
+<ul>
+<?php foreach ($this->dynareas as $id => $attributes): ?>
+    <?php if(!array_key_exists($id,$this->activeDynareas) ): ?>
+        <li>
+            <a href="<?php echo $this->url('admin/playgroundcmsadmin/dynablocks/create', array('dynareaId' => $id))?>"> <?php echo $id . " : " . $attributes['title']?></a>
+            <?php //echo $attributes['description']; ?>
+            <?php //echo $attributes['location']; ?>
+        </li>
+    <?php endif;?>
+<?php endforeach; ?>
+</ul>

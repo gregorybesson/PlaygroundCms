@@ -1,0 +1,10 @@
+<?php $pageTitle = $this->page->getTitle (); ?>
+<?php $this->headTitle ($pageTitle); ?>
+<div id="how-does-it-work">
+	<div class="row-fluid">
+		<h1>
+			<?php echo $pageTitle; ?>
+		</h1>
+		<?php echo $this->page->getContent (); ?>
+	</div>
+</div>

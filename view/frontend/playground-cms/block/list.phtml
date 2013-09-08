@@ -1,0 +1,43 @@
+<?php
+/*$fm = $this->flashMessenger()->setNamespace('playgroundcms')->getMessages();
+if (isset($fm[0]))
+{
+    print '<span class=>' . $fm[0] . '</span>';
+}*/
+?>
+
+<?php $this->plugin('translate')->setTranslatorTextDomain('playgroundcms');// Pour le texte ?>
+
+<ul class="liste-buttons">
+	<li class="btn-admin"><a href="<?php echo $this->url('admin/playgroundcmsadmin/blocks/create');?>"><?php echo $this->translate('Add new block'); ?></a></li>
+</ul>
+
+<h1>Liste des blocs de contenu</h1>
+
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Titre</th>
+        <th><?php echo $this->translate('identifier'); ?></th>
+        <th></th>
+    </tr>
+    <?php if(count($this->blocks)>0):?>
+        <?php foreach ($this->blocks as $block): ?>
+            <tr>
+                <td><?php echo $block->getId() ?></td>
+                <td><?php echo $block->getTitle() ?></td>
+                <td><?php echo $block->getIdentifier() ?></td>
+
+                <?php $editLink = $this->url('admin/playgroundcmsadmin/blocks/edit', array('blockId' => $block->getId()));?>
+                <?php $deleteLink = $this->url('admin/playgroundcmsadmin/blocks/remove', array('blockId' => $block->getId()));?>
+                <td><a href='<?php echo $editLink ?>'><?php echo $this->translate('Edit'); ?></a> | <a href='<?php echo $deleteLink ?>'><?php echo $this->translate('Delete'); ?></a></td>
+            </tr>
+        <?php endforeach; ?>
+    <?php endif;?>
+</table>
+
+<ul class="liste-buttons bottom">
+	<li class="btn-admin bottom"><a href="<?php echo $this->url('admin/playgroundcmsadmin/blocks/create');?>"><?php echo $this->translate('Add new block'); ?></a></li>
+</ul>
+
+<?php echo $this->paginationControl($this->blocks, 'Sliding', 'playground-cms/block/pagination_pagelist.phtml'); ?>

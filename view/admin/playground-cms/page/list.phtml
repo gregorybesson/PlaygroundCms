@@ -1,0 +1,53 @@
+<?php $this->plugin('translate')->setTranslatorTextDomain('playgroundcms');?>
+
+<?php
+/*$fm = $this->flashMessenger()->setNamespace('playgroundcms')->getMessages();
+if (isset($fm[0]))
+{
+    print '<span class=>' . $fm[0] . '</span>';
+}*/
+?>
+<ul class="liste-buttons">
+	<li class="btn-admin"><a href="<?php echo $this->url('admin/playgroundcmsadmin/pages/create');?>"><?php echo $this->translate('Add new page'); ?></a></li>
+</ul>
+
+<h1>Liste des articles</h1>
+
+<table class="table">
+    <tr>
+        <!-- <th>Id</th> -->
+        <th>
+        	Date de publication
+        	<?php if($this->filter == 'ASC'): ?>
+        	    <a href="<?php echo $this->url('admin/playgroundcmsadmin/pages/list', array('filter' => 'DESC')); ?>">
+        	    	<img src="/images/admin/arrow-down.png" alt="" />
+        	    </a>
+			<?php else : ?>
+				<a href="<?php echo $this->url('admin/playgroundcmsadmin/pages/list', array('filter' => 'ASC')); ?>">
+					<img src="/images/admin/arrow-up.png" alt="" />
+				</a>
+        	<?php endif; ?>
+	    </th>
+        <th>Titre</th>
+        <th><?php echo $this->translate('identifier'); ?></th>
+        <th></th>
+    </tr>
+    <?php foreach ($this->pages as $page): ?>
+        <tr>
+            <!-- <td><?php echo $page->getId() ?></td> -->
+            <td><?php echo ($page->getPublicationDate())? $page->getPublicationDate()->format('d/m/Y'):''; ?></td>
+            <td><?php echo $page->getTitle() ?></td>
+            <td><?php echo $page->getIdentifier() ?></td>
+
+            <?php $editLink = $this->url('admin/playgroundcmsadmin/pages/edit', array('pageId' => $page->getId()));?>
+            <?php $deleteLink = $this->url('admin/playgroundcmsadmin/pages/remove', array('pageId' => $page->getId()));?>
+            <td><a href='<?php echo $editLink ?>'><?php echo $this->translate('Edit'); ?></a> | <a href='<?php echo $deleteLink ?>'><?php echo $this->translate('Delete'); ?></a></td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+
+<ul class="liste-buttons bottom">
+	<li class="btn-admin bottom"><a href="<?php echo $this->url('admin/playgroundcmsadmin/pages/create');?>"><?php echo $this->translate('Add new page'); ?></a></li>
+</ul>
+
+<?php echo $this->paginationControl($this->pages, 'Sliding', 'playground-cms/partial/pagination_pagelist.phtml', array('url' => 'admin/playgroundcmsadmin/pages/list', 'filter' => $this->filter)); ?>

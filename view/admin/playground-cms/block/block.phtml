@@ -1,0 +1,53 @@
+<?php $this->plugin('translate')->setTranslatorTextDomain('playgroundcms');// Pour le texte ?>
+
+<h1><?php echo $this->translate('Block'); ?></h1>
+
+<?php
+
+$form = $this->createBlockForm;
+$form->prepare();
+?>
+
+<?php echo $this->form()->openTag($form) ?>
+    <dl class="zend_form">
+    <?php foreach ($form as $element): ?>
+        <?php if (!$element instanceof Zend\Form\Element\Button && !$element instanceof Zend\Form\Element\Hidden): ?>
+            <dt><?php echo $this->formLabel($element) ?></dt>
+        <?php endif ?>
+        <?php if ($element instanceof Zend\Form\Element\Button): ?>
+            <dd><?php echo $this->formButton($element) ?></dd>
+        <?php elseif ($element instanceof Zend\Form\Element\Captcha): ?>
+            <dd><?php echo $this->formCaptcha($element) . $this->formElementErrors($element) ?></dd>
+        <?php elseif ($element instanceof Zend\Form\Element\Select): ?>
+            <dd><?php echo $this->formSelect($element) . $this->formElementErrors($element) ?></dd>
+        <?php elseif ($element instanceof Zend\Form\Element\Checkbox): ?>
+            <dd><?php echo $this->formCheckbox($element) . $this->formElementErrors($element) ?></dd>
+        <?php elseif ($element instanceof Zend\Form\Element\Textarea): ?>
+            <dd><?php echo $this->formtextarea($element) . $this->formElementErrors($element) ?></dd>
+            <?php $this->QgCKEditor(
+                'content',
+                    array(
+                    	'BasePath' => $this->basePath('js/lib/ckeditor'),
+                    	'Width' => "100%",
+                        'Height' => "340",
+                        'filebrowserBrowseUrl' => '/elfinder', // eg. 'includes/elFinder/elfinder.html'
+                        'uiColor' => '#9AB8F3',
+                        //'Color' => "#000",
+                        'Toolbar'=> array(
+                             array('Source','Maximize'),
+                             array('Templates','Styles','Format'),
+                             array('Bold','Italic','Underline','Subscript','Superscript'),
+                             array('NumberedList','BulletedList','Outdent','Indent'),
+                             array('JustifyLeft','JustifyCenter','JustifyRight'),
+                             array('Link','Unlink'),
+                             array('Image','Table')
+                         )
+                    )
+                );
+            ?>
+        <?php else: ?>
+            <dd><?php echo $this->formInput($element) . $this->formElementErrors($element) ?></dd>
+        <?php endif ?>
+    <?php endforeach ?>
+    </dl>
+<?php echo $this->form()->closeTag() ?>

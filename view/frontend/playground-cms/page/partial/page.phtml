@@ -1,0 +1,13 @@
+<!-- BLOCK GAME PRICE -->
+<div class="block-game price">
+	<a href="<?php echo $this->url('frontend/winner/page', array('id' => $this->page->getIdentifier(), 'channel' => $this->channel)); ?>"><img class="rounded" src="<?php echo $this->basePath($this->page->getMainImage()); ?>" border="0" alt="<?php echo $this->page->getTitle(); ?>" /></a>
+	<div class="game-price-content row-fluid">
+		<div class="logo-star span2"><img src="<?php echo $this->frontendAssetPath('images/common/logo-star-price.png')?>" width="76" height="76" border="0" alt="Star" /></div>
+		<div class="txt span10">
+			<h2><a href="<?php echo $this->url('frontend/winner/page', array('id' => $this->page->getIdentifier(), 'channel' => $this->channel)); ?>"><?php echo $this->page->getTitle(); ?></a></h2>
+			<div><?php echo $this->page->getHeading() ?></div>
+		</div>
+	</div>
+	<div class="readmore"><a href="<?php echo $this->url('frontend/winner/page', array('id' => $this->page->getIdentifier(), 'channel' => $this->channel)); ?>">+ Lire la suite</a></div>
+</div>
+<!-- END BLOCK GAME PRICE -->

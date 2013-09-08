@@ -1,0 +1,12 @@
+<?php $this->plugin('translate')->setTranslatorTextDomain('playgroundcms');?>
+
+<div id="winners" class="list row-fluid">
+	<div class="row-fluid">
+        <h1>Les gagnants</h1>
+    </div>
+	<?php foreach($this->pages as $page):?>
+	    <?php $this->partial()->setObjectKey('page')?>
+	    <?php echo $this->partial('playground-cms/page/partial/page.phtml', array('page' => $page, 'channel' => $this->channel)) ?>
+	<?php endforeach;?>
+	<?php echo $this->paginationControl($this->pages, 'Sliding', 'playground-cms/page/pagination_winnerlist.phtml'); ?>
+</div>
