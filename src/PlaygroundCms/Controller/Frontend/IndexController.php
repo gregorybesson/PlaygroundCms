@@ -175,7 +175,7 @@ class IndexController extends AbstractActionController
     public function getOptions()
     {
         if (!$this->options) {
-            $this->setOptions($this->getServiceLocator()->get('adfabcore_module_options'));
+            $this->setOptions($this->getServiceLocator()->get('playgroundcore_module_options'));
         }
 
         return $this->options;

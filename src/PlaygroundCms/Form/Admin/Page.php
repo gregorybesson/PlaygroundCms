@@ -6,7 +6,7 @@ use Zend\Form\Form;
 use Zend\Form\Element;
 use ZfcBase\Form\ProvidesEventsForm;
 use Zend\I18n\Translator\Translator;
-use AdfabCore\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
+use PlaygroundCore\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 use Zend\ServiceManager\ServiceManager;
 
 class Page extends ProvidesEventsForm

@@ -551,7 +551,7 @@ class Page implements PageInterface, InputFilterAwareInterface
                         'name' => 'StringTrim'
                     ),
                     array(
-                        'name' => 'AdfabCore\Filter\Slugify'
+                        'name' => 'PlaygroundCore\Filter\Slugify'
                     )
                 ),
                 'validators' => array(

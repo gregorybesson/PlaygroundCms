@@ -283,7 +283,7 @@ class Block implements BlockInterface, InputFilterAwareInterface
                     ->add(
                             $factory
                                     ->createInput(
-                                            array('name' => 'identifier', 'required' => true, 'filters' => array(array('name' => 'StripTags'), array('name' => 'StringTrim'), array('name' => 'AdfabCore\Filter\Slugify'),),
+                                            array('name' => 'identifier', 'required' => true, 'filters' => array(array('name' => 'StripTags'), array('name' => 'StringTrim'), array('name' => 'PlaygroundCore\Filter\Slugify'),),
                                                     'validators' => array(
                                                             array('name' => 'StringLength',
                                                                     'options' => array('encoding' => 'UTF-8', 'min' => 5, 'max' => 255, /*'messages' => array(
