@@ -15,7 +15,7 @@
             "name": "Greg Besson",
             "email": "gregory.besson@playground.fr",
             "homepage": "http://www.playground.fr"
-        }
+        } 
     ],
     "minimum-stability": "dev",
     "require": {
