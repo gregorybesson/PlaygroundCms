@@ -340,7 +340,7 @@ return array(
                         'index' => array(
                             'default_layout' => 'layout/2columns-left',
                             'children_views' => array(
-                                'col_left'  => 'adfab-user/layout/col-user.phtml',
+                                'col_left'  => 'playground-user/layout/col-user.phtml',
                             ),
                         ),
                         'winner' => array(
