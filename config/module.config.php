@@ -15,7 +15,7 @@ return array(
                 )
             )
         )
-    ), 
+    ),
 
     'translator' => array(
         'locale' => 'fr_FR',
@@ -68,7 +68,7 @@ return array(
         'routes' => array(
         	'frontend' => array(
         		'child_routes' => array(
-		            'cms' => array( 
+		            'cms' => array(
 		                'type' => 'Zend\Mvc\Router\Http\Segment',
 		                'options' => array(
 		                    'route'    => 'page/:id',
@@ -322,7 +322,7 @@ return array(
         'frontend' => array(
             'modules' => array(
                 'playgroundcms' => array(
-                    'layout' => '2columns-left.phtml',
+                    'layout' => 'layout/2columns-left.phtml',
                     'controllers' => array(
                         'playgroundcms' => array(
                             'actions' => array(
