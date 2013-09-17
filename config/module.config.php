@@ -15,7 +15,7 @@ return array(
                 )
             )
         )
-    ), 
+    ),
 
     'translator' => array(
         'locale' => 'fr_FR',
@@ -68,7 +68,7 @@ return array(
         'routes' => array(
         	'frontend' => array(
         		'child_routes' => array(
-		            'cms' => array( 
+		            'cms' => array(
 		                'type' => 'Zend\Mvc\Router\Http\Segment',
 		                'options' => array(
 		                    'route'    => 'page/:id',
@@ -319,34 +319,18 @@ return array(
     ),
 
     'core_layout' => array(
-        'PlaygroundCms' => array(
-            'default_layout' => 'layout/2columns-right',
-            'children_views' => array(
-                'col_right'  => 'application/common/column_right.phtml',
-               ),
-               'controllers' => array(
-               		'playgroundcmsadminpage' => array(
-               			'default_layout' => 'layout/admin',
-               		),
-               		'playgroundcmsadminblock' => array(
-               				'default_layout' => 'layout/admin',
-               		),
-               		'playgroundcmsadmindynablock' => array(
-               				'default_layout' => 'layout/admin',
-               		),
-                   	'playgroundcms' => array(
-                    'default_layout' => 'layout/2columns-right',
-                    'actions' => array(
-                        'index' => array(
-                            'default_layout' => 'layout/2columns-left',
-                            'children_views' => array(
-                                'col_left'  => 'playground-user/layout/col-user.phtml',
-                            ),
-                        ),
-                        'winner' => array(
-                            'default_layout' => 'layout/2columns-right',
-                            'children_views' => array(
-                                'col_right'  => 'application/common/column_right.phtml',
+        'frontend' => array(
+            'modules' => array(
+                'playgroundcms' => array(
+                    'layout' => '2columns-left.phtml',
+                    'controllers' => array(
+                        'playgroundcms' => array(
+                            'actions' => array(
+                                'index' => array(
+                                    'children_views' => array(
+                                        'col_left' => 'playground-user/user/col-user.phtml'
+                                    ),
+                                ),
                             ),
                         ),
                     ),
