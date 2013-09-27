@@ -79,7 +79,6 @@ class Block extends ProvidesEventsForm
 
         $submitElement = new Element\Button('submit');
         $submitElement
-        ->setLabel('Create')
         ->setAttributes(array(
                 'type'  => 'submit',
         ));
