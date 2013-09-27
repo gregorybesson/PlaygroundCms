@@ -1,4 +1,4 @@
-<div class="item <?php if($first): ?>active<?php $first=false;endif; ?> ">
+<div class="item <?php if(isset($first)): ?>active<?php endif; ?> ">
     <div class="span12">
         <a href="<?php echo $this->url('frontend/winner/page', array('id' => $this->page->getIdentifier(), 'channel' => $this->channel)); ?>">
 	        <div class="img-content">
