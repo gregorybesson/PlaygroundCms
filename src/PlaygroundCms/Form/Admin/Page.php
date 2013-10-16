@@ -34,7 +34,7 @@ class Page extends ProvidesEventsForm
         $this->add(array(
             'name' => 'title',
             'options' => array(
-                'label' => 'title',
+                'label' => $translator->translate('Title', 'playgroundcms')
             ),
             'attributes' => array(
                 'type' => 'text'
@@ -44,7 +44,7 @@ class Page extends ProvidesEventsForm
         $this->add(array(
                 'name' => 'identifier',
                 'options' => array(
-                        'label' => 'identifier',
+                        'label' => $translator->translate('identifier', 'playgroundcms')
                 ),
                 'attributes' => array(
                         'type' => 'text'
@@ -101,7 +101,7 @@ class Page extends ProvidesEventsForm
                 'type' => 'Zend\Form\Element\DateTime',
                 'name' => 'publicationDate',
                 'options' => array(
-                        'label' => $translator->translate('Date de publication', 'playgroundcms'),
+                        'label' => $translator->translate('Publishing date', 'playgroundcms'),
                         'format' => 'd/m/Y'
                 ),
                 'attributes' => array(
@@ -127,7 +127,7 @@ class Page extends ProvidesEventsForm
                 'type' => 'Zend\Form\Element\Checkbox',
                 'name' => 'displayHome',
                 'options' => array(
-                    'label' => 'Publier cet article sur la home',
+                    'label' => $translator->translate('Homepage Publish', 'playgroundcms'),
                 ),
         ));
 
@@ -135,7 +135,7 @@ class Page extends ProvidesEventsForm
                 'type' => 'Zend\Form\Element\Checkbox',
                 'name' => 'pushHome',
                 'options' => array(
-                    'label' => 'Publier cet article sur le slider Home',
+                    'label' => $translator->translate('Slider Publish', 'playgroundcms'),
                 ),
         ));
 
@@ -144,10 +144,10 @@ class Page extends ProvidesEventsForm
             'name' => 'active',
             'options' => array(
                 'value_options' => array(
-                    '0' => $translator->translate('Non', 'playgroundcms'),
-                    '1' => $translator->translate('Oui', 'playgroundcms')
+                    '0' => $translator->translate('Yes', 'playgroundcms'),
+                    '1' => $translator->translate('No', 'playgroundcms')
                 ),
-                'label' => $translator->translate('Actif', 'playgroundcms')
+                'label' => $translator->translate('Active', 'playgroundcms')
             )
         ));
 
@@ -155,7 +155,7 @@ class Page extends ProvidesEventsForm
                 'type' => 'Zend\Form\Element\Textarea',
                 'name' => 'content',
                 'options' => array(
-                    'label' => $translator->translate('Bloc de contenu', 'playgroundcms')
+                    'label' => $translator->translate('Block content', 'playgroundcms')
                 ),
                 'attributes' => array(
                     'cols' => '10',
@@ -182,10 +182,10 @@ class Page extends ProvidesEventsForm
             'name' => 'category',
             'options' => array(
                 'value_options' => array(
-                    '0' => $translator->translate('Les gagnants', 'playgroundcms'),
-                    '1' => $translator->translate('Autres', 'playgroundcms')
+                    '0' => $translator->translate('Winners', 'playgroundcms'),
+                    '1' => $translator->translate('Others', 'playgroundcms')
                 ),
-                'label' => $translator->translate('Catégorie', 'playgroundcms')
+                'label' => $translator->translate('Category', 'playgroundcms')
             )
         ));
 
