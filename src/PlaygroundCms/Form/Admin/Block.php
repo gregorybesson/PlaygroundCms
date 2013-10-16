@@ -27,7 +27,7 @@ class Block extends ProvidesEventsForm
         $this->add(array(
             'name' => 'title',
             'options' => array(
-                'label' => 'title',
+                'label' => $translator->translate('Title', 'playgroundcms'),
             ),
             'attributes' => array(
                 'type' => 'text'
@@ -37,7 +37,7 @@ class Block extends ProvidesEventsForm
         $this->add(array(
                 'name' => 'identifier',
                 'options' => array(
-                        'label' => 'identifier',
+                        'label' => $translator->translate('identifier', 'playgroundcms'),
                 ),
                 'attributes' => array(
                         'type' => 'text'
