@@ -33,7 +33,7 @@ class Page extends EventProvider implements ServiceManagerAwareInterface
 
     public function create($page = false, array $data)
     {
-        $entityManager = $this->getServiceManager()->get('zfcuser_doctrine_em');
+        $entityManager = $this->getServiceManager()->get('doctrine.entitymanager.orm_default');
         $form  = $this->getServiceManager()->get('playgroundcms_page_form');
         $form->get('publicationDate')->setOptions(array('format' => 'Y-m-d'));
         $form->get('closeDate')->setOptions(array('format' => 'Y-m-d'));
@@ -107,7 +107,7 @@ class Page extends EventProvider implements ServiceManagerAwareInterface
 
 	public function edit($page, array $data)
     {
-        $entityManager = $this->getServiceManager()->get('zfcuser_doctrine_em');
+        $entityManager = $this->getServiceManager()->get('doctrine.entitymanager.orm_default');
         $form  = $this->getServiceManager()->get('playgroundcms_page_form');
         $form->get('publicationDate')->setOptions(array('format' => 'Y-m-d'));
         $form->get('closeDate')->setOptions(array('format' => 'Y-m-d'));
@@ -182,7 +182,7 @@ class Page extends EventProvider implements ServiceManagerAwareInterface
      */
     public function getActivePages($displayHome = true, $category = 0)
     {
-        $em = $this->getServiceManager()->get('zfcuser_doctrine_em');
+        $em = $this->getServiceManager()->get('doctrine.entitymanager.orm_default');
         $today = new \DateTime("now");
         //$today->format('Y-m-d H:i:s');
         $today = $today->format('Y-m-d') . ' 23:59:59';
@@ -229,7 +229,7 @@ class Page extends EventProvider implements ServiceManagerAwareInterface
      */
     public function getActiveSliderPages()
     {
-        $em = $this->getServiceManager()->get('zfcuser_doctrine_em');
+        $em = $this->getServiceManager()->get('doctrine.entitymanager.orm_default');
         $today = new \DateTime("now");
         //$today->format('Y-m-d H:i:s');
         $today = $today->format('Y-m-d') . ' 23:59:59';
