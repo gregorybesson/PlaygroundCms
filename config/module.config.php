@@ -385,7 +385,7 @@ return array(
                         'resource' => 'cms',
                         'privilege' => 'add',
                     ),
-                    'list-block' => array(
+                    /*'list-block' => array(
                         'label' => 'Liste des blocs de contenu',
                         'route' => 'admin/playgroundcmsadmin/blocks/list',
                         'resource' => 'cms',
@@ -402,7 +402,7 @@ return array(
                         'route' => 'admin/playgroundcmsadmin/dynablocks/list',
                         'resource' => 'cms',
                         'privilege' => 'list',
-                    ),
+                    ),*/
                 ),
             ),
         ),
