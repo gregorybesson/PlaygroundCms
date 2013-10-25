@@ -360,13 +360,13 @@ return array(
         ),
         'admin' => array(
             'playgroundcms' => array(
-                'label' => 'Les articles',
+                'label' => 'Posts',
                 'route' => 'admin/playgroundcmsadmin/pages/list',
                 'resource' => 'cms',
                 'privilege' => 'list',
                 'pages' => array(
                     'list-pages' => array(
-                        'label' => 'Liste des articles',
+                        'label' => 'Posts list',
                         'route' => 'admin/playgroundcmsadmin/pages/list',
                         'resource' => 'cms',
                         'privilege' => 'list',
@@ -380,25 +380,25 @@ return array(
 						),
                     ),
                     'create-page' => array(
-                        'label' => 'Créer un article',
+                        'label' => 'Create a post',
                         'route' => 'admin/playgroundcmsadmin/pages/create',
                         'resource' => 'cms',
                         'privilege' => 'add',
                     ),
                     'list-block' => array(
-                        'label' => 'Liste des blocs de contenu',
+                        'label' => 'Content bloc list',
                         'route' => 'admin/playgroundcmsadmin/blocks/list',
                         'resource' => 'cms',
                         'privilege' => 'list',
                     ),
                     'create-block' => array(
-                        'label' => 'Créer un bloc de contenu',
+                        'label' => 'Create a content bloc',
                         'route' => 'admin/playgroundcmsadmin/blocks/create',
                         'resource' => 'cms',
                         'privilege' => 'add',
                     ),
                     'list-dynablock' => array(
-                        'label' => 'Liste des blocs dynamiques',
+                        'label' => 'Dynamic blocs list',
                         'route' => 'admin/playgroundcmsadmin/dynablocks/list',
                         'resource' => 'cms',
                         'privilege' => 'list',
