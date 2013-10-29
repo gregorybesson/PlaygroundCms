@@ -48,5 +48,13 @@ return array(
 	
 	// Dynamic bloc list
 	'Dynamic block list' => 'Dynamic block list',
-		
+
+	// WINNERS PAGE
+	'Previous post' => 'Previous post',
+	'Next post' => 'Next post',
+	'First' => 'First',
+	'Previous' => 'Previous',
+	'Next' =>'Next',
+	'Last' => 'Last',
+	'Read more' => 'Read more',
 );

@@ -50,4 +50,12 @@ return array(
 	// Dynamic bloc list
 	'Dynamic block list' => 'Liste des blocs dynamiques',
 		
+	// WINNERS PAGE
+	'Previous post' => 'Article précédent',
+	'Next post' => 'Article suivant',
+	'First' => 'Premier',	
+	'Previous' => 'Précédent',
+	'Next' =>'Suivant',
+	'Last' => 'Dernier',	
+	'Read more' => 'Lire la suite',
 );
