@@ -1,6 +1,8 @@
 <?php
 return array(
 	
+	'Create a content bloc' => 'Créer un bloc de contenu',
+	
 	// Paginator
     'First' 			=> 'Premier',
     'Previous' 			=> 'Précédent',
@@ -8,6 +10,7 @@ return array(
     'Last' 				=> 'Dernier',
     
 	// Admin page List
+	'Posts list' => 'Liste des articles',
 	'Add new page'		=> 'Créer un article',
 	'identifier'		=> 'Lien',
 	'Edit'				=> 'Editer',
@@ -35,6 +38,7 @@ return array(
 	'Homepage'			=> 'Homepage',
 		
 	// Admin page List Blocks
+	'Content bloc list' => 'Liste des blocs de contenu',
 	'Add new block' 	=> 'Ajouter un bloc',
 	
 	// Admin Create/Edit Block
@@ -43,4 +47,15 @@ return array(
 	'Content'			=> 'Contenu',
 	'Content'			=> 'Contenu',
 	
+	// Dynamic bloc list
+	'Dynamic block list' => 'Liste des blocs dynamiques',
+		
+	// WINNERS PAGE
+	'Previous post' => 'Article précédent',
+	'Next post' => 'Article suivant',
+	'First' => 'Premier',	
+	'Previous' => 'Précédent',
+	'Next' =>'Suivant',
+	'Last' => 'Dernier',	
+	'Read more' => 'Lire la suite',
 );
