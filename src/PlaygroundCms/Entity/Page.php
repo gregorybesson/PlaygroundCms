@@ -223,6 +223,8 @@ class Page implements PageInterface, InputFilterAwareInterface
     public function setMainImage ($mainImage)
     {
         $this->mainImage = $mainImage;
+        
+        return $this;
     }
 
     /**
@@ -241,6 +243,8 @@ class Page implements PageInterface, InputFilterAwareInterface
     public function setSecondImage ($secondImage)
     {
         $this->secondImage = $secondImage;
+        
+        return $this;
     }
 
     /**
@@ -354,6 +358,8 @@ class Page implements PageInterface, InputFilterAwareInterface
     public function setPushHome ($pushHome)
     {
         $this->pushHome = $pushHome;
+        
+        return $this;
     }
 
     /**
@@ -372,6 +378,8 @@ class Page implements PageInterface, InputFilterAwareInterface
     public function setDisplayHome ($displayHome)
     {
         $this->displayHome = $displayHome;
+        
+        return $this;
     }
 
     /**
@@ -390,6 +398,8 @@ class Page implements PageInterface, InputFilterAwareInterface
     public function setPublicationDate ($publicationDate)
     {
         $this->publicationDate = $publicationDate;
+        
+        return $this;
     }
 
     /**
@@ -408,6 +418,8 @@ class Page implements PageInterface, InputFilterAwareInterface
     public function setCloseDate ($closeDate)
     {
         $this->closeDate = $closeDate;
+        
+        return $this;
     }
 
     /**
