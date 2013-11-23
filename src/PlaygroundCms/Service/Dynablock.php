@@ -58,11 +58,11 @@ class Dynablock extends EventProvider implements ServiceManagerAwareInterface
         foreach ($blockList as $position => $dynablock) {
             $detail = explode('_',$dynablock);
             $dynablock = new EntityDynablock;
-            $dynablock->setDynarea($dynarea);
-            $dynablock->setIdentifier($detail[1]);
-            $dynablock->setType($detail[0]);
-            $dynablock->setIsActive(1);
-            $dynablock->setPosition($position);
+            $dynablock->setDynarea($dynarea)
+                ->setIdentifier($detail[1])
+                ->setType($detail[0])
+                ->setIsActive(1)
+                ->setPosition($position);
             $this->getDynablockMapper()->insert($dynablock);
         }
 

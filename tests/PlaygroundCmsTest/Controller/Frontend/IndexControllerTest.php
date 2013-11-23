@@ -100,10 +100,10 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
     	$pluginManager    = $this->getApplicationServiceLocator()->get('ControllerPluginManager');
     
     	$page = new PageEntity();
-    	$page->setActive(true);
-    	$page->setTitle('titre');
-    	$page->setContent('content');
-    	$page->setIdentifier('fakepage');
+    	$page->setActive(true)
+    	   ->setTitle('titre')
+    	   ->setContent('content')
+    	   ->setIdentifier('fakepage');
     
     	//mocking the method checkExistingEntry
     	$f = $this->getMockBuilder('PlaygroundCms\Service\Page')
