@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="playgroundcms" tests="10" assertions="20" failures="0" errors="0" time="12.484820">
+    <testsuite name="PlaygroundCmsTest\Controller\Admin\BlockControllerTest" file="/home/stephanie/www/trunk/vendor/playground/cms/tests/PlaygroundCmsTest/Controller/Admin/BlockControllerTest.php" namespace="PlaygroundCmsTest\Controller\Admin" fullPackage="PlaygroundCmsTest.Controller.Admin" tests="3" assertions="3" failures="0" errors="0" time="0.012494">
+      <testcase name="testCreateAction" class="PlaygroundCmsTest\Controller\Admin\BlockControllerTest" file="/home/stephanie/www/trunk/vendor/playground/cms/tests/PlaygroundCmsTest/Controller/Admin/BlockControllerTest.php" line="20" assertions="1" time="0.005903"/>
+      <testcase name="testEditAction" class="PlaygroundCmsTest\Controller\Admin\BlockControllerTest" file="/home/stephanie/www/trunk/vendor/playground/cms/tests/PlaygroundCmsTest/Controller/Admin/BlockControllerTest.php" line="25" assertions="1" time="0.003323"/>
+      <testcase name="testListAction" class="PlaygroundCmsTest\Controller\Admin\BlockControllerTest" file="/home/stephanie/www/trunk/vendor/playground/cms/tests/PlaygroundCmsTest/Controller/Admin/BlockControllerTest.php" line="30" assertions="1" time="0.003268"/>
+    </testsuite>
+    <testsuite name="PlaygroundCmsTest\Controller\Admin\DynablockControllerTest" file="/home/stephanie/www/trunk/vendor/playground/cms/tests/PlaygroundCmsTest/Controller/Admin/DynablockControllerTest.php" namespace="PlaygroundCmsTest\Controller\Admin" fullPackage="PlaygroundCmsTest.Controller.Admin" tests="1" assertions="1" failures="0" errors="0" time="0.003308">
+      <testcase name="testIndexAction" class="PlaygroundCmsTest\Controller\Admin\DynablockControllerTest" file="/home/stephanie/www/trunk/vendor/playground/cms/tests/PlaygroundCmsTest/Controller/Admin/DynablockControllerTest.php" line="20" assertions="1" time="0.003308"/>
+    </testsuite>
+    <testsuite name="PlaygroundCmsTest\Controller\Admin\LinkControllerTest" file="/home/stephanie/www/trunk/vendor/playground/cms/tests/PlaygroundCmsTest/Controller/Admin/LinkControllerTest.php" namespace="PlaygroundCmsTest\Controller\Admin" fullPackage="PlaygroundCmsTest.Controller.Admin" tests="1" assertions="1" failures="0" errors="0" time="0.003290">
+      <testcase name="testIndexAction" class="PlaygroundCmsTest\Controller\Admin\LinkControllerTest" file="/home/stephanie/www/trunk/vendor/playground/cms/tests/PlaygroundCmsTest/Controller/Admin/LinkControllerTest.php" line="20" assertions="1" time="0.003290"/>
+    </testsuite>
+    <testsuite name="PlaygroundCmsTest\Controller\Admin\PageControllerTest" file="/home/stephanie/www/trunk/vendor/playground/cms/tests/PlaygroundCmsTest/Controller/Admin/PageControllerTest.php" namespace="PlaygroundCmsTest\Controller\Admin" fullPackage="PlaygroundCmsTest.Controller.Admin" tests="1" assertions="1" failures="0" errors="0" time="0.003295">
+      <testcase name="testIndexAction" class="PlaygroundCmsTest\Controller\Admin\PageControllerTest" file="/home/stephanie/www/trunk/vendor/playground/cms/tests/PlaygroundCmsTest/Controller/Admin/PageControllerTest.php" line="20" assertions="1" time="0.003295"/>
+    </testsuite>
+    <testsuite name="PlaygroundCmsTest\Controller\Frontend\IndexControllerTest" file="/home/stephanie/www/trunk/vendor/playground/cms/tests/PlaygroundCmsTest/Controller/Frontend/IndexControllerTest.php" namespace="PlaygroundCmsTest\Controller\Frontend" fullPackage="PlaygroundCmsTest.Controller.Frontend" tests="4" assertions="14" failures="0" errors="0" time="12.462433">
+      <testcase name="testIndexActionNoIdentifier" class="PlaygroundCmsTest\Controller\Frontend\IndexControllerTest" file="/home/stephanie/www/trunk/vendor/playground/cms/tests/PlaygroundCmsTest/Controller/Frontend/IndexControllerTest.php" line="21" assertions="1" time="2.991601"/>
+      <testcase name="testIndexActionNonExistentPage" class="PlaygroundCmsTest\Controller\Frontend\IndexControllerTest" file="/home/stephanie/www/trunk/vendor/playground/cms/tests/PlaygroundCmsTest/Controller/Frontend/IndexControllerTest.php" line="28" assertions="3" time="3.176337"/>
+      <testcase name="testIndexActionNonActivePage" class="PlaygroundCmsTest\Controller\Frontend\IndexControllerTest" file="/home/stephanie/www/trunk/vendor/playground/cms/tests/PlaygroundCmsTest/Controller/Frontend/IndexControllerTest.php" line="61" assertions="3" time="3.169367"/>
+      <testcase name="testIndexActionPage" class="PlaygroundCmsTest\Controller\Frontend\IndexControllerTest" file="/home/stephanie/www/trunk/vendor/playground/cms/tests/PlaygroundCmsTest/Controller/Frontend/IndexControllerTest.php" line="95" assertions="7" time="3.125128"/>
+    </testsuite>
+  </testsuite>
+</testsuites>
