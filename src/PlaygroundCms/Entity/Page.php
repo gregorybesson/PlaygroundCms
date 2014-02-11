@@ -509,12 +509,19 @@ class Page implements PageInterface, InputFilterAwareInterface, Translatable
      */
     public function populate($data = array())
     {
-        /*$this->id = $data['id'];
-         $this->username = $data['username'];
-        $this->email = $data['email'];
-        $this->displayName = $data['displayName'];
-        $this->password = $data['password'];
-        $this->state = $data['state'];*/
+        foreach (array('title', 'meta_keywords', 'meta_description', 'content', 'heading', 'category') as $attr) {
+            if (isset($data[$attr]) && $data[$attr]!= null) {
+                $this->$attr = $data[$attr];
+            }
+        }
+        foreach (array('active', 'sort_order', 'pushHome', 'displayHome') as $attr) {
+            if (isset($data[$attr])) {
+                $this->$attr = (bool) $data[$attr];
+            }
+        }
+        if (isset($data['category']) && $data['category']!= null) {
+            $this->category = (int) $data['category'];
+        }
     }
 
     public function setInputFilter (InputFilterInterface $inputFilter)
