@@ -16,6 +16,22 @@ return array(
             )
         )
     ),
+    
+    'bjyauthorize' => array(
+        'resource_providers' => array(
+            'BjyAuthorize\Provider\Resource\Config' => array(
+                'cms' => array(),
+            ),
+        ),
+    
+        'rule_providers' => array(
+            'BjyAuthorize\Provider\Rule\Config' => array(
+                'allow' => array(
+                    array(array('admin'), 'cms', array('list','add','edit','delete')),
+                ),
+            ),
+        ),    
+    ),
 
     'translator' => array(
         'locale' => 'fr_FR',
