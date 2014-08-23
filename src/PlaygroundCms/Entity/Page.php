@@ -10,14 +10,24 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 /**
  * @ORM\Entity @HasLifecycleCallbacks
  * @ORM\Table(name="cms_page")
+ * @Gedmo\TranslationEntity(class="PlaygroundCms\Entity\CmsTranslation")
  */
-class Page implements PageInterface, InputFilterAwareInterface
+class Page implements PageInterface, InputFilterAwareInterface, Translatable
 {
     protected $inputFilter;
+
+    protected $locale;
+
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
+    }
 
     /**
      * @ORM\Id
@@ -27,46 +37,55 @@ class Page implements PageInterface, InputFilterAwareInterface
     protected $id;
 
     /**
+     * @Gedmo\Translatable
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $title;
 
     /**
+     * @Gedmo\Translatable
      * @ORM\Column(type="string", length=255, unique=true, nullable=false)
      */
     protected $identifier;
 
     /**
+     * @Gedmo\Translatable
      * @ORM\Column(name="main_image", type="string", length=255, nullable=true)
      */
     protected $mainImage;
 
     /**
+     * @Gedmo\Translatable
      * @ORM\Column(name="second_image", type="string", length=255, nullable=true)
      */
     protected $secondImage;
 
     /**
+     * @Gedmo\Translatable
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $meta_keywords;
 
     /**
+     * @Gedmo\Translatable
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $meta_description;
 
     /**
+     * @Gedmo\Translatable
      * @ORM\Column(type="text", nullable=true)
      */
     protected $content;
-	
+
 	/**
+     * @Gedmo\Translatable
      * @ORM\Column(type="text", nullable=true)
      */
     protected $heading;
 
     /**
+     * @Gedmo\Translatable
      * @ORM\Column(type="boolean")
      */
     protected $active = 0;
@@ -105,7 +124,7 @@ class Page implements PageInterface, InputFilterAwareInterface
      * @ORM\Column(name="updated_at",type="datetime")
      */
     protected $updatedAt;
-    
+
 	/**
      * @ORM\Column(name="category",type="integer", nullable=true)
      */
@@ -187,7 +206,7 @@ class Page implements PageInterface, InputFilterAwareInterface
     {
         return $this->content;
     }
-	
+
 	/**
      * @param $heading
      * @return Page
@@ -223,7 +242,7 @@ class Page implements PageInterface, InputFilterAwareInterface
     public function setMainImage ($mainImage)
     {
         $this->mainImage = $mainImage;
-        
+
         return $this;
     }
 
@@ -243,7 +262,7 @@ class Page implements PageInterface, InputFilterAwareInterface
     public function setSecondImage ($secondImage)
     {
         $this->secondImage = $secondImage;
-        
+
         return $this;
     }
 
@@ -358,7 +377,7 @@ class Page implements PageInterface, InputFilterAwareInterface
     public function setPushHome ($pushHome)
     {
         $this->pushHome = $pushHome;
-        
+
         return $this;
     }
 
@@ -378,7 +397,7 @@ class Page implements PageInterface, InputFilterAwareInterface
     public function setDisplayHome ($displayHome)
     {
         $this->displayHome = $displayHome;
-        
+
         return $this;
     }
 
@@ -398,7 +417,7 @@ class Page implements PageInterface, InputFilterAwareInterface
     public function setPublicationDate ($publicationDate)
     {
         $this->publicationDate = $publicationDate;
-        
+
         return $this;
     }
 
@@ -418,7 +437,7 @@ class Page implements PageInterface, InputFilterAwareInterface
     public function setCloseDate ($closeDate)
     {
         $this->closeDate = $closeDate;
-        
+
         return $this;
     }
 
@@ -440,7 +459,7 @@ class Page implements PageInterface, InputFilterAwareInterface
     {
         return $this->updatedAt;
     }
-	
+
 	/**
      * @param $category
      * @return Page
@@ -490,12 +509,19 @@ class Page implements PageInterface, InputFilterAwareInterface
      */
     public function populate($data = array())
     {
-        /*$this->id = $data['id'];
-         $this->username = $data['username'];
-        $this->email = $data['email'];
-        $this->displayName = $data['displayName'];
-        $this->password = $data['password'];
-        $this->state = $data['state'];*/
+        foreach (array('title', 'meta_keywords', 'meta_description', 'content', 'heading', 'category') as $attr) {
+            if (isset($data[$attr]) && $data[$attr]!= null) {
+                $this->$attr = $data[$attr];
+            }
+        }
+        foreach (array('active', 'sort_order', 'pushHome', 'displayHome') as $attr) {
+            if (isset($data[$attr])) {
+                $this->$attr = (bool) $data[$attr];
+            }
+        }
+        if (isset($data['category']) && $data['category']!= null) {
+            $this->category = (int) $data['category'];
+        }
     }
 
     public function setInputFilter (InputFilterInterface $inputFilter)

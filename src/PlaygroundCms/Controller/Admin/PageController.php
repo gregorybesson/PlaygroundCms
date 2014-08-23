@@ -17,38 +17,38 @@ class PageController extends AbstractActionController
 
     public function listAction()
     {
-		$filter		= $this->getEvent()->getRouteMatch()->getParam('filter');
+        $filter = $this->getEvent()->getRouteMatch()->getParam('filter');
         $pageMapper = $this->getPageMapper();
         $pages = $pageMapper->findAllBy(array('publicationDate' => $filter));
-		
+
         if (is_array($pages)) {
             $paginator = new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\ArrayAdapter($pages));
-			$paginator->setItemCountPerPage(20);
-        	$paginator->setCurrentPageNumber($this->getEvent()->getRouteMatch()->getParam('p'));
+            $paginator->setItemCountPerPage(20);
+            $paginator->setCurrentPageNumber($this->getEvent()->getRouteMatch()->getParam('p'));
         } else {
             $paginator = $pages;
         }
 
         return new ViewModel(
-	        array(
-	        	'pages'		=> $paginator,
-                'filter'	=> $filter,
-	        )
-		);
+            array(
+                'pages' => $paginator,
+                'filter' => $filter,
+            )
+        );
     }
 
     public function createAction()
     {
         $form = $this->getServiceLocator()->get('playgroundcms_page_form');
         $form->setAttribute('method', 'post');
-		
-		$titleForm = 'Create article';
+
+        $titleForm = 'Create article';
 
         $viewModel = new ViewModel(
-        	array(
-				'titleForm' => $titleForm,
-			)
-		);
+            array(
+                'titleForm' => $titleForm,
+            )
+        );
         $viewModel->setTemplate('playground-cms/page/page');
 
         $page = false;
@@ -82,8 +82,8 @@ class PageController extends AbstractActionController
         $form = $this->getServiceLocator()->get('playgroundcms_page_form');
         $form->setAttribute('method', 'post');
         $form->bind($page);
-		
-		$titleForm = 'Edit article';
+
+        $titleForm = 'Edit article';
 
         $viewModel = new ViewModel(
 			array(

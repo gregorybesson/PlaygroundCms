@@ -27,7 +27,7 @@ class Module
             $translate = $serviceManager->get('viewhelpermanager')->get('translate');
             $translate->getTranslator()->setLocale($locale);
         }
-        
+
         AbstractValidator::setDefaultTranslator($translator,'playgroundcms');
     }
 
@@ -175,7 +175,7 @@ class Module
                 	->setUlClass('nav')
                 	->setMaxDepth(10)
                 	->setRenderInvisible(false);
-                
+
                 	return $nav;
                 },
             ),
