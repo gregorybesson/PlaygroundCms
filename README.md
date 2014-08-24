@@ -1,5 +1,7 @@
-AdfabCms
+PlaygroundCms
 ========
+
+[![Develop Branch Build Status](https://travis-ci.org/gregorybesson/PlaygroundCms.svg)](http://travis-ci.org/gregorybesson/PlaygroundCms)
 
 Cette librairie propose un menu de création de pages et blocs de contenu côté back-office. L'affichage en admin repose sur le module zf-commons/zfc-admin
 en attendant mieux ;)

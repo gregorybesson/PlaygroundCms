@@ -30,7 +30,17 @@ return array(
                     array(array('admin'), 'cms', array('list','add','edit','delete')),
                 ),
             ),
-        ),    
+        ),
+
+        'guards' => array(
+            'BjyAuthorize\Guard\Controller' => array(
+        
+                array('controller' => 'playgroundcms', 'roles' => array('guest', 'user')),
+                array('controller' => 'playgroundcmsadminpage', 'roles' => array('admin')),
+                array('controller' => 'playgroundcmsadminblock', 'roles' => array('admin')),
+                array('controller' => 'playgroundcmsadmindynablock', 'roles' => array('admin')),
+            ),
+        ),
     ),
 
     'translator' => array(
