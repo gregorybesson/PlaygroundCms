@@ -282,33 +282,37 @@ class Block implements BlockInterface, InputFilterAwareInterface
 
             $inputFilter
                     ->add(
-                            $factory
+                        $factory
                                     ->createInput(
-                                            array('name' => 'title', 'required' => true, 'filters' => array(array('name' => 'StripTags'), array('name' => 'StringTrim'),),
+                                        array('name' => 'title', 'required' => true, 'filters' => array(array('name' => 'StripTags'), array('name' => 'StringTrim'),),
                                                     'validators' => array(
                                                             array('name' => 'StringLength',
                                                                     'options' => array('encoding' => 'UTF-8', 'min' => 5, 'max' => 255, /*'messages' => array(
                                                                                                                                          'stringLengthTooShort' => 'Please enter User Name between %min% to %max% character!',
                                                                                                                                                 'stringLengthTooLong' => 'Please enter User Name between 4 to 20 character!'
                                                                                                                                         ),*/
-                                                                    ),),),)));
+                                                                    ),),),)
+                                    )
+                    );
 
-            $inputFilter
-                    ->add(
-                            $factory
-                                    ->createInput(
-                                            array('name' => 'identifier', 'required' => true, 'filters' => array(array('name' => 'StripTags'), array('name' => 'StringTrim'), array('name' => 'PlaygroundCore\Filter\Slugify'),),
-                                                    'validators' => array(
-                                                            array('name' => 'StringLength',
-                                                                    'options' => array('encoding' => 'UTF-8', 'min' => 5, 'max' => 255, /*'messages' => array(
+                                                                    $inputFilter
+                                                                    ->add(
+                                                                        $factory
+                                                                    ->createInput(
+                                                                        array('name' => 'identifier', 'required' => true, 'filters' => array(array('name' => 'StripTags'), array('name' => 'StringTrim'), array('name' => 'PlaygroundCore\Filter\Slugify'),),
+                                                                        'validators' => array(
+                                                                        array('name' => 'StringLength',
+                                                                        'options' => array('encoding' => 'UTF-8', 'min' => 5, 'max' => 255, /*'messages' => array(
                                                                                                                                          'stringLengthTooShort' => 'Please enter User Name between %min% to %max% character!',
                                                                                                                                                 'stringLengthTooLong' => 'Please enter User Name between 4 to 20 character!'
                                                                                                                                         ),*/
-                                                                    ),),),)));
+                                                                        ),),),)
+                                                                    )
+                                                                    );
 
-            $inputFilter->add($factory->createInput(array('name' => 'is_active', 'required' => true, 'validators' => array(array('name' => 'Between', 'options' => array('min' => 0, 'max' => 1,),),),)));
+                                                                    $inputFilter->add($factory->createInput(array('name' => 'is_active', 'required' => true, 'validators' => array(array('name' => 'Between', 'options' => array('min' => 0, 'max' => 1,),),),)));
 
-            $this->inputFilter = $inputFilter;
+                                                                    $this->inputFilter = $inputFilter;
         }
 
         return $this->inputFilter;

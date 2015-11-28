@@ -28,7 +28,7 @@ class Module
             $translate->getTranslator()->setLocale($locale);
         }
 
-        AbstractValidator::setDefaultTranslator($translator,'playgroundcms');
+        AbstractValidator::setDefaultTranslator($translator, 'playgroundcms');
     }
 
     public function getConfig()
@@ -108,14 +108,14 @@ class Module
 
                 'playgroundcms_dynablock_mapper' => function ($sm) {
                     $mapper = new Mapper\Dynablock(
-                            $sm->get('playgroundcms_doctrine_em'),
-                            $sm->get('playgroundcms_module_options')
+                        $sm->get('playgroundcms_doctrine_em'),
+                        $sm->get('playgroundcms_module_options')
                     );
 
                     return $mapper;
                 },
 
-                'playgroundcms_page_form' => function($sm) {
+                'playgroundcms_page_form' => function ($sm) {
                     $translator = $sm->get('translator');
                     $form = new Form\Admin\Page(null, $sm, $translator);
                     $page = new Entity\Page();
@@ -124,18 +124,18 @@ class Module
                     return $form;
                 },
 
-                'playgroundcms_block_form' => function($sm) {
+                'playgroundcms_block_form' => function ($sm) {
                     $translator = $sm->get('translator');
                     $form = new Form\Admin\Block(null, $translator);
                     //$form->setInputFilter($filter);
                     return $form;
                 },
 
-                'playgroundcms_dynablock_form' => function($sm) {
-                $translator = $sm->get('translator');
-                $form = new Form\Admin\Dynablock(null, $translator);
+                'playgroundcms_dynablock_form' => function ($sm) {
+                    $translator = $sm->get('translator');
+                    $form = new Form\Admin\Dynablock(null, $translator);
                 //$form->setInputFilter($filter);
-                return $form;
+                    return $form;
                 },
             ),
         );
@@ -148,14 +148,14 @@ class Module
     {
         return array(
             'factories' => array(
-                'playgroundBlock' => function($sm) {
+                'playgroundBlock' => function ($sm) {
                     $locator = $sm->getServiceLocator();
                     $viewHelper = new View\Helper\Block;
                     $viewHelper->setBlockMapper($locator->get('playgroundcms_block_mapper'));
 
                     return $viewHelper;
                 },
-                'playgroundDynablock' => function($sm) {
+                'playgroundDynablock' => function ($sm) {
                     $locator = $sm->getServiceLocator();
                     $viewHelper = new View\Helper\Dynablock;
                     $viewHelper->setBlockMapper($locator->get('playgroundcms_block_mapper'));
@@ -164,19 +164,19 @@ class Module
                     return $viewHelper;
                 },
                 // This admin navigation layer gives the authentication layer based on BjyAuthorize ;)
-                'adminMenu' => function($sm){
-                	$nav = $sm->get('navigation')->menu('admin_navigation');
-                	$serviceLocator = $sm->getServiceLocator();
-                	$acl = $serviceLocator->get('BjyAuthorize\Service\Authorize')->getAcl();
-                	$role = $serviceLocator->get('BjyAuthorize\Service\Authorize')->getIdentity();
-                	$nav->setAcl($acl)
-                	->setRole($role)
-                	->setUseAcl()
-                	->setUlClass('nav')
-                	->setMaxDepth(10)
-                	->setRenderInvisible(false);
+                'adminMenu' => function ($sm) {
+                    $nav = $sm->get('navigation')->menu('admin_navigation');
+                    $serviceLocator = $sm->getServiceLocator();
+                    $acl = $serviceLocator->get('BjyAuthorize\Service\Authorize')->getAcl();
+                    $role = $serviceLocator->get('BjyAuthorize\Service\Authorize')->getIdentity();
+                    $nav->setAcl($acl)
+                    ->setRole($role)
+                    ->setUseAcl()
+                    ->setUlClass('nav')
+                    ->setMaxDepth(10)
+                    ->setRenderInvisible(false);
 
-                	return $nav;
+                    return $nav;
                 },
             ),
         );

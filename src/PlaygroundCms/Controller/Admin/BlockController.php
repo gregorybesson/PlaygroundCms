@@ -9,7 +9,7 @@ use Zend\View\Model\ViewModel;
 
 class BlockController extends AbstractActionController
 {
-protected $options, $blockMapper;
+    protected $options, $blockMapper;
 
     /**
      * @var adminBlockService
@@ -92,8 +92,8 @@ protected $options, $blockMapper;
 
         return $viewModel->setVariables(array('createBlockForm' => $form));
     }
-	
-	public function removeAction()
+    
+    public function removeAction()
     {
         $blockId = $this->getEvent()->getRouteMatch()->getParam('blockId');
 
@@ -108,7 +108,6 @@ protected $options, $blockMapper;
                 $this->getAdminBlockService()->getBlockMapper()->remove($block);
                 $this->flashMessenger()->setNamespace('playgroundcms')->addMessage('The block has been deleted');
             } catch (\Doctrine\DBAL\DBALException $e) {
-                
             }
         }
 

@@ -19,7 +19,7 @@ class LinkController extends AbstractActionController
     {
         $viewModel = new ViewModel();
         $viewModel->setTemplate('playground-cms/links/list');
-		return $viewModel;
+        return $viewModel;
 
         
     }
@@ -28,7 +28,7 @@ class LinkController extends AbstractActionController
     {
         $viewModel = new ViewModel();
         $viewModel->setTemplate('playground-cms/links/create');
-		return $viewModel;
+        return $viewModel;
     }
 
     public function editAction()
@@ -56,6 +56,4 @@ class LinkController extends AbstractActionController
 
         return $this->options;
     }
-
-
 }

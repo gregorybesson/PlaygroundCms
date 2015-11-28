@@ -86,10 +86,10 @@ class PageController extends AbstractActionController
         $titleForm = 'Edit article';
 
         $viewModel = new ViewModel(
-			array(
-				'titleForm' => $titleForm,
-			)
-		);
+            array(
+                'titleForm' => $titleForm,
+            )
+        );
         $viewModel->setTemplate('playground-cms/page/page');
 
         if ($this->getRequest()->isPost()) {

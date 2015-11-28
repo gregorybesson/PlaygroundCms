@@ -29,10 +29,10 @@ class IndexController extends AbstractActionController
         }
         
          $this->layout()->setVariables(
-            array(
+             array(
                 'breadcrumbTitle' => $page->getTitle(),
-            )
-        );
+             )
+         );
         
         $viewModel = new ViewModel(
             array('page' => $page)
@@ -71,10 +71,10 @@ class IndexController extends AbstractActionController
 
     public function winnerPageAction()
     {
-    	
-		$nextkey 	 = 0;
+        
+        $nextkey     = 0;
         $previouskey = 0;
-		
+        
         $identifier = $this->getEvent()->getRouteMatch()->getParam('id');
         if (!$identifier) {
             return $this->notFoundAction();
@@ -83,17 +83,17 @@ class IndexController extends AbstractActionController
         $mapper = $this->getServiceLocator()->get('playgroundcms_page_mapper');
         $pages = $this->getPageService()->getActivePages(false, 0);
         $page = $mapper->findByIdentifier($identifier);
-		
-		$arrayPages = array();
+        
+        $arrayPages = array();
 
-        foreach ($pages as $key=>$p) {
-			$arrayPages[] = $p;
+        foreach ($pages as $key => $p) {
+            $arrayPages[] = $p;
             foreach ($arrayPages as $key => $value) {
-				if ($p->getIdentifier() == $identifier) {
-					$nextkey = $key+1;
-					$previouskey = $key-1;
-				}
-			}
+                if ($p->getIdentifier() == $identifier) {
+                    $nextkey = $key+1;
+                    $previouskey = $key-1;
+                }
+            }
         }
         if ($previouskey > -1) {
             $previousid = $arrayPages[$previouskey]->getIdentifier();
@@ -139,11 +139,11 @@ class IndexController extends AbstractActionController
                 'pagename' => $page->getTitle(),
                 'nextid' => $nextid,
                 'previousid' => $previousid,
-                'bitlyclient'	=> $bitlyclient,
-                'bitlyuser'		=> $bitlyuser,
-                'bitlykey'		=> $bitlykey
+                'bitlyclient'   => $bitlyclient,
+                'bitlyuser'         => $bitlyuser,
+                'bitlykey'      => $bitlykey
                 )
-            );
+        );
 
         return $viewModel;
     }
@@ -173,7 +173,7 @@ class IndexController extends AbstractActionController
         return $this->options;
     }
 
-         public function setOptions($options)
+    public function setOptions($options)
     {
         $this->options = $options;
 

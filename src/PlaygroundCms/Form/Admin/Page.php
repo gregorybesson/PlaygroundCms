@@ -163,8 +163,8 @@ class Page extends ProvidesEventsForm
                     'id' => 'block_content'
                 )
         ));
-		
-		$this->add(array(
+        
+        $this->add(array(
                 'type' => 'Zend\Form\Element\Textarea',
                 'name' => 'heading',
                 'options' => array(
@@ -176,8 +176,8 @@ class Page extends ProvidesEventsForm
                     'id' => 'block_heading'
                 )
         ));
-		
-		$this->add(array(
+        
+        $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'category',
             'options' => array(

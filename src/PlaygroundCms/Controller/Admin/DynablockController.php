@@ -8,7 +8,7 @@ use Zend\View\Model\ViewModel;
 
 class DynablockController extends AbstractActionController
 {
-protected $options, $blockMapper;
+    protected $options, $blockMapper;
 
     /**
      * @var adminBlockService
