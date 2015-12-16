@@ -6,7 +6,7 @@
     </div>
 	<?php foreach($this->pages as $page):?>
 	    <?php $this->partial()->setObjectKey('page')?>
-	    <?php echo $this->partial('playground-cms/page/partial/page.phtml', array('page' => $page)) ?>
+	    <?php echo $this->partial('playground-cms/page/partial/page.phtml', array('page' => $page, 'channel' => $this->channel)) ?>
 	<?php endforeach;?>
 	<?php echo $this->paginationControl($this->pages, 'Sliding', 'playground-cms/page/pagination_winnerlist.phtml'); ?>
 </div>

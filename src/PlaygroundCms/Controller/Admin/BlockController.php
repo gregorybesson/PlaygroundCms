@@ -9,7 +9,8 @@ use Zend\View\Model\ViewModel;
 
 class BlockController extends AbstractActionController
 {
-    protected $options, $blockMapper;
+    protected $options;
+    protected $blockMapper;
 
     /**
      * @var adminBlockService
@@ -40,7 +41,10 @@ class BlockController extends AbstractActionController
 
         $form = $this->getServiceLocator()->get('playgroundcms_block_form');
         $form->get('submit')->setlabel('Add');
-        $form->setAttribute('action', $this->url()->fromRoute('admin/playgroundcmsadmin/blocks/create', array('blockId' => 0)));
+        $form->setAttribute('action', $this->url()->fromRoute(
+            'admin/playgroundcmsadmin/blocks/create',
+            array('blockId' => 0)
+        ));
         $form->setAttribute('method', 'post');
         $form->bind($block);
 
@@ -74,7 +78,10 @@ class BlockController extends AbstractActionController
 
         $block = $service->getBlockMapper()->findById($blockId);
         $form->get('submit')->setLabel('Update');
-        $form->setAttribute('action', $this->url()->fromRoute('admin/playgroundcmsadmin/blocks/edit', array('blockId' => $blockId)));
+        $form->setAttribute('action', $this->url()->fromRoute(
+            'admin/playgroundcmsadmin/blocks/edit',
+            array('blockId' => $blockId)
+        ));
         $form->setAttribute('method', 'post');
         $form->bind($block);
 

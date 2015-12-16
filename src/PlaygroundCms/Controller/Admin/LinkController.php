@@ -8,7 +8,8 @@ use Zend\View\Model\ViewModel;
 
 class LinkController extends AbstractActionController
 {
-    protected $options, $linkMapper;
+    protected $options;
+    protected $linkMapper;
 
     /**
      * @var UserService
@@ -20,8 +21,6 @@ class LinkController extends AbstractActionController
         $viewModel = new ViewModel();
         $viewModel->setTemplate('playground-cms/links/list');
         return $viewModel;
-
-        
     }
 
     public function createAction()
@@ -33,12 +32,10 @@ class LinkController extends AbstractActionController
 
     public function editAction()
     {
-       
     }
 
     public function removeAction()
     {
-        
     }
 
     public function setOptions(ModuleOptions $options)

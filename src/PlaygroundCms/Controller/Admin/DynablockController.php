@@ -8,7 +8,8 @@ use Zend\View\Model\ViewModel;
 
 class DynablockController extends AbstractActionController
 {
-    protected $options, $blockMapper;
+    protected $options;
+    protected $blockMapper;
 
     /**
      * @var adminBlockService
@@ -48,7 +49,10 @@ class DynablockController extends AbstractActionController
         }
         $dynablocks = $this->getAdminDynablockService()->getDynablockMapper()->findByDynarea($dynareaId);
 
-        $blocks = $this->getAdminblockService()->getBlockMapper()->findBy(array('is_active' => 1, 'on_call' => 1), array('title' => 'ASC'));
+        $blocks = $this->getAdminblockService()->getBlockMapper()->findBy(
+            array('is_active' => 1, 'on_call' => 1),
+            array('title' => 'ASC')
+        );
 
         if ($this->getRequest()->isPost()) {
             $data = $this->getRequest()->getPost()->toArray();

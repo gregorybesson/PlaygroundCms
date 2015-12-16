@@ -9,9 +9,9 @@
 			<div class="date-social">
 				<div class="date span5"><?php echo strftime("%A %d %B %Y", $this->page->getPublicationDate()->format('U'));?></div>
 				<div class="social-share span3 offset4">
-					<a href="#" data-link="<?php echo $this->url('frontend/winner/page', array('id' => $this->page->getIdentifier()), array('force_canonical' => true)); ?>" data-picture="<?php echo $this->url('frontend', array(), array('force_canonical' => true)).$this->page->getMainImage(); ?>" data-caption="<?php echo $this->page->getTitle(); ?>" class="grey-fb" target="_blank"></a>
-					<a href="https://twitter.com/intent/tweet?text=<?php echo urlencode($this->page->getTitle()); ?>&url=<?php echo urlencode($this->url('frontend/winner/page', array('id' => $this->page->getIdentifier()), array('force_canonical' => true))); ?>" data-url="<?php echo $this->url('frontend/winner/page', array('id' => $this->page->getIdentifier()), array('force_canonical' => true)) ?>" data-txt="<?php echo $this->page->getTitle(); ?>" class="grey-tw shorturl" target="_blank"></a>
-					<a href="https://plus.google.com/share?url=<?php echo urlencode($this->url('frontend/winner/page', array('id' => $this->page->getIdentifier()), array('force_canonical' => true))); ?>" class="grey-gl" target="_blank"></a>
+					<a href="#" data-link="<?php echo $this->url('frontend/winner/page', array('id' => $this->page->getIdentifier(), 'channel' => $this->channel), array('force_canonical' => true)); ?>" data-picture="<?php echo $this->url('frontend', array('channel' => $this->channel), array('force_canonical' => true)).$this->page->getMainImage(); ?>" data-caption="<?php echo $this->page->getTitle(); ?>" class="grey-fb" target="_blank"></a>
+					<a href="https://twitter.com/intent/tweet?text=<?php echo urlencode($this->page->getTitle()); ?>&url=<?php echo urlencode($this->url('frontend/winner/page', array('id' => $this->page->getIdentifier(), 'channel' => $this->channel), array('force_canonical' => true))); ?>" data-url="<?php echo $this->url('frontend/winner/page', array('id' => $this->page->getIdentifier(), 'channel' => $this->channel), array('force_canonical' => true)) ?>" data-txt="<?php echo $this->page->getTitle(); ?>" class="grey-tw shorturl" target="_blank"></a>
+					<a href="https://plus.google.com/share?url=<?php echo urlencode($this->url('frontend/winner/page', array('id' => $this->page->getIdentifier(), 'channel' => $this->channel), array('force_canonical' => true))); ?>" class="grey-gl" target="_blank"></a>
 				</div>
 			</div>
 			<img class="rounded" src="<?php echo $this->basePath($this->page->getMainImage()); ?>" border="0" alt="<?php echo $this->page->getTitle(); ?>" />
@@ -32,9 +32,9 @@
 		<div class="date-social-bottom">
 			<div class="date span5"><?php echo $this->translate('Publié le'); ?> <?php echo strftime("%A %d %B %Y", $this->page->getPublicationDate()->format('U'));?></div>
 			<div class="social-share span3 offset4">
-				<a href="#" data-link="<?php echo $this->url('frontend/winner/page', array('id' => $this->page->getIdentifier()), array('force_canonical' => true)); ?>" data-picture="<?php echo $this->url('frontend', array(), array('force_canonical' => true)).$this->page->getMainImage(); ?>" data-caption="<?php echo $this->page->getTitle(); ?>" class="grey-fb" target="_blank"></a>
-				<a href="https://twitter.com/intent/tweet?text=<?php echo urlencode($this->page->getTitle()); ?>&url=<?php echo urlencode($this->url('frontend/winner/page', array('id' => $this->page->getIdentifier()), array('force_canonical' => true))); ?>" data-url="<?php echo $this->url('frontend/winner/page', array('id' => $this->page->getIdentifier()), array('force_canonical' => true)) ?>" data-txt="<?php echo $this->page->getTitle(); ?>" class="grey-tw shorturl" target="_blank"></a>
-				<a href="https://plus.google.com/share?url=<?php echo urlencode($this->url('frontend/winner/page', array('id' => $this->page->getIdentifier()), array('force_canonical' => true))); ?>" class="grey-gl" target="_blank"></a>
+				<a href="#" data-link="<?php echo $this->url('frontend/winner/page', array('id' => $this->page->getIdentifier(), 'channel' => $this->channel), array('force_canonical' => true)); ?>" data-picture="<?php echo $this->url('frontend', array('channel' => $this->channel), array('force_canonical' => true)).$this->page->getMainImage(); ?>" data-caption="<?php echo $this->page->getTitle(); ?>" class="grey-fb" target="_blank"></a>
+				<a href="https://twitter.com/intent/tweet?text=<?php echo urlencode($this->page->getTitle()); ?>&url=<?php echo urlencode($this->url('frontend/winner/page', array('id' => $this->page->getIdentifier(), 'channel' => $this->channel), array('force_canonical' => true))); ?>" data-url="<?php echo $this->url('frontend/winner/page', array('id' => $this->page->getIdentifier(), 'channel' => $this->channel), array('force_canonical' => true)) ?>" data-txt="<?php echo $this->page->getTitle(); ?>" class="grey-tw shorturl" target="_blank"></a>
+				<a href="https://plus.google.com/share?url=<?php echo urlencode($this->url('frontend/winner/page', array('id' => $this->page->getIdentifier(), 'channel' => $this->channel), array('force_canonical' => true))); ?>" class="grey-gl" target="_blank"></a>
 			</div>
 		</div>
 		
@@ -42,14 +42,14 @@
 			<div class="span5">
 				<?php if($this->previousid != null):?>
 					<div class="btn btn-success">
-						<a href="<?php echo $this->url('frontend/winner/page', array('id' => $this->previousid)); ?>" class="arrow-left">Article précédent</a>
+						<a href="<?php echo $this->url('frontend/winner/page', array('id' => $this->previousid, 'channel' => $this->channel)); ?>" class="arrow-left">Article précédent</a>
 					</div>
 				<?php endif;?>
 			</div>
 			<div class="span4 offset3">
 				<?php if(($this->nextid != null)):?>
 					<div class="btn btn-success ">
-						<a href="<?php echo $this->url('frontend/winner/page', array('id' => $this->nextid)); ?>" class="arrow-right">Article suivant</a>
+						<a href="<?php echo $this->url('frontend/winner/page', array('id' => $this->nextid, 'channel' => $this->channel)); ?>" class="arrow-right">Article suivant</a>
 					</div>
 				<?php endif; ?>
 			</div>

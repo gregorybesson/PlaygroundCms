@@ -9,11 +9,17 @@ $ourView  = $children[0];
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
     <head>
+        <?php //echo $this->head();?>
     </head>
     <body>
     	<div id="container">
         	<div id="fb-root"></div>
 			<div id="content" class="row-fluid">
+				
+            	<!-- HEADER WRAPPER -->
+	            <?php //echo $this->header(array('adserving' => $this->adserving, 'currentPage' => $this->currentPage, 'channel' => $this->channel));?>
+	            <!-- END HEADER WRAPPER -->
+	                
 	            <!-- CONTENT PAGE -->
 	            <div id="containerpage">
 	            	<?php if (isset($ourView->flashMessages) && count($ourView->flashMessages)) : ?>
@@ -24,7 +30,33 @@ $ourView  = $children[0];
 	                    </ul>
 	                <?php endif; ?>
 	                
+	                <?php 
+	                // TODO : Positionner ça dans un listener des modules concernés (PlaygroundGame & PlaygroundCms)
+	                    /*$container = $this->navigation()
+    	                    ->breadcrumbs('nav')
+    	                    ->setMaxDepth(3)
+                    		->setMinDepth(0)
+    	                    ->setPartial(array(
+                		        'application/common/breadcrumbs.phtml', 
+                		        'default', 
+                    		));
+	                    $active = $container->findActive($container->getContainer());
+	                    if($active && $this->breadcrumbTitle){
+    	                    $active = $active['page'];
+    	                    $active->setLabel($this->breadcrumbTitle);
+	                    }*/
+	                ?>
+	                
+    	            <?php //echo $container; ?>
 	                <div class="row-fluid col-left">
+	                	<!-- SIDEBAR -->
+	                	<?php /*echo $this->column_left(array(
+	                		'template' => $this->col_left,
+	                	    'adserving' => $this->adserving,
+	                		'channel' => $this->channel
+	                	)); */?>
+	                	<!-- END SIDEBAR -->
+	                	
 	                	<!-- CONTENT-INNER -->
 	                	<div class="content-inner span8">
 	                		<?php echo $this->content; ?>
@@ -32,6 +64,11 @@ $ourView  = $children[0];
 	                </div>
 	                	
 	            </div><!-- END CONTENT PAGE -->
+	            
+                <!-- FOOTER WRAPPER -->
+                <?php //echo $this->footer(array('channel' => $this->channel));?>
+                <!-- END FOOTER WRAPPER -->
+                
             </div> <!-- END CONTENT -->
         </div>
         <?php echo $this->inlineScript() ?>

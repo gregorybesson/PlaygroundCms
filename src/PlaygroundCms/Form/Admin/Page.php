@@ -13,7 +13,7 @@ class Page extends ProvidesEventsForm
 {
     protected $serviceManager;
 
-    public function __construct($name = null, ServiceManager $sm, Translator $translator)
+    public function __construct($name, ServiceManager $sm, Translator $translator)
     {
         $this->setServiceManager($sm);
         $entityManager = $sm->get('playgroundcms_doctrine_em');
@@ -144,8 +144,8 @@ class Page extends ProvidesEventsForm
             'name' => 'active',
             'options' => array(
                 'value_options' => array(
-                    '0' => $translator->translate('Yes', 'playgroundcms'),
-                    '1' => $translator->translate('No', 'playgroundcms')
+                    '0' => $translator->translate('No', 'playgroundcms'),
+                    '1' => $translator->translate('Yes', 'playgroundcms')
                 ),
                 'label' => $translator->translate('Active', 'playgroundcms')
             )

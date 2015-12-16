@@ -17,7 +17,9 @@ class BlockHydrator extends ClassMethods
     public function extract($object)
     {
         if (!$object instanceof BlockEntityInterface) {
-            throw new Exception\InvalidArgumentException('$object must be an instance of PlaygroundCms\Entity\BlockInterface');
+            throw new Exception\InvalidArgumentException(
+                '$object must be an instance of PlaygroundCms\Entity\BlockInterface'
+            );
         }
 
         /* @var $object BlockInterface*/
@@ -37,7 +39,9 @@ class BlockHydrator extends ClassMethods
     public function hydrate(array $data, $object)
     {
         if (!$object instanceof BlockEntityInterface) {
-            throw new Exception\InvalidArgumentException('$object must be an instance of PlaygroundCms\Entity\BlockInterface');
+            throw new Exception\InvalidArgumentException(
+                '$object must be an instance of PlaygroundCms\Entity\BlockInterface'
+            );
         }
         //$data = $this->mapField('block_id', 'id', $data);
         return parent::hydrate($data, $object);

@@ -155,7 +155,6 @@ class Page implements PageInterface, InputFilterAwareInterface, Translatable
      */
     public function setIdentifier($identifier)
     {
-
         $this->identifier = $identifier;
 
         return $this;

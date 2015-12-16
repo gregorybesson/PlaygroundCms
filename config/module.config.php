@@ -97,7 +97,7 @@ return array(
 		            'cms' => array(
 		                'type' => 'Zend\Mvc\Router\Http\Segment',
 		                'options' => array(
-		                    'route'    => 'page/:id',
+		                    'route'    => 'page[/:id]',
 		                    'defaults' => array(
 		                        'controller' => 'playgroundcms',
 		                        'action'     => 'index',
@@ -108,7 +108,7 @@ return array(
 		                    'list' => array(
 		                        'type' => 'Segment',
 		                        'options' => array(
-		                            'route' => '/list[/:p]',
+		                            'route' => '/liste[/:p]',
 		                            'defaults' => array(
 		                                'controller' => 'playgroundcms',
 		                                'action'     => 'list',

@@ -44,9 +44,17 @@ class Dynablock extends EventProvider implements ServiceManagerAwareInterface
 
         $dynablock = $form->getData();
 
-        $this->getEventManager()->trigger(__FUNCTION__, $this, array('dynablock' => $dynablock, 'form' => $form, 'data' => $data));
+        $this->getEventManager()->trigger(
+            __FUNCTION__,
+            $this,
+            array('dynablock' => $dynablock, 'form' => $form, 'data' => $data)
+        );
         $this->getDynablockMapper()->insert($dynablock);
-        $this->getEventManager()->trigger(__FUNCTION__.'.post', $this, array('dynablock' => $dynablock, 'form' => $form, 'data' => $data));
+        $this->getEventManager()->trigger(
+            __FUNCTION__.'.post',
+            $this,
+            array('dynablock' => $dynablock, 'form' => $form, 'data' => $data)
+        );
 
         return $dynablock;
     }
@@ -81,9 +89,17 @@ class Dynablock extends EventProvider implements ServiceManagerAwareInterface
 
         $dynablock = $form->getData();
 
-        $this->getEventManager()->trigger(__FUNCTION__, $this, array('dynablock' => $dynablock, 'form' => $form, 'data' => $data));
+        $this->getEventManager()->trigger(
+            __FUNCTION__,
+            $this,
+            array('dynablock' => $dynablock, 'form' => $form, 'data' => $data)
+        );
         $this->getDynablockMapper()->update($dynablock);
-        $this->getEventManager()->trigger(__FUNCTION__.'.post', $this, array('dynablock' => $dynablock, 'form' => $form, 'data' => $data));
+        $this->getEventManager()->trigger(
+            __FUNCTION__.'.post',
+            $this,
+            array('dynablock' => $dynablock, 'form' => $form, 'data' => $data)
+        );
 
         return $dynablock;
     }
@@ -96,7 +112,11 @@ class Dynablock extends EventProvider implements ServiceManagerAwareInterface
         if ($this->dynareas == null) {
             $config = $this->getServiceManager()->get('Config');
             $dynareas = isset($config['dynacms']['dynareas']) ? $config['dynacms']['dynareas'] : null;
-            $results = $this->getServiceManager()->get('application')->getEventManager()->trigger(__FUNCTION__, $this, array('dynareas' => $dynareas))->last();
+            $results = $this->getServiceManager()->get('application')->getEventManager()->trigger(
+                __FUNCTION__,
+                $this,
+                array('dynareas' => $dynareas)
+            )->last();
 
             if ($results) {
                 $this->dynareas = $results;

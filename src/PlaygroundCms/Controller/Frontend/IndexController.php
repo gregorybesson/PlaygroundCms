@@ -28,17 +28,32 @@ class IndexController extends AbstractActionController
             return $this->notFoundAction();
         }
         
-         $this->layout()->setVariables(
-             array(
+        $this->layout()->setVariables(
+            array(
                 'breadcrumbTitle' => $page->getTitle(),
-             )
-         );
+            )
+        );
         
         $viewModel = new ViewModel(
             array('page' => $page)
         );
 
         return $viewModel;
+    }
+
+    public function listAction()
+    {
+        $pages = $this->getPageService()->getActivePages(false);
+
+        if (is_array($pages)) {
+            $paginator = new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\ArrayAdapter($pages));
+            $paginator->setItemCountPerPage(7);
+            $paginator->setCurrentPageNumber($this->getEvent()->getRouteMatch()->getParam('p'));
+        } else {
+            $paginator = $pages;
+        }
+
+        return new ViewModel(array( 'pages' => $paginator));
     }
 
     public function winnerListAction()
@@ -52,13 +67,9 @@ class IndexController extends AbstractActionController
         } else {
             $paginator = $pages;
         }
-
-        //$adserving = $this->getOptions()->getAdServing();
-        //$adserving['cat2'] = 'article';
         
         $this->layout()->setVariables(
             array(
-                //'adserving'       => $adserving,
                 'currentPage' => array(
                     'pageGames' => '',
                     'pageWinners' => 'winners'
@@ -71,7 +82,6 @@ class IndexController extends AbstractActionController
 
     public function winnerPageAction()
     {
-        
         $nextkey     = 0;
         $previouskey = 0;
         
@@ -139,9 +149,9 @@ class IndexController extends AbstractActionController
                 'pagename' => $page->getTitle(),
                 'nextid' => $nextid,
                 'previousid' => $previousid,
-                'bitlyclient'   => $bitlyclient,
-                'bitlyuser'         => $bitlyuser,
-                'bitlykey'      => $bitlykey
+                'bitlyclient'    => $bitlyclient,
+                'bitlyuser'        => $bitlyuser,
+                'bitlykey'        => $bitlykey
                 )
         );
 

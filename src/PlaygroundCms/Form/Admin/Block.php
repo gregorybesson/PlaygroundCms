@@ -11,7 +11,7 @@ class Block extends ProvidesEventsForm
 {
     protected $serviceManager;
 
-    public function __construct($name = null, Translator $translator)
+    public function __construct($name, Translator $translator)
     {
         //$this->setServiceManager($serviceManager);
         parent::__construct();

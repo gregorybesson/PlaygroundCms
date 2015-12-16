@@ -71,7 +71,9 @@ class Module
                 'playgroundcms_module_options' => function ($sm) {
                     $config = $sm->get('Configuration');
 
-                    return new Options\ModuleOptions(isset($config['playgroundcms']) ? $config['playgroundcms'] : array());
+                    return new Options\ModuleOptions(
+                        isset($config['playgroundcms']) ? $config['playgroundcms'] : array()
+                    );
                 },
 
                 'playgroundcms_page_hydrator' => function () {
