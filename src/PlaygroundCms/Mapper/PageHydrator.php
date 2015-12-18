@@ -17,7 +17,9 @@ class PageHydrator extends ClassMethods
     public function extract($object)
     {
         if (!$object instanceof PageEntityInterface) {
-            throw new Exception\InvalidArgumentException('$object must be an instance of PlaygroundCms\Entity\PageInterface');
+            throw new Exception\InvalidArgumentException(
+                '$object must be an instance of PlaygroundCms\Entity\PageInterface'
+            );
         }
 
         /* @var $object PageInterface*/
@@ -38,7 +40,9 @@ class PageHydrator extends ClassMethods
     public function hydrate(array $data, $object)
     {
         if (!$object instanceof PageEntityInterface) {
-            throw new Exception\InvalidArgumentException('$object must be an instance of PlaygroundCms\Entity\PageInterface');
+            throw new Exception\InvalidArgumentException(
+                '$object must be an instance of PlaygroundCms\Entity\PageInterface'
+            );
         }
         $data = $this->mapField('page_id', 'id', $data);
 

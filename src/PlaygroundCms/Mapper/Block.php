@@ -88,8 +88,8 @@ class Block extends AbstractDbMapper implements BlockInterface
 
         return $er->findBy($array);
     }
-	
-	public function findAllBy($sortArray = array())
+    
+    public function findAllBy($sortArray = array())
     {
         $er = $this->em->getRepository($this->options->getBlockEntityClass());
 
@@ -106,8 +106,8 @@ class Block extends AbstractDbMapper implements BlockInterface
     {
         return $this->persist($entity);
     }
-	
-	public function remove($entity)
+    
+    public function remove($entity)
     {
         $this->em->remove($entity);
         $this->em->flush();

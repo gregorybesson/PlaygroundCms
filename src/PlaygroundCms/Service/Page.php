@@ -31,7 +31,7 @@ class Page extends EventProvider implements ServiceManagerAwareInterface
      */
     protected $options;
 
-    public function create($page = false, array $data)
+    public function create($page, array $data)
     {
         $entityManager = $this->getServiceManager()->get('doctrine.entitymanager.orm_default');
         $form  = $this->getServiceManager()->get('playgroundcms_page_form');
@@ -47,14 +47,14 @@ class Page extends EventProvider implements ServiceManagerAwareInterface
 
         $path = $this->getOptions()->getMediaPath() . DIRECTORY_SEPARATOR;
         $media_url = $this->getOptions()->getMediaUrl() . '/';
-		
-		$identifierInput = $form->getInputFilter()->get('identifier');
+        
+        $identifierInput = $form->getInputFilter()->get('identifier');
         $noObjectExistsValidator = new NoObjectExistsValidator(array(
             'object_repository' => $entityManager->getRepository('PlaygroundCms\Entity\Page'),
             'fields'            => 'identifier',
             'messages'          => array('objectFound' => 'This url already exists !')
         ));
-		
+        
         $identifierInput->getValidatorChain()->addValidator($noObjectExistsValidator);
 
         if (isset($data['publicationDate']) && $data['publicationDate']) {
@@ -68,35 +68,53 @@ class Page extends EventProvider implements ServiceManagerAwareInterface
         }
 
         $form->setData($data);
-		
+        
         if (!$form->isValid()) {
-        	if (isset($data['publicationDate']) && $data['publicationDate']) {
-	            $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['publicationDate']);
-	            $data['publicationDate'] = $tmpDate->format('d/m/Y');
-				$form->setData(array('publicationDate' => $data['publicationDate']));
-	        }
-			if (isset($data['closeDate']) && $data['closeDate']) {
-	            $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['closeDate']);
-	            $data['closeDate'] = $tmpDate->format('d/m/Y');
-				$form->setData(array('closeDate' => $data['closeDate']));
-	        }
+            if (isset($data['publicationDate']) && $data['publicationDate']) {
+                $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['publicationDate']);
+                $data['publicationDate'] = $tmpDate->format('d/m/Y');
+                $form->setData(array('publicationDate' => $data['publicationDate']));
+            }
+            if (isset($data['closeDate']) && $data['closeDate']) {
+                $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['closeDate']);
+                $data['closeDate'] = $tmpDate->format('d/m/Y');
+                $form->setData(array('closeDate' => $data['closeDate']));
+            }
             return false;
         }
 
-        $this->getEventManager()->trigger(__FUNCTION__, $this, array('page' => $page, 'form' => $form, 'data' => $data));
+        $this->getEventManager()->trigger(
+            __FUNCTION__,
+            $this,
+            array('page' => $page,
+            'form' => $form,
+            'data' => $data)
+        );
         $this->getPageMapper()->insert($page);
-        $this->getEventManager()->trigger(__FUNCTION__.'.post', $this, array('page' => $page, 'form' => $form, 'data' => $data));
+        $this->getEventManager()->trigger(
+            __FUNCTION__.'.post',
+            $this,
+            array('page' => $page,
+            'form' => $form,
+            'data' => $data)
+        );
 
         if (!empty($data['uploadMainImage']['tmp_name'])) {
             ErrorHandler::start();
-            move_uploaded_file($data['uploadMainImage']['tmp_name'], $path . $page->getId() . "-" . $data['uploadMainImage']['name']);
+            move_uploaded_file(
+                $data['uploadMainImage']['tmp_name'],
+                $path . $page->getId() . "-" . $data['uploadMainImage']['name']
+            );
             $page->setMainImage($media_url . $page->getId() . "-" . $data['uploadMainImage']['name']);
             ErrorHandler::stop(true);
         }
 
         if (!empty($data['uploadSecondImage']['tmp_name'])) {
             ErrorHandler::start();
-            move_uploaded_file($data['uploadSecondImage']['tmp_name'], $path . $page->getId() . "-" . $data['uploadSecondImage']['name']);
+            move_uploaded_file(
+                $data['uploadSecondImage']['tmp_name'],
+                $path . $page->getId() . "-" . $data['uploadSecondImage']['name']
+            );
             $page->setSecondImage($media_url . $page->getId() . "-" . $data['uploadSecondImage']['name']);
             ErrorHandler::stop(true);
         }
@@ -105,7 +123,7 @@ class Page extends EventProvider implements ServiceManagerAwareInterface
         return $page;
     }
 
-	public function edit($page, array $data)
+    public function edit($page, array $data)
     {
         $entityManager = $this->getServiceManager()->get('doctrine.entitymanager.orm_default');
         $form  = $this->getServiceManager()->get('playgroundcms_page_form');
@@ -115,17 +133,17 @@ class Page extends EventProvider implements ServiceManagerAwareInterface
 
         $path = $this->getOptions()->getMediaPath() . DIRECTORY_SEPARATOR;
         $media_url = $this->getOptions()->getMediaUrl() . '/';
-		
-		$identifierInput = $form->getInputFilter()->get('identifier');
+        
+        $identifierInput = $form->getInputFilter()->get('identifier');
         $noObjectExistsValidator = new NoObjectExistsValidator(array(
             'object_repository' => $entityManager->getRepository('PlaygroundCms\Entity\Page'),
             'fields'            => 'identifier',
             'messages'          => array('objectFound' => 'This url already exists !')
         ));
-		
-		if($page->getIdentifier() != $data['identifier']){			
-			$identifierInput->getValidatorChain()->addValidator($noObjectExistsValidator);
-		}
+        
+        if ($page->getIdentifier() != $data['identifier']) {
+            $identifierInput->getValidatorChain()->addValidator($noObjectExistsValidator);
+        }
 
         if (isset($data['publicationDate']) && $data['publicationDate']) {
             $tmpDate = \DateTime::createFromFormat('d/m/Y', $data['publicationDate']);
@@ -138,35 +156,49 @@ class Page extends EventProvider implements ServiceManagerAwareInterface
         }
 
         $form->setData($data);
-		
+        
         if (!$form->isValid()) {
-        	if (isset($data['publicationDate']) && $data['publicationDate']) {
-	            $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['publicationDate']);
-	            $data['publicationDate'] = $tmpDate->format('d/m/Y');
-				$form->setData(array('publicationDate' => $data['publicationDate']));
-	        }
-			if (isset($data['closeDate']) && $data['closeDate']) {
-	            $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['closeDate']);
-	            $data['closeDate'] = $tmpDate->format('d/m/Y');
-				$form->setData(array('closeDate' => $data['closeDate']));
-	        }
+            if (isset($data['publicationDate']) && $data['publicationDate']) {
+                $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['publicationDate']);
+                $data['publicationDate'] = $tmpDate->format('d/m/Y');
+                $form->setData(array('publicationDate' => $data['publicationDate']));
+            }
+            if (isset($data['closeDate']) && $data['closeDate']) {
+                $tmpDate = \DateTime::createFromFormat('Y-m-d', $data['closeDate']);
+                $data['closeDate'] = $tmpDate->format('d/m/Y');
+                $form->setData(array('closeDate' => $data['closeDate']));
+            }
             return false;
         }
 
-        $this->getEventManager()->trigger(__FUNCTION__, $this, array('page' => $page, 'form' => $form, 'data' => $data));
+        $this->getEventManager()->trigger(
+            __FUNCTION__,
+            $this,
+            array('page' => $page, 'form' => $form, 'data' => $data)
+        );
         $this->getPageMapper()->insert($page);
-        $this->getEventManager()->trigger(__FUNCTION__.'.post', $this, array('page' => $page, 'form' => $form, 'data' => $data));
+        $this->getEventManager()->trigger(
+            __FUNCTION__.'.post',
+            $this,
+            array('page' => $page, 'form' => $form, 'data' => $data)
+        );
 
         if (!empty($data['uploadMainImage']['tmp_name'])) {
             ErrorHandler::start();
-            move_uploaded_file($data['uploadMainImage']['tmp_name'], $path . $page->getId() . "-" . $data['uploadMainImage']['name']);
+            move_uploaded_file(
+                $data['uploadMainImage']['tmp_name'],
+                $path . $page->getId() . "-" . $data['uploadMainImage']['name']
+            );
             $page->setMainImage($media_url . $page->getId() . "-" . $data['uploadMainImage']['name']);
             ErrorHandler::stop(true);
         }
 
         if (!empty($data['uploadSecondImage']['tmp_name'])) {
             ErrorHandler::start();
-            move_uploaded_file($data['uploadSecondImage']['tmp_name'], $path . $page->getId() . "-" . $data['uploadSecondImage']['name']);
+            move_uploaded_file(
+                $data['uploadSecondImage']['tmp_name'],
+                $path . $page->getId() . "-" . $data['uploadSecondImage']['name']
+            );
             $page->setSecondImage($media_url . $page->getId() . "-" . $data['uploadSecondImage']['name']);
             ErrorHandler::stop(true);
         }
@@ -180,7 +212,7 @@ class Page extends EventProvider implements ServiceManagerAwareInterface
      *
      * @return Array of Page\Entity\Page
      */
-    public function getActivePages($displayHome = true, $category = 0)
+    public function getActivePages($displayHome = true, $category = null)
     {
         $em = $this->getServiceManager()->get('doctrine.entitymanager.orm_default');
         $today = new \DateTime("now");
@@ -191,12 +223,17 @@ class Page extends EventProvider implements ServiceManagerAwareInterface
         if ($displayHome) {
             $displayHomeClause = " AND p.displayHome = true";
         }
-		
-        $categoryClause = " AND p.category = " . $category;
 
-        // Page active with a startDate before today (or without startDate) and closeDate after today (or without closeDate)
+        if ($category) {
+            $categoryClause = " AND p.category = " . $category;
+        } else {
+            $categoryClause = '';
+        }
+
+        // Page active with a startDate before today (or without startDate)
+        // and closeDate after today (or without closeDate)
         $query = $em->createQuery(
-                'SELECT p FROM PlaygroundCms\Entity\Page p
+            'SELECT p FROM PlaygroundCms\Entity\Page p
                 WHERE (p.publicationDate <= :date OR p.publicationDate IS NULL)
                 AND (p.closeDate >= :date OR p.closeDate IS NULL)
                 AND p.active = 1'
@@ -212,9 +249,11 @@ class Page extends EventProvider implements ServiceManagerAwareInterface
         $arrayPages = array();
         foreach ($pages as $page) {
             if ($page->getPublicationDate()) {
-                $key = $page->getPublicationDate()->format('Ymd').$page->getUpdatedAt()->format('Ymd').'-'.$page->getId();
+                $key = $page->getPublicationDate()->format('Ymd');
+                $key .= $page->getUpdatedAt()->format('Ymd').'-'.$page->getId();
             } else {
-                $key = $page->getUpdatedAt()->format('Ymd') . $page->getUpdatedAt()->format('Ymd').'-'.$page->getId();
+                $key = $page->getUpdatedAt()->format('Ymd');
+                $key .= $page->getUpdatedAt()->format('Ymd').'-'.$page->getId();
             }
             $arrayPages[$key] = $page;
         }
@@ -234,9 +273,10 @@ class Page extends EventProvider implements ServiceManagerAwareInterface
         //$today->format('Y-m-d H:i:s');
         $today = $today->format('Y-m-d') . ' 23:59:59';
 
-        // Page active with a startDate before today (or without startDate) and closeDate after today (or without closeDate)
+        // Page active with a startDate before today (or without startDate)
+        // and closeDate after today (or without closeDate)
         $query = $em->createQuery(
-                'SELECT p FROM PlaygroundCms\Entity\Page p
+            'SELECT p FROM PlaygroundCms\Entity\Page p
                 WHERE (p.publicationDate <= :date OR p.publicationDate IS NULL)
                 AND (p.closeDate >= :date OR p.closeDate IS NULL)
                 AND p.active = 1 AND p.pushHome = true
@@ -250,9 +290,11 @@ class Page extends EventProvider implements ServiceManagerAwareInterface
         $arrayPages = array();
         foreach ($pages as $page) {
             if ($page->getPublicationDate()) {
-                $key = $page->getPublicationDate()->format('Ymd').$page->getUpdatedAt()->format('Ymd').'-'.$page->getId();
+                $key = $page->getPublicationDate()->format('Ymd');
+                $key .= $page->getUpdatedAt()->format('Ymd').'-'.$page->getId();
             } else {
-                $key = $page->getUpdatedAt()->format('Ymd') . $page->getUpdatedAt()->format('Ymd').'-'.$page->getId();
+                $key = $page->getUpdatedAt()->format('Ymd');
+                $key .= $page->getUpdatedAt()->format('Ymd').'-'.$page->getId();
             }
 
             $arrayPages[$key] = $page;

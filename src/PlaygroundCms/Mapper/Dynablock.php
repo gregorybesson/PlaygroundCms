@@ -70,7 +70,7 @@ class Dynablock extends AbstractDbMapper implements DynablockInterface
     {
         $er = $this->em->getRepository($this->options->getDynablockEntityClass());
 
-           $entities = $er->findBy(array('dynarea' => $dynarea), array('position' => 'ASC'));
+        $entities = $er->findBy(array('dynarea' => $dynarea), array('position' => 'ASC'));
 
         return $entities;
     }

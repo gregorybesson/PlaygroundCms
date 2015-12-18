@@ -33,8 +33,8 @@ class Page extends AbstractDbMapper implements PageInterface
 
         return $er->findAll();
     }
-	
-	public function findAllBy($sortArray = array())
+    
+    public function findAllBy($sortArray = array())
     {
         $er = $this->em->getRepository($this->options->getPageEntityClass());
 

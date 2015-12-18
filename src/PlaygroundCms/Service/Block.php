@@ -44,9 +44,17 @@ class Block extends EventProvider implements ServiceManagerAwareInterface
 
         $block = $form->getData();
 
-        $this->getEventManager()->trigger(__FUNCTION__, $this, array('block' => $block, 'form' => $form, 'data' => $data));
+        $this->getEventManager()->trigger(
+            __FUNCTION__,
+            $this,
+            array('block' => $block, 'form' => $form, 'data' => $data)
+        );
         $this->getBlockMapper()->insert($block);
-        $this->getEventManager()->trigger(__FUNCTION__.'.post', $this, array('block' => $block, 'form' => $form, 'data' => $data));
+        $this->getEventManager()->trigger(
+            __FUNCTION__.'.post',
+            $this,
+            array('block' => $block, 'form' => $form, 'data' => $data)
+        );
 
         return $block;
     }
@@ -63,9 +71,17 @@ class Block extends EventProvider implements ServiceManagerAwareInterface
 
         $block = $form->getData();
 
-        $this->getEventManager()->trigger(__FUNCTION__, $this, array('block' => $block, 'form' => $form, 'data' => $data));
+        $this->getEventManager()->trigger(
+            __FUNCTION__,
+            $this,
+            array('block' => $block, 'form' => $form, 'data' => $data)
+        );
         $this->getBlockMapper()->update($block);
-        $this->getEventManager()->trigger(__FUNCTION__.'.post', $this, array('block' => $block, 'form' => $form, 'data' => $data));
+        $this->getEventManager()->trigger(
+            __FUNCTION__.'.post',
+            $this,
+            array('block' => $block, 'form' => $form, 'data' => $data)
+        );
 
         return $block;
     }

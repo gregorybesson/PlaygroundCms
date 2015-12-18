@@ -8,7 +8,8 @@ use Zend\View\Model\ViewModel;
 
 class PageController extends AbstractActionController
 {
-    protected $options, $pageMapper;
+    protected $options;
+    protected $pageMapper;
 
     /**
      * @var UserService
@@ -86,10 +87,10 @@ class PageController extends AbstractActionController
         $titleForm = 'Edit article';
 
         $viewModel = new ViewModel(
-			array(
-				'titleForm' => $titleForm,
-			)
-		);
+            array(
+                'titleForm' => $titleForm,
+            )
+        );
         $viewModel->setTemplate('playground-cms/page/page');
 
         if ($this->getRequest()->isPost()) {
@@ -123,8 +124,6 @@ class PageController extends AbstractActionController
                 $this->getAdminPageService()->getPageMapper()->remove($page);
                 $this->flashMessenger()->setNamespace('playgroundcms')->addMessage('The page has been deleted');
             } catch (\Doctrine\DBAL\DBALException $e) {
-                //$this->flashMessenger()->setNamespace('playgroundcms')->addMessage('Il y a déjà eu des participants à ce jeu. Vous ne pouvez plus le supprimer');
-                //throw $e;
             }
         }
 

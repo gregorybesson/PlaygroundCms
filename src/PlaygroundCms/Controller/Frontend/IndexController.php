@@ -28,7 +28,7 @@ class IndexController extends AbstractActionController
             return $this->notFoundAction();
         }
         
-         $this->layout()->setVariables(
+        $this->layout()->setVariables(
             array(
                 'breadcrumbTitle' => $page->getTitle(),
             )
@@ -39,6 +39,21 @@ class IndexController extends AbstractActionController
         );
 
         return $viewModel;
+    }
+
+    public function listAction()
+    {
+        $pages = $this->getPageService()->getActivePages(false);
+
+        if (is_array($pages)) {
+            $paginator = new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\ArrayAdapter($pages));
+            $paginator->setItemCountPerPage(7);
+            $paginator->setCurrentPageNumber($this->getEvent()->getRouteMatch()->getParam('p'));
+        } else {
+            $paginator = $pages;
+        }
+
+        return new ViewModel(array( 'pages' => $paginator));
     }
 
     public function winnerListAction()
@@ -52,13 +67,9 @@ class IndexController extends AbstractActionController
         } else {
             $paginator = $pages;
         }
-
-        //$adserving = $this->getOptions()->getAdServing();
-        //$adserving['cat2'] = 'article';
         
         $this->layout()->setVariables(
             array(
-                //'adserving'       => $adserving,
                 'currentPage' => array(
                     'pageGames' => '',
                     'pageWinners' => 'winners'
@@ -71,10 +82,9 @@ class IndexController extends AbstractActionController
 
     public function winnerPageAction()
     {
-    	
-		$nextkey 	 = 0;
+        $nextkey     = 0;
         $previouskey = 0;
-		
+        
         $identifier = $this->getEvent()->getRouteMatch()->getParam('id');
         if (!$identifier) {
             return $this->notFoundAction();
@@ -83,17 +93,17 @@ class IndexController extends AbstractActionController
         $mapper = $this->getServiceLocator()->get('playgroundcms_page_mapper');
         $pages = $this->getPageService()->getActivePages(false, 0);
         $page = $mapper->findByIdentifier($identifier);
-		
-		$arrayPages = array();
+        
+        $arrayPages = array();
 
-        foreach ($pages as $key=>$p) {
-			$arrayPages[] = $p;
+        foreach ($pages as $key => $p) {
+            $arrayPages[] = $p;
             foreach ($arrayPages as $key => $value) {
-				if ($p->getIdentifier() == $identifier) {
-					$nextkey = $key+1;
-					$previouskey = $key-1;
-				}
-			}
+                if ($p->getIdentifier() == $identifier) {
+                    $nextkey = $key+1;
+                    $previouskey = $key-1;
+                }
+            }
         }
         if ($previouskey > -1) {
             $previousid = $arrayPages[$previouskey]->getIdentifier();
@@ -139,11 +149,11 @@ class IndexController extends AbstractActionController
                 'pagename' => $page->getTitle(),
                 'nextid' => $nextid,
                 'previousid' => $previousid,
-                'bitlyclient'	=> $bitlyclient,
-                'bitlyuser'		=> $bitlyuser,
-                'bitlykey'		=> $bitlykey
+                'bitlyclient'    => $bitlyclient,
+                'bitlyuser'        => $bitlyuser,
+                'bitlykey'        => $bitlykey
                 )
-            );
+        );
 
         return $viewModel;
     }
@@ -173,7 +183,7 @@ class IndexController extends AbstractActionController
         return $this->options;
     }
 
-         public function setOptions($options)
+    public function setOptions($options)
     {
         $this->options = $options;
 

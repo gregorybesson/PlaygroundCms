@@ -47,8 +47,8 @@ interface PageInterface
      * @return mixed
      */
     public function getContent();
-	
-	/**
+    
+    /**
      * @param $heading
      * @return mixed
      */

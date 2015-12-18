@@ -78,7 +78,7 @@ class Page implements PageInterface, InputFilterAwareInterface, Translatable
      */
     protected $content;
 
-	/**
+    /**
      * @Gedmo\Translatable
      * @ORM\Column(type="text", nullable=true)
      */
@@ -125,7 +125,7 @@ class Page implements PageInterface, InputFilterAwareInterface, Translatable
      */
     protected $updatedAt;
 
-	/**
+    /**
      * @ORM\Column(name="category",type="integer", nullable=true)
      */
     protected $category = 0;
@@ -155,7 +155,6 @@ class Page implements PageInterface, InputFilterAwareInterface, Translatable
      */
     public function setIdentifier($identifier)
     {
-
         $this->identifier = $identifier;
 
         return $this;
@@ -207,7 +206,7 @@ class Page implements PageInterface, InputFilterAwareInterface, Translatable
         return $this->content;
     }
 
-	/**
+    /**
      * @param $heading
      * @return Page
      */
@@ -230,7 +229,7 @@ class Page implements PageInterface, InputFilterAwareInterface, Translatable
      *
      * @return the $mainImage
      */
-    public function getMainImage ()
+    public function getMainImage()
     {
         return $this->mainImage;
     }
@@ -239,7 +238,7 @@ class Page implements PageInterface, InputFilterAwareInterface, Translatable
      *
      * @param field_type $mainImage
      */
-    public function setMainImage ($mainImage)
+    public function setMainImage($mainImage)
     {
         $this->mainImage = $mainImage;
 
@@ -250,7 +249,7 @@ class Page implements PageInterface, InputFilterAwareInterface, Translatable
      *
      * @return the $secondImage
      */
-    public function getSecondImage ()
+    public function getSecondImage()
     {
         return $this->secondImage;
     }
@@ -259,7 +258,7 @@ class Page implements PageInterface, InputFilterAwareInterface, Translatable
      *
      * @param field_type $secondImage
      */
-    public function setSecondImage ($secondImage)
+    public function setSecondImage($secondImage)
     {
         $this->secondImage = $secondImage;
 
@@ -365,7 +364,7 @@ class Page implements PageInterface, InputFilterAwareInterface, Translatable
      *
      * @return the $pushHome
      */
-    public function getPushHome ()
+    public function getPushHome()
     {
         return $this->pushHome;
     }
@@ -374,7 +373,7 @@ class Page implements PageInterface, InputFilterAwareInterface, Translatable
      *
      * @param field_type $pushHome
      */
-    public function setPushHome ($pushHome)
+    public function setPushHome($pushHome)
     {
         $this->pushHome = $pushHome;
 
@@ -385,7 +384,7 @@ class Page implements PageInterface, InputFilterAwareInterface, Translatable
      *
      * @return the $displayHome
      */
-    public function getDisplayHome ()
+    public function getDisplayHome()
     {
         return $this->displayHome;
     }
@@ -394,7 +393,7 @@ class Page implements PageInterface, InputFilterAwareInterface, Translatable
      *
      * @param field_type $displayHome
      */
-    public function setDisplayHome ($displayHome)
+    public function setDisplayHome($displayHome)
     {
         $this->displayHome = $displayHome;
 
@@ -405,7 +404,7 @@ class Page implements PageInterface, InputFilterAwareInterface, Translatable
      *
      * @return the $publicationDate
      */
-    public function getPublicationDate ()
+    public function getPublicationDate()
     {
         return $this->publicationDate;
     }
@@ -414,7 +413,7 @@ class Page implements PageInterface, InputFilterAwareInterface, Translatable
      *
      * @param field_type $publicationDate
      */
-    public function setPublicationDate ($publicationDate)
+    public function setPublicationDate($publicationDate)
     {
         $this->publicationDate = $publicationDate;
 
@@ -425,7 +424,7 @@ class Page implements PageInterface, InputFilterAwareInterface, Translatable
      *
      * @return the $closeDate
      */
-    public function getCloseDate ()
+    public function getCloseDate()
     {
         return $this->closeDate;
     }
@@ -434,7 +433,7 @@ class Page implements PageInterface, InputFilterAwareInterface, Translatable
      *
      * @param field_type $closeDate
      */
-    public function setCloseDate ($closeDate)
+    public function setCloseDate($closeDate)
     {
         $this->closeDate = $closeDate;
 
@@ -460,7 +459,7 @@ class Page implements PageInterface, InputFilterAwareInterface, Translatable
         return $this->updatedAt;
     }
 
-	/**
+    /**
      * @param $category
      * @return Page
      */
@@ -524,12 +523,12 @@ class Page implements PageInterface, InputFilterAwareInterface, Translatable
         }
     }
 
-    public function setInputFilter (InputFilterInterface $inputFilter)
+    public function setInputFilter(InputFilterInterface $inputFilter)
     {
         throw new \Exception("Not used");
     }
 
-    public function getInputFilter ()
+    public function getInputFilter()
     {
         if (! $this->inputFilter) {
             $inputFilter = new InputFilter();

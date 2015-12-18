@@ -19,16 +19,16 @@ class BlockControllerTest extends AbstractHttpControllerTestCase
 
     public function testCreateAction()
     {
-    	$this->assertTrue(true);
+        $this->assertTrue(true);
     }
     
     public function testEditAction()
     {
-    	$this->assertTrue(true);
+        $this->assertTrue(true);
     }
     
     public function testListAction()
     {
-    	$this->assertTrue(true);
+        $this->assertTrue(true);
     }
 }
