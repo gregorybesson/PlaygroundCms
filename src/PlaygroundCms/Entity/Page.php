@@ -126,9 +126,9 @@ class Page implements PageInterface, InputFilterAwareInterface, Translatable
     protected $updatedAt;
 
     /**
-     * @ORM\Column(name="category",type="integer", nullable=true)
+     * @ORM\Column(name="category",type="string", nullable=true)
      */
-    protected $category = 0;
+    protected $category = '';
 
     /**
      * @param $id

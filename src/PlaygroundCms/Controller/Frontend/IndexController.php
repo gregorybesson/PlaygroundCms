@@ -12,7 +12,7 @@ class IndexController extends AbstractActionController
 
     public function indexAction()
     {
-        $identifier = $this->getEvent()->getRouteMatch()->getParam('id');
+        $identifier = $this->getEvent()->getRouteMatch()->getParam('pid');
         if (!$identifier) {
             return $this->notFoundAction();
         }
@@ -43,11 +43,16 @@ class IndexController extends AbstractActionController
 
     public function listAction()
     {
-        $pages = $this->getPageService()->getActivePages(false);
+        $category = null;
+        if ($this->getEvent()->getRouteMatch()->getParam('category')) {
+            $category = $this->getEvent()->getRouteMatch()->getParam('category');
+        }
+
+        $pages = $this->getPageService()->getActivePages(false, $category);
 
         if (is_array($pages)) {
             $paginator = new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\ArrayAdapter($pages));
-            $paginator->setItemCountPerPage(7);
+            $paginator->setItemCountPerPage(25);
             $paginator->setCurrentPageNumber($this->getEvent()->getRouteMatch()->getParam('p'));
         } else {
             $paginator = $pages;
