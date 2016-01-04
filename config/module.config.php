@@ -97,7 +97,7 @@ return array(
 		            'cms' => array(
 		                'type' => 'Zend\Mvc\Router\Http\Segment',
 		                'options' => array(
-		                    'route'    => 'page[/:id]',
+		                    'route'    => 'page[/:pid]',
 		                    'defaults' => array(
 		                        'controller' => 'playgroundcms',
 		                        'action'     => 'index',

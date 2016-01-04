@@ -176,15 +176,12 @@ class Page extends ProvidesEventsForm
                     'id' => 'block_heading'
                 )
         ));
-        
+
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'category',
             'options' => array(
-                'value_options' => array(
-                    '0' => $translator->translate('Winners', 'playgroundcms'),
-                    '1' => $translator->translate('Others', 'playgroundcms')
-                ),
+                'value_options' => $this->getCmsCategories(),
                 'label' => $translator->translate('Category', 'playgroundcms')
             )
         ));
@@ -198,6 +195,31 @@ class Page extends ProvidesEventsForm
         $this->add($submitElement, array(
             'priority' => -100,
         ));
+    }
+
+    /**
+     * An event is triggered so that the modules wishing to associate a category to a CMS page
+     * can add their own categories without adherence between the 2 modules
+     *
+     * @return array
+     */
+    public function getCmsCategories()
+    {
+        $categories = array('' => 'No category');
+
+        $results = $this->getServiceManager()
+            ->get('application')
+            ->getEventManager()
+            ->trigger(__FUNCTION__, $this, array(
+            'categories' => $categories
+            ))
+            ->last();
+
+        if ($results) {
+            $categories = $results;
+        }
+
+        return $categories;
     }
 
     public function setServiceManager($serviceManager)

@@ -219,29 +219,28 @@ class Page extends EventProvider implements ServiceManagerAwareInterface
         //$today->format('Y-m-d H:i:s');
         $today = $today->format('Y-m-d') . ' 23:59:59';
 
-        $displayHomeClause='';
+        $queryStr = 'SELECT p FROM PlaygroundCms\Entity\Page p
+            WHERE (p.publicationDate <= :date OR p.publicationDate IS NULL)
+            AND (p.closeDate >= :date OR p.closeDate IS NULL)
+            AND p.active = 1';
+
         if ($displayHome) {
-            $displayHomeClause = " AND p.displayHome = true";
+            $queryStr .= " AND p.displayHome = true";
         }
 
         if ($category) {
-            $categoryClause = " AND p.category = " . $category;
-        } else {
-            $categoryClause = '';
+            $queryStr .= " AND p.category = :category";
         }
+
+        $queryStr .= ' ORDER BY p.publicationDate DESC';
 
         // Page active with a startDate before today (or without startDate)
         // and closeDate after today (or without closeDate)
-        $query = $em->createQuery(
-            'SELECT p FROM PlaygroundCms\Entity\Page p
-                WHERE (p.publicationDate <= :date OR p.publicationDate IS NULL)
-                AND (p.closeDate >= :date OR p.closeDate IS NULL)
-                AND p.active = 1'
-                . $displayHomeClause
-                . $categoryClause
-                .' ORDER BY p.publicationDate DESC'
-        );
+        $query = $em->createQuery($queryStr);
         $query->setParameter('date', $today);
+        if ($category) {
+            $query->setParameter('category', $category);
+        }
         $pages = $query->getResult();
 
         // Je les classe par date de publication (date comme clé dans le tableau afin de pouvoir merger les objets
