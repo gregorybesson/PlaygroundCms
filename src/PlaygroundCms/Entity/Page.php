@@ -545,6 +545,11 @@ class Page implements PageInterface, InputFilterAwareInterface, Translatable
             )));
 
             $inputFilter->add($factory->createInput(array(
+                'name' => 'category',
+                'required' => false,
+            )));
+
+            $inputFilter->add($factory->createInput(array(
                 'name' => 'title',
                 'required' => true,
                 'filters' => array(
