@@ -65,6 +65,8 @@ class Module
                 'playgroundcms_block_service'     => 'PlaygroundCms\Service\Block',
                 'playgroundcms_dynablock_service' => 'PlaygroundCms\Service\Dynablock',
                 'playgroundcms_page_service'      => 'PlaygroundCms\Service\Page',
+                'playgroundcms_slideshow_service' => 'PlaygroundCms\Service\Slideshow',
+                'playgroundcms_slide_service'     => 'PlaygroundCms\Service\Slide',
             ),
 
             'factories' => array(
@@ -122,22 +124,52 @@ class Module
                     $form = new Form\Admin\Page(null, $sm, $translator);
                     $page = new Entity\Page();
                     $form->setInputFilter($page->getInputFilter());
-                    //$form->setInputFilter($filter);
+
                     return $form;
                 },
 
                 'playgroundcms_block_form' => function ($sm) {
                     $translator = $sm->get('translator');
                     $form = new Form\Admin\Block(null, $translator);
-                    //$form->setInputFilter($filter);
+
                     return $form;
                 },
 
                 'playgroundcms_dynablock_form' => function ($sm) {
                     $translator = $sm->get('translator');
                     $form = new Form\Admin\Dynablock(null, $translator);
-                //$form->setInputFilter($filter);
+
                     return $form;
+                },
+
+                'playgroundcms_slideshow_form' => function ($sm) {
+                    $translator = $sm->get('translator');
+                    $form = new Form\Admin\Slideshow(null, $sm, $translator);
+
+                    return $form;
+                },
+
+                'playgroundcms_slideshow_mapper' => function ($sm) {
+
+                    return new Mapper\Slideshow(
+                        $sm->get('playgroundcms_doctrine_em'),
+                        $sm->get('playgroundcms_module_options')
+                    );
+                },
+
+                'playgroundcms_slide_form' => function ($sm) {
+                    $translator = $sm->get('translator');
+                    $form = new Form\Admin\Slide(null, $sm, $translator);
+
+                    return $form;
+                },
+
+                'playgroundcms_slide_mapper' => function ($sm) {
+
+                    return new Mapper\Slide(
+                        $sm->get('playgroundcms_doctrine_em'),
+                        $sm->get('playgroundcms_module_options')
+                    );
                 },
             ),
         );
