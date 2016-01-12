@@ -129,6 +129,42 @@ class Dynablock extends EventProvider implements ServiceManagerAwareInterface
     }
 
     /**
+     * @return multitype:
+     */
+    public function getDynablocks()
+    {
+        if ($this->dynablocks == null) {
+            $dynablocks = array();
+            $config = $this->getServiceManager()->get('Config');
+            $dynablocks = isset($config['dynacms']['dynablocks']) ? $config['dynacms']['dynablocks'] : null;
+            $blocks = $this->getAdminblockService()->getBlockMapper()->findBy(
+                array('is_active' => 1, 'on_call' => 1),
+                array('title' => 'ASC')
+            );
+            // foreach($blocks as $block){
+            //     $dynablocks[$block->getIdentifier()] = array(
+            //         'title'       => $block->getTitle(),
+            //         'description' => 'bloc dynamique',
+            //         'widget'      => 'PlaygroundNewsletter\Widget\Subscribe',
+            //     ),
+            // }
+            $results = $this->getServiceManager()->get('application')->getEventManager()->trigger(
+                __FUNCTION__,
+                $this,
+                array('dynablocks' => $dynablocks)
+            )->last();
+
+            if ($results) {
+                $this->dynablocks = $results;
+            } else {
+                $this->dynablocks = $dynablocks;
+            }
+        }
+
+        return $this->dynablocks;
+    }
+
+    /**
      * @return \PlaygroundCms\Mapper\BlockInterface
      */
     public function getDynablockMapper()

@@ -21,10 +21,13 @@ class DynablockController extends AbstractActionController
     public function listAction()
     {
         $dynareas   = $this->getAdminDynablockService()->getDynareas();
-        $dynablocks = $this->getAdminDynablockService()->getDynablockMapper()->findActiveDynablocks();
+        $activeDynablocks = $this->getAdminDynablockService()->getDynablockMapper()->findActiveDynablocks();
+        
+        //$dynablocks = $this->getAdminDynablockService()->getDynablocks();
+
         $activeDynareas = array();
-        foreach ($dynablocks as $dynablock) {
-            $activeDynareas[$dynablock->getDynarea()][] = $dynablock;
+        foreach ($activeDynablocks as $activeDynablock) {
+            $activeDynareas[$activeDynablock->getDynarea()][] = $activeDynablock;
         }
 
         if (is_array($activeDynareas)) {

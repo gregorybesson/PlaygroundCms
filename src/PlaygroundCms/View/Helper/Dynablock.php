@@ -34,14 +34,6 @@ class Dynablock extends AbstractHelper
         }
 
         return $result;
-
-
-        $vm = new ViewModel(array(
-        ));
-        $vm->setTemplate('playground-cms/index/grg.phtml');
-
-        return $this->getView()->render($vm);
-        return '';
     }
 
     /**

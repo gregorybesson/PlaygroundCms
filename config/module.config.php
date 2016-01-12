@@ -36,9 +36,13 @@ return array(
             'BjyAuthorize\Guard\Controller' => array(
         
                 array('controller' => 'playgroundcms', 'roles' => array('guest', 'user')),
+
+                //Admin
                 array('controller' => 'playgroundcmsadminpage', 'roles' => array('admin')),
                 array('controller' => 'playgroundcmsadminblock', 'roles' => array('admin')),
                 array('controller' => 'playgroundcmsadmindynablock', 'roles' => array('admin')),
+                array('controller' => 'playgroundcms_admin_slideshow', 'roles' => array('admin')),
+                array('controller' => 'playgroundcms_admin_slide', 'roles' => array('admin')),
             ),
         ),
     ),
@@ -70,6 +74,8 @@ return array(
             'playgroundcmsadminpage'         => 'PlaygroundCms\Controller\Admin\PageController',
             'playgroundcmsadminblock'        => 'PlaygroundCms\Controller\Admin\BlockController',
             'playgroundcmsadmindynablock'    => 'PlaygroundCms\Controller\Admin\DynablockController',
+            'playgroundcms_admin_slideshow'  => 'PlaygroundCms\Controller\Admin\SlideshowController',
+            'playgroundcms_admin_slide'      => 'PlaygroundCms\Controller\Admin\SlideController',
         ),
     ),
 
@@ -86,7 +92,7 @@ return array(
                 'title' => 'Colonne de la home',
                 'description' => 'ceci est une description',
                 'location' => 'playground-game\index\index',
-            ),
+            )
         ),
     ),
 
@@ -337,6 +343,110 @@ return array(
                                     ),
                                 ),
                             ),
+                            'slideshow' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/slideshow',
+                                    'defaults' => array(
+                                        'controller' => 'playgroundcms_admin_slideshow',
+                                        'action'     => 'list',
+                                    ),
+                                ),
+                                'may_terminate' => true, 
+                                'child_routes' => array(
+                                    'create' => array(
+                                        'type' => 'Segment',
+                                        'options' => array(
+                                             'route' => '/create',
+                                            'defaults' => array(
+                                                'controller' => 'playgroundcms_admin_slideshow',
+                                                'action'     => 'create',
+                                            ),
+                                        ),
+                                    ),
+                                    'edit' => array(
+                                        'type' => 'Segment',
+                                        'options' => array(
+                                            'route' => '/edit[/:slideshowId]',
+                                            'defaults' => array(
+                                                'controller' => 'playgroundcms_admin_slideshow',
+                                                'action'     => 'edit',
+                                            ),
+                                            'constraints' => array(
+                                                'slideshowId' => '[0-9]*',
+                                            ),
+                                        ),
+                                    ),
+                                    'remove' => array(
+                                        'type' => 'Segment',
+                                        'options' => array(
+                                            'route' => '/remove[/:slideshowId]',
+                                            'defaults' => array(
+                                                'controller' => 'playgroundcms_admin_slideshow',
+                                                'action'     => 'remove',
+                                            ),
+                                            'constraints' => array(
+                                                'slideshowId' => '[0-9]*',
+                                            ),
+                                        ),
+                                    ),
+                                    'activate' => array(
+                                        'type' => 'Segment',
+                                        'options' => array(
+                                            'route' => '/activate[/:slideshowId]',
+                                            'defaults' => array(
+                                                'controller' => 'playgroundcms_admin_slideshow',
+                                                'action'     => 'activate',
+                                            ),
+                                            'constraints' => array(
+                                                'slideshowId' => '[0-9]*',
+                                            ),
+                                        ),
+                                    ),                                    
+                                ),
+                            ),
+                            'slide' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/slide[/:slideshowId]',
+                                    'defaults' => array(
+                                        'controller' => 'playgroundcms_admin_slide',
+                                        'action'     => 'create',
+                                    ),
+                                    'constraints' => array(
+                                        'slideshowId' => '[0-9]*',
+                                    ),
+                                ),
+                                'may_terminate' => true, 
+                                'child_routes' => array(
+                                    'edit' => array(
+                                        'type' => 'Segment',
+                                        'options' => array(
+                                            'route' => '/edit[/:id]',
+                                            'defaults' => array(
+                                                'controller' => 'playgroundcms_admin_slide',
+                                                'action'     => 'edit',
+                                            ),
+                                            'constraints' => array(
+                                                'id' => '[0-9]*',
+                                            ),
+                                        ),
+                                    ),
+                                    'remove' => array(
+                                        'type' => 'Segment',
+                                        'options' => array(
+                                            'route' => '/remove[/:id]',
+                                            'defaults' => array(
+                                                'controller' => 'playgroundcms_admin_slide',
+                                                'action'     => 'remove',
+                                            ),
+                                            'constraints' => array(
+                                                'id' => '[0-9]*',
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
                         ),
                     ),
                 ),
@@ -426,6 +536,12 @@ return array(
                     'list-dynablock' => array(
                         'label' => 'Dynamic blocs list',
                         'route' => 'admin/playgroundcmsadmin/dynablocks/list',
+                        'resource' => 'cms',
+                        'privilege' => 'list',
+                    ),
+                    'slideshow' => array(
+                        'label' => 'Slideshow',
+                        'route' => 'admin/playgroundcmsadmin/slideshow',
                         'resource' => 'cms',
                         'privilege' => 'list',
                     ),
