@@ -42,7 +42,10 @@ class SlideshowController extends AbstractActionController
                 $this->flashMessenger()->addMessage('The slideshow "'.$slideshow->getTitle().'" was created');
 
                 if ($data['submit'] === 'slide') {
-                    return $this->redirect()->toRoute('admin/playgroundcmsadmin/slide', array('slideshowId' => $slideshow->getId()));
+                    return $this->redirect()->toRoute(
+                        'admin/playgroundcmsadmin/slide',
+                        array('slideshowId' => $slideshow->getId())
+                    );
                 } else {
                     return $this->redirect()->toRoute('admin/playgroundcmsadmin/slideshow');
                 }

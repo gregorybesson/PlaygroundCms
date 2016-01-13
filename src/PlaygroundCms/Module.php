@@ -212,6 +212,10 @@ class Module
 
                     return $nav;
                 },
+                'slideshowWidget' => function ($sm) {
+                    $slideshowService = $sm->getServiceLocator()->get('playgroundcms_slideshow_service');
+                    return new \PlaygroundCms\View\Helper\Slideshow($slideshowService);
+                }
             ),
         );
     }

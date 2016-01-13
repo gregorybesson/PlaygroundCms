@@ -80,13 +80,14 @@ return array(
     ),
 
     'dynacms' => array(
-        'dynablocks' => array(
-            'newsletter_subscription' => array(
-                'title'       => 'Bloc de souscription',
-                'description' => 'bloc dynamique',
-                'widget'      => 'PlaygroundNewsletter\Widget\Subscribe',
-            ),
-        ),
+        // 'dynablocks' => array(
+        //     array(
+        //         'title'       => 'Slideshow',
+        //         'description' => 'bloc dynamique',
+        //         'type'        => 'slideshowWidget',
+        //         'identifier'  => 1
+        //     ),
+        // ),
         'dynareas' => array(
             'column_home' => array(
                 'title' => 'Colonne de la home',
