@@ -106,7 +106,10 @@ class Slide extends EventProvider implements ServiceManagerAwareInterface
                 mkdir($path, 0777, true);
             }
             $media_url = $this->getMediaUrl() . '/';
-            move_uploaded_file($data['uploadFile']['tmp_name'], $path . "/" . $slide->getId() . "-" . $data['uploadFile']['name']);
+            move_uploaded_file(
+                $data['uploadFile']['tmp_name'],
+                $path . "/" . $slide->getId() . "-" . $data['uploadFile']['name']
+            );
             $file = $media_url . $slide->getId() . "-" . $data['uploadFile']['name'];
             if ($data['type'] == 1) {
                 $slide->setMedia($file);
@@ -126,7 +129,8 @@ class Slide extends EventProvider implements ServiceManagerAwareInterface
         $thumbnailPath = preg_replace("/\.[a-zA-Z0-9]{2,4}$/", '.png', $realVideoPath);
         $thumbDims = $this->getConfigParam('thumbnailWidth').':'.$this->getConfigParam('thumbnailHeight');
 
-        $binCmd = $binPath . ' -i "' . $realVideoPath . '" -vf thumbnail,scale=' . $thumbDims . ' -vframes 1 -y "' . $thumbnailPath . '"';
+        $binCmd = $binPath . ' -i "' . $realVideoPath . '" -vf thumbnail,scale=';
+        $binCmd .= $thumbDims . ' -vframes 1 -y "' . $thumbnailPath . '"';
         exec($binCmd);
         
         $newFormats = array(

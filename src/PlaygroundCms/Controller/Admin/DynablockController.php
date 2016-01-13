@@ -50,12 +50,9 @@ class DynablockController extends AbstractActionController
         if (!$dynareaId) {
             return $this->redirect()->toRoute('admin/playgroundcmsadmin/dynablocks/list');
         }
-        $dynablocks = $this->getAdminDynablockService()->getDynablockMapper()->findByDynarea($dynareaId);
+        $dynablocksArea = $this->getAdminDynablockService()->getDynablockMapper()->findByDynarea($dynareaId);
 
-        $blocks = $this->getAdminblockService()->getBlockMapper()->findBy(
-            array('is_active' => 1, 'on_call' => 1),
-            array('title' => 'ASC')
-        );
+        $dynablocks = $this->getAdminDynablockService()->getDynablocks();
 
         if ($this->getRequest()->isPost()) {
             $data = $this->getRequest()->getPost()->toArray();
@@ -73,8 +70,8 @@ class DynablockController extends AbstractActionController
         $viewModel->setTemplate('playground-cms/dynablock/dynablock');
 
         return $viewModel->setVariables(array(
-            'dynablocks'    => $dynablocks,
-            'blocks'        => $blocks,
+            'dynablocks'    => $dynablocksArea,
+            'blocks'        => $dynablocks,
             'dynarea'       => $dynareaId
         ));
     }

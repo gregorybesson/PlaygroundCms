@@ -18,21 +18,16 @@ class Dynablock extends AbstractHelper
     public function __invoke($identifier)
     {
         /**
-            En fonction de identifier, je regarde en bdd ce que je dois afficher, puis j'affiche...
-            Ca peut prendre cher mais je passerai par du cache
+         *   En fonction de identifier, je regarde en bdd ce que je dois afficher, puis j'affiche...
+         *   Ca peut prendre cher mais je passerai par du cache
          */
 
         $result = '';
         $dynablocks = $this->getDynablockMapper()->findByDynarea($identifier);
         foreach ($dynablocks as $block) {
-            if ($block->getType() == 'block') {
-                $static = $this->getBlockMapper()->find((int) $block->getIdentifier());
-                if ($static) {
-                    $result[] = $static->getContent();
-                }
-            }
+            $result .= $this->getView()->{$block->getType()}($block->getIdentifier());
         }
-
+        
         return $result;
     }
 

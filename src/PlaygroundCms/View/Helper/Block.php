@@ -15,7 +15,7 @@ class Block extends AbstractHelper
      */
     public function __invoke($identifier)
     {
-        $block = $this->getBlockMapper()->find($identifier);
+        $block = $this->getBlockMapper()->findById($identifier);
         if ($block) {
             return $block->getContent();
         }

@@ -17,6 +17,8 @@ class Dynablock extends EventProvider implements ServiceManagerAwareInterface
      */
     protected $dynablockMapper;
 
+    protected $blockMapper;
+
     /**
      * @var ServiceManager
      */
@@ -26,6 +28,11 @@ class Dynablock extends EventProvider implements ServiceManagerAwareInterface
      * @var array
      */
     protected $dynareas;
+
+    /**
+     * @var array
+     */
+    protected $dynablocks;
 
     /**
      * @var UserServiceOptionsInterface
@@ -136,18 +143,32 @@ class Dynablock extends EventProvider implements ServiceManagerAwareInterface
         if ($this->dynablocks == null) {
             $dynablocks = array();
             $config = $this->getServiceManager()->get('Config');
-            $dynablocks = isset($config['dynacms']['dynablocks']) ? $config['dynacms']['dynablocks'] : null;
-            $blocks = $this->getAdminblockService()->getBlockMapper()->findBy(
+
+            // Dynablocks described by config
+            $dynablocksConfig = isset($config['dynacms']['dynablocks']) ? $config['dynacms']['dynablocks'] : null;
+            foreach ($dynablocksConfig as $block) {
+                $d = new \PlaygroundCms\Entity\Dynablock();
+                $d->setTitle($block['title']);
+                $d->setIdentifier($block['identifier']);
+                $d->setType($block['type']);
+                $dynablocks[] = $d;
+            }
+
+            // CMS blocks which are "on_call" = dynablock compatible
+            $blocks = $this->getBlockMapper()->findBy(
                 array('is_active' => 1, 'on_call' => 1),
                 array('title' => 'ASC')
             );
-            // foreach($blocks as $block){
-            //     $dynablocks[$block->getIdentifier()] = array(
-            //         'title'       => $block->getTitle(),
-            //         'description' => 'bloc dynamique',
-            //         'widget'      => 'PlaygroundNewsletter\Widget\Subscribe',
-            //     ),
-            // }
+
+            foreach ($blocks as $block) {
+                $d = new \PlaygroundCms\Entity\Dynablock();
+                $d->setTitle($block->getTitle());
+                $d->setIdentifier($block->getId());
+                $d->setType('playgroundBlock');
+                $dynablocks[] = $d;
+            }
+
+            // Dynablocks exposed via listener
             $results = $this->getServiceManager()->get('application')->getEventManager()->trigger(
                 __FUNCTION__,
                 $this,
@@ -183,6 +204,29 @@ class Dynablock extends EventProvider implements ServiceManagerAwareInterface
     public function setDynablockMapper(DynablockMapperInterface $dynablockMapper)
     {
         $this->dynablockMapper = $dynablockMapper;
+
+        return $this;
+    }
+
+    /**
+     * @return \PlaygroundCms\Mapper\BlockInterface
+     */
+    public function getBlockMapper()
+    {
+        if (null === $this->blockMapper) {
+            $this->blockMapper = $this->getServiceManager()->get('PlaygroundCms_block_mapper');
+        }
+
+        return $this->blockMapper;
+    }
+
+    /**
+     * @param  \PlaygroundCms\Mapper\BlockInterface $blockMapper
+     * @return Block
+     */
+    public function setBlockMapper(BlockMapperInterface $blockMapper)
+    {
+        $this->blockMapper = $blockMapper;
 
         return $this;
     }
