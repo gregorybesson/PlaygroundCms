@@ -108,28 +108,6 @@ class Slideshow extends EventProvider implements ServiceManagerAwareInterface
         return self::$statuses;
     }
 
-    public function removeSlide($slideshowId, $slideToRemove)
-    {
-        $slideshow = $this->getSlideshowMapper()->findById($slideshowId);
-
-        $slidesToKeep = array();
-
-        foreach ($slideshow->getSlides() as $slide) {
-            if ($slide->getId() != $slideToRemove->getId()) {
-                $slidesToKeep[] = $slide;
-            }
-        }
-
-        $slideshow->removeSlides();
-        $slideshow = $this->getSlideshowMapper()->update($slideshow);
-
-        foreach ($slidesToKeep as $slide) {
-            $slideshow->addSlide($slide);
-        }
-
-        $slideshow = $this->getSlideshowMapper()->update($slideshow);
-    }
-
     public function uploadMedia($slideshow, $data)
     {
         if (!empty($data['uploadFile']['tmp_name'])) {
