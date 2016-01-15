@@ -2,14 +2,13 @@
 
 namespace PlaygroundCms\View\Helper;
 
-use PlaygroundCms\Service\Slideshow;
 use Zend\View\Helper\AbstractHelper;
 
 class Slideshow extends AbstractHelper
 {
     protected $slideshowService = null;
 
-    public function __construct(Slideshow $slideshowService)
+    public function __construct(\PlaygroundCms\Service\Slideshow $slideshowService)
     {
         $this->slideshowService = $slideshowService;
     }
