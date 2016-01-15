@@ -97,8 +97,7 @@ class SlideController extends AbstractActionController
 
         $slide = $this->getSlideService()->getSlideMapper()->findById($slideId);
 
-        $title = $slide->getTitle();
-        $this->getSlideshowService()->removeSlide($slideshowId, $slide);
+        $this->getSlideService()->getSlideMapper()->remove($slide);
         
         $this->flashMessenger()->addMessage(' alert-success');
         $this->flashMessenger()->addMessage('The slide "'.$title.'" was deleted');
