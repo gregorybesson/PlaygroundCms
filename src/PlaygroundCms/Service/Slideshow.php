@@ -85,6 +85,12 @@ class Slideshow extends EventProvider implements ServiceManagerAwareInterface
 
         $form->bind($slideshow);
         $form->setData($data);
+
+        if (!$form->isValid()) {
+            return false;
+        }
+
+        $slideshow = $form->getData();
         
         $this->uploadMedia($slideshow, $data);
         $slideshow = $this->getSlideshowMapper()->update($slideshow);
