@@ -85,6 +85,13 @@ class Slide extends EventProvider implements ServiceManagerAwareInterface
     {
         $form  = $this->getServiceManager()->get('playgroundcms_slide_form');
         $form->bind($slide);
+        $form->setData($data);
+
+        if (!$form->isValid()) {
+            return false;
+        }
+
+        $slide = $form->getData();
 
         $this->uploadMedia($slide, $data);
 
