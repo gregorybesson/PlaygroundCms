@@ -9,35 +9,21 @@ class Block extends AbstractHelper
 {
     protected $blockMapper;
 
+    public function __construct(BlockMapper $blockMapper)
+    {
+        $this->blockMapper = $blockMapper;
+    }
     /**
      * @param  int|string $identifier
      * @return string
      */
     public function __invoke($identifier)
     {
-        $block = $this->getBlockMapper()->findById($identifier);
+        $block = $this->blockMapper->findByIdentifier($identifier);
         if ($block) {
             return $block->getContent();
         }
 
         return '';
-    }
-
-    /**
-     * @param \PlaygroundCms\Mapper\Block $blockMapper
-     */
-    public function setBlockMapper(BlockMapper $blockMapper)
-    {
-        $this->blockMapper = $blockMapper;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getBlockMapper()
-    {
-        return $this->blockMapper;
     }
 }
