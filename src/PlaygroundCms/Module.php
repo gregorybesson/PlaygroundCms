@@ -182,20 +182,15 @@ class Module
     {
         return array(
             'factories' => array(
-                'playgroundBlock' => function ($sm) {
-                    $locator = $sm->getServiceLocator();
-                    $viewHelper = new View\Helper\Block;
-                    $viewHelper->setBlockMapper($locator->get('playgroundcms_block_mapper'));
-
-                    return $viewHelper;
+                'blockWidget' => function ($sm) {
+                    $blockMapper = $sm->getServiceLocator()->get('playgroundcms_block_mapper');
+                    
+                    return new \PlaygroundCms\View\Helper\Block($blockMapper);
                 },
-                'playgroundDynablock' => function ($sm) {
-                    $locator = $sm->getServiceLocator();
-                    $viewHelper = new View\Helper\Dynablock;
-                    $viewHelper->setBlockMapper($locator->get('playgroundcms_block_mapper'));
-                    $viewHelper->setDynablockMapper($locator->get('playgroundcms_dynablock_mapper'));
+                'dynablockWidget' => function ($sm) {
+                    $dynablockMapper = $sm->getServiceLocator()->get('playgroundcms_dynablock_mapper');
 
-                    return $viewHelper;
+                    return new \PlaygroundCms\View\Helper\Dynablock($dynablockMapper);
                 },
                 // This admin navigation layer gives the authentication layer based on BjyAuthorize ;)
                 'adminMenu' => function ($sm) {
@@ -214,6 +209,7 @@ class Module
                 },
                 'slideshowWidget' => function ($sm) {
                     $slideshowService = $sm->getServiceLocator()->get('playgroundcms_slideshow_service');
+                    
                     return new \PlaygroundCms\View\Helper\Slideshow($slideshowService);
                 }
             ),
