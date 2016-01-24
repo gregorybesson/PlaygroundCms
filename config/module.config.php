@@ -497,45 +497,31 @@ return array(
         ),
         'admin' => array(
             'playgroundcms' => array(
-                'label' => 'Posts',
+                'label' => 'Cms',
                 'route' => 'admin/playgroundcmsadmin/pages/list',
                 'resource' => 'cms',
                 'privilege' => 'list',
                 'pages' => array(
-                    'list-pages' => array(
-                        'label' => 'Posts list',
-                        'route' => 'admin/playgroundcmsadmin/pages/list',
-                        'resource' => 'cms',
-                        'privilege' => 'list',
-                        'pages' => array(
-		                    'edit-page' => array(
-		                    	'label' => 'Editer un article',
-		                        'route' => 'admin/playgroundcmsadmin/pages/edit',
-		                        'resource' => 'cms',
-		                        'privilege' => 'edit',
-		                    ),
-						),
-                    ),
-                    'create-page' => array(
-                        'label' => 'Create a post',
-                        'route' => 'admin/playgroundcmsadmin/pages/create',
+                    'elfinder' => array(
+                        'label' => 'Your media repository',
+                        'route' => 'admin/elfinder',
                         'resource' => 'cms',
                         'privilege' => 'add',
                     ),
+                    'list-pages' => array(
+                        'label' => 'Pages',
+                        'route' => 'admin/playgroundcmsadmin/pages/list',
+                        'resource' => 'cms',
+                        'privilege' => 'list',
+                    ),
                     'list-block' => array(
-                        'label' => 'Content bloc list',
+                        'label' => 'Blocks',
                         'route' => 'admin/playgroundcmsadmin/blocks/list',
                         'resource' => 'cms',
                         'privilege' => 'list',
                     ),
-                    'create-block' => array(
-                        'label' => 'Create a content bloc',
-                        'route' => 'admin/playgroundcmsadmin/blocks/create',
-                        'resource' => 'cms',
-                        'privilege' => 'add',
-                    ),
                     'list-dynablock' => array(
-                        'label' => 'Dynamic blocs list',
+                        'label' => 'Dynamic blocks',
                         'route' => 'admin/playgroundcmsadmin/dynablocks/list',
                         'resource' => 'cms',
                         'privilege' => 'list',
