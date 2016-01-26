@@ -118,65 +118,10 @@ class Slide extends EventProvider implements ServiceManagerAwareInterface
                 $path . "/" . $slide->getId() . "-" . $data['uploadFile']['name']
             );
             $file = $media_url . $slide->getId() . "-" . $data['uploadFile']['name'];
-            if ($data['type'] == 1) {
-                $slide->setMedia($file);
-            } else {
-                $result = $this->convertVideo($file);
-                $slide->setMedia($result['thumb']);
-                $slide->setVideos(json_encode($result['videos']));
-            }
+            $slide->setMedia($file);
+
         }
         return $slide;
-    }
-
-    public function convertVideo($videoPath)
-    {
-        $binPath = $this->getConfigParam('binPath');
-        $realVideoPath = 'public/'.$videoPath;
-        $thumbnailPath = preg_replace("/\.[a-zA-Z0-9]{2,4}$/", '.png', $realVideoPath);
-        $thumbDims = $this->getConfigParam('thumbnailWidth').':'.$this->getConfigParam('thumbnailHeight');
-
-        $binCmd = $binPath . ' -i "' . $realVideoPath . '" -vf thumbnail,scale=';
-        $binCmd .= $thumbDims . ' -vframes 1 -y "' . $thumbnailPath . '"';
-        exec($binCmd);
-        
-        $newFormats = array(
-            "mp4" => array("720p","480p","360p", "240p"),
-            "ogg" => array("720p","480p","360p", "240p"),
-            "webm" => array("720p","480p","360p", "240p"),
-        );
-
-        $videos = $this->newVideoFormat($binPath, $realVideoPath, $newFormats);
-
-        if (file_exists($thumbnailPath)) {
-            return array(
-                'thumb'  => str_replace('public/', '', $thumbnailPath),
-                'videos' => $videos,
-            );
-        } else {
-            return false;
-        }
-    }
-
-    public function newVideoFormat($binPath, $videoPath, $newFormats)
-    {
-        $qualityOptions = array(
-            // array('resolution', 'videoBitrate', 'audioBitrate')
-            "720p" => array('1280x720', '8000k', '384k'),
-            "480p" => array('848x480', '5000k', '384k'),
-            "360p" => array('640x368', '2500k', '128k'),
-            "240p" => array('432x240', '1000k', '128k'),
-        );
-        $videos = array();
-        foreach ($newFormats as $key => $format) {
-            foreach ($format as $quality) {
-                $newPath = preg_replace("/\.[a-zA-Z0-9]{2,4}$/", $quality.'.'.$key, $videoPath);
-                exec($binPath . ' -i ' . $videoPath . ' -s ' . $qualityOptions[$quality][0] . ' -b ' . $qualityOptions[$quality][1] . ' -ac 2  -ab ' . $qualityOptions[$quality][2] . ' ' . $newPath);
-                $videos[$key][$quality] = str_replace('public/', '', $newPath);
-            }
-        }
-
-        return $videos;
     }
     
     /**
@@ -205,8 +150,6 @@ class Slide extends EventProvider implements ServiceManagerAwareInterface
 
         return $this;
     }
-
-   
 
     /**
      * Retrieve service manager instance
@@ -259,20 +202,5 @@ class Slide extends EventProvider implements ServiceManagerAwareInterface
     public function getMediaUrl()
     {
         return $this->media_url;
-    }
-
-    public function getConfigParam($configParam = '')
-    {
-        if (!$this->config) {
-            $config = $this->getServiceManager()->get('config');
-            if (isset($config['video_processing'])) {
-                $this->config = $config['video_processing'];
-            }
-        }
-        if ($configParam && array_key_exists($configParam, $this->config)) {
-            return $this->config[$configParam];
-        } else {
-            return null;
-        }
     }
 }
