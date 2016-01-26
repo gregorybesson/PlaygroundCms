@@ -11,15 +11,21 @@ use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\Factory as InputFactory;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 /**
  * @ORM\Entity @HasLifecycleCallbacks
  * @ORM\Table(name="cms_slideshow_slide")
+ * @Gedmo\TranslationEntity(class="PlaygroundCms\Entity\CmsTranslation")
  */
-class Slide implements InputFilterAwareInterface
+class Slide implements InputFilterAwareInterface, Translatable
 {
 
     protected $inputFilter;
+
+    protected $locale;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer");
@@ -35,12 +41,14 @@ class Slide implements InputFilterAwareInterface
     
     /**
      * title
+     * @Gedmo\Translatable
      * @ORM\Column(type="string", nullable=false)
      */
     protected $title;
 
     /**
      * subtitle
+     * @Gedmo\Translatable
      * @ORM\Column(type="string", nullable=true)
      */
     protected $subtitle;
@@ -53,18 +61,21 @@ class Slide implements InputFilterAwareInterface
 
     /**
      * link
+     * @Gedmo\Translatable
      * @ORM\Column(type="string", nullable=true)
      */
     protected $link;
 
     /**
      * link
+     * @Gedmo\Translatable
      * @ORM\Column(type="string", nullable=true)
      */
     protected $linkText;
 
     /**
      * videos
+     * @Gedmo\Translatable
      * @ORM\Column(type="string", nullable=true, length=10000)
      */
     protected $video;
@@ -83,6 +94,7 @@ class Slide implements InputFilterAwareInterface
 
     /**
      * description
+     * @Gedmo\Translatable
      * @ORM\Column(type="text", nullable=true)
      */
     protected $description;
@@ -423,5 +435,10 @@ class Slide implements InputFilterAwareInterface
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
         throw new \Exception("Not used" .$inputFilter);
+    }
+
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }
 }

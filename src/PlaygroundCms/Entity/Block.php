@@ -18,16 +18,11 @@ use Gedmo\Translatable\Translatable;
  * @ORM\Table(name="cms_block")
  * @Gedmo\TranslationEntity(class="PlaygroundCms\Entity\CmsTranslation")
  */
-class Block implements BlockInterface, InputFilterAwareInterface
+class Block implements BlockInterface, InputFilterAwareInterface, Translatable
 {
     protected $inputFilter;
 
     protected $locale;
-
-    public function setTranslatableLocale($locale)
-    {
-        $this->locale = $locale;
-    }
 
     /**
      * @ORM\Id
@@ -344,5 +339,10 @@ class Block implements BlockInterface, InputFilterAwareInterface
         }
 
         return $this->inputFilter;
+    }
+
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }
 }

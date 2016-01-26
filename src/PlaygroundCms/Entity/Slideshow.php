@@ -11,15 +11,21 @@ use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\Factory as InputFactory;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 /**
  * @ORM\Entity @HasLifecycleCallbacks
  * @ORM\Table(name="cms_slideshow")
+ * @Gedmo\TranslationEntity(class="PlaygroundCms\Entity\CmsTranslation")
  */
-class Slideshow implements InputFilterAwareInterface
+class Slideshow implements InputFilterAwareInterface, Translatable
 {
 
     protected $inputFilter;
+
+    protected $locale;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer");
@@ -29,12 +35,14 @@ class Slideshow implements InputFilterAwareInterface
     
     /**
      * title
+     * @Gedmo\Translatable
      * @ORM\Column(type="string", nullable=false)
      */
     protected $title;
 
     /**
      * subtitle
+     * @Gedmo\Translatable
      * @ORM\Column(type="string", nullable=true)
      */
     protected $subtitle;
@@ -272,5 +280,10 @@ class Slideshow implements InputFilterAwareInterface
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
         throw new \Exception("Not used" .$inputFilter);
+    }
+    
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }
 }
