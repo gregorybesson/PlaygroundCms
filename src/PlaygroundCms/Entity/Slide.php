@@ -55,6 +55,7 @@ class Slide implements InputFilterAwareInterface, Translatable
 
     /**
      * media
+     * @Gedmo\Translatable
      * @ORM\Column(type="string", nullable=true)
      */
     protected $media;
