@@ -119,7 +119,6 @@ class Slide extends EventProvider implements ServiceManagerAwareInterface
             );
             $file = $media_url . $slide->getId() . "-" . $data['uploadFile']['name'];
             $slide->setMedia($file);
-
         }
         return $slide;
     }

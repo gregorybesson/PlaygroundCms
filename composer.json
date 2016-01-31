@@ -17,9 +17,9 @@
             "homepage": "http://www.playground.fr"
         } 
     ],
-    "minimum-stability": "dev",
     "require": {
         "php": ">=5.5",
+        "zendframework/zend-developer-tools" : "1.*@RC",
 		"zendframework/zendframework" : "2.*",
 		"playground/core" : "2.*",
 		"playground/design" : "2.*"
