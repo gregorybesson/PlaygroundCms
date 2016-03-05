@@ -2,15 +2,15 @@
 
 namespace PlaygroundCms\Service;
 
-use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
 use ZfcBase\EventManager\EventProvider;
 use Zend\Stdlib\Hydrator\ClassMethods;
 use PlaygroundCms\Mapper\BlockInterface as BlockMapperInterface;
 use PlaygroundCms\Options\ModuleOptions;
 use PlaygroundCms\Entity\Block as EntityBlock;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
-class Block extends EventProvider implements ServiceManagerAwareInterface
+class Block extends EventProvider
 {
     /**
      * @var BlockMapperInterface
@@ -32,9 +32,20 @@ class Block extends EventProvider implements ServiceManagerAwareInterface
      */
     protected $options;
 
+    /**
+     *
+     * @var ServiceManager
+     */
+    protected $serviceLocator;
+
+    public function __construct(ServiceLocatorInterface $locator)
+    {
+        $this->serviceLocator = $locator;
+    }
+
     public function create(array $data, EntityBlock $block)
     {
-        $form  = $this->getServiceManager()->get('playgroundcms_block_form');
+        $form  = $this->serviceLocator->get('playgroundcms_block_form');
         $form->setHydrator(new ClassMethods());
         $form->bind($block);
         $form->setData($data);
@@ -61,7 +72,7 @@ class Block extends EventProvider implements ServiceManagerAwareInterface
 
     public function edit(array $data, EntityBlock $block)
     {
-        $form  = $this->getServiceManager()->get('playgroundcms_block_form');
+        $form  = $this->serviceLocator->get('playgroundcms_block_form');
         $form->setHydrator(new ClassMethods());
         $form->bind($block);
         $form->setData($data);
@@ -92,7 +103,7 @@ class Block extends EventProvider implements ServiceManagerAwareInterface
     public function getBlockMapper()
     {
         if (null === $this->blockMapper) {
-            $this->blockMapper = $this->getServiceManager()->get('PlaygroundCms_block_mapper');
+            $this->blockMapper = $this->serviceLocator->get('PlaygroundCms_block_mapper');
         }
 
         return $this->blockMapper;
@@ -115,7 +126,7 @@ class Block extends EventProvider implements ServiceManagerAwareInterface
     public function getOptions()
     {
         if (!$this->options) {
-            $this->setOptions($this->getServiceManager()->get('PlaygroundCms_module_options'));
+            $this->setOptions($this->serviceLocator->get('PlaygroundCms_module_options'));
         }
 
         return $this->options;
@@ -127,28 +138,5 @@ class Block extends EventProvider implements ServiceManagerAwareInterface
     public function setOptions(ModuleOptions $options)
     {
         $this->options = $options;
-    }
-
-    /**
-     * Retrieve service manager instance
-     *
-     * @return ServiceManager
-     */
-    public function getServiceManager()
-    {
-        return $this->serviceManager;
-    }
-
-    /**
-     * Set service manager instance
-     *
-     * @param  ServiceManager $serviceManager
-     * @return Block
-     */
-    public function setServiceManager(ServiceManager $serviceManager)
-    {
-        $this->serviceManager = $serviceManager;
-
-        return $this;
     }
 }

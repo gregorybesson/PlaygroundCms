@@ -4,14 +4,14 @@ namespace PlaygroundCms\Service;
 
 use PlaygroundCms\Entity\Slideshow as SlideshowEntity;
 use Zend\Form\Form;
-use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Validator\NotEmpty;
 use ZfcBase\EventManager\EventProvider;
 use DoctrineModule\Validator\NoObjectExists as NoObjectExistsValidator;
 use Zend\Stdlib\ErrorHandler;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
-class Slideshow extends EventProvider implements ServiceManagerAwareInterface
+class Slideshow extends EventProvider
 {
 
     const SLIDESHOW_INACTIVE = 0;
@@ -27,11 +27,6 @@ class Slideshow extends EventProvider implements ServiceManagerAwareInterface
     protected $slideshowMapper;
 
     /**
-     * @var ServiceManager
-     */
-    protected $serviceManager;
-
-    /**
      * drive path to game media files
      */
     protected $media_path = 'public/media/slideshow';
@@ -42,6 +37,18 @@ class Slideshow extends EventProvider implements ServiceManagerAwareInterface
     protected $media_url = 'media/slideshow';
 
     protected $config = array();
+
+    /**
+     *
+     * @var ServiceManager
+     */
+    protected $serviceLocator;
+
+    public function __construct(ServiceLocatorInterface $locator)
+    {
+        $this->serviceLocator = $locator;
+    }
+
     /**
      *
      * This service is ready for create a slideshow
@@ -55,7 +62,7 @@ class Slideshow extends EventProvider implements ServiceManagerAwareInterface
     {
         $slideshow = new slideshowEntity();
 
-        $form = $this->getServiceManager()->get('playgroundcms_slideshow_form');
+        $form = $this->serviceLocator->get('playgroundcms_slideshow_form');
         $form->bind($slideshow);
         $form->setData($data);
 
@@ -81,7 +88,7 @@ class Slideshow extends EventProvider implements ServiceManagerAwareInterface
      */
     public function edit(array $data, $slideshow)
     {
-        $form  = $this->getServiceManager()->get('playgroundcms_slideshow_form');
+        $form  = $this->serviceLocator->get('playgroundcms_slideshow_form');
 
         $form->bind($slideshow);
         $form->setData($data);
@@ -186,7 +193,7 @@ class Slideshow extends EventProvider implements ServiceManagerAwareInterface
     public function getSlideshowMapper()
     {
         if (null === $this->slideshowMapper) {
-            $this->slideshowMapper = $this->getServiceManager()->get('playgroundcms_slideshow_mapper');
+            $this->slideshowMapper = $this->serviceLocator->get('playgroundcms_slideshow_mapper');
         }
 
         return $this->slideshowMapper;
@@ -201,31 +208,6 @@ class Slideshow extends EventProvider implements ServiceManagerAwareInterface
     public function setSlideshowMapper($slideshowMapper)
     {
         $this->slideshowMapper = $slideshowMapper;
-
-        return $this;
-    }
-
-   
-
-    /**
-     * Retrieve service manager instance
-     *
-     * @return ServiceManager
-     */
-    public function getServiceManager()
-    {
-        return $this->serviceManager;
-    }
-
-    /**
-     * Set service manager instance
-     *
-     * @param  ServiceManager $serviceManager
-     * @return User
-     */
-    public function setServiceManager(ServiceManager $serviceManager)
-    {
-        $this->serviceManager = $serviceManager;
 
         return $this;
     }
@@ -263,7 +245,7 @@ class Slideshow extends EventProvider implements ServiceManagerAwareInterface
     public function getConfigParam($configParam = '')
     {
         if (!$this->config) {
-            $config = $this->getServiceManager()->get('config');
+            $config = $this->serviceLocator->get('config');
             if (isset($config['video_processing'])) {
                 $this->config = $config['video_processing'];
             }

@@ -79,6 +79,20 @@ return array(
         ),
     ),
 
+    'service_manager' => array(
+        'aliases' => array(
+            'playgroundcms_doctrine_em' => 'doctrine.entitymanager.orm_default',
+            'playgroundcms_zend_db_adapter' => 'Zend\Db\Adapter\Adapter',
+        ),
+        'factories' => array(
+            'playgroundcms_block_service'     => 'PlaygroundCms\Service\BlockFactory',
+            'playgroundcms_dynablock_service' => 'PlaygroundCms\Service\DynablockFactory',
+            'playgroundcms_page_service'      => 'PlaygroundCms\Service\PageFactory',
+            'playgroundcms_slideshow_service' => 'PlaygroundCms\Service\SlideshowFactory',
+            'playgroundcms_slide_service'     => 'PlaygroundCms\Service\SlideFactory',
+        ),
+    ),
+
     'dynacms' => array(
         // 'dynablocks' => array(
         //     array(

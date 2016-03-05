@@ -4,14 +4,14 @@ namespace PlaygroundCms\Service;
 
 use PlaygroundCms\Entity\Slide as SlideEntity;
 use Zend\Form\Form;
-use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Validator\NotEmpty;
 use ZfcBase\EventManager\EventProvider;
 use DoctrineModule\Validator\NoObjectExists as NoObjectExistsValidator;
 use Zend\Stdlib\ErrorHandler;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
-class Slide extends EventProvider implements ServiceManagerAwareInterface
+class Slide extends EventProvider
 {
 
     const SLIDE_INACTIVE = 0;
@@ -42,6 +42,18 @@ class Slide extends EventProvider implements ServiceManagerAwareInterface
     protected $media_url = 'media/slide';
 
     protected $config = array();
+
+    /**
+     *
+     * @var ServiceManager
+     */
+    protected $serviceLocator;
+
+    public function __construct(ServiceLocatorInterface $locator)
+    {
+        $this->serviceLocator = $locator;
+    }
+
     /**
      *
      * This service is ready for create a slide
@@ -54,9 +66,9 @@ class Slide extends EventProvider implements ServiceManagerAwareInterface
     public function create(array $data)
     {
         $slide = new slideEntity();
-        $slideshow = $this->getServiceManager()->get('playgroundcms_slideshow_mapper')->findById($data['slideshowId']);
+        $slideshow = $this->serviceLocator->get('playgroundcms_slideshow_mapper')->findById($data['slideshowId']);
 
-        $form = $this->getServiceManager()->get('playgroundcms_slide_form');
+        $form = $this->serviceLocator->get('playgroundcms_slide_form');
         $form->bind($slide);
         $form->setData($data);
 
@@ -83,7 +95,7 @@ class Slide extends EventProvider implements ServiceManagerAwareInterface
      */
     public function edit(array $data, $slide)
     {
-        $form  = $this->getServiceManager()->get('playgroundcms_slide_form');
+        $form  = $this->serviceLocator->get('playgroundcms_slide_form');
         $form->bind($slide);
         $form->setData($data);
 
@@ -131,7 +143,7 @@ class Slide extends EventProvider implements ServiceManagerAwareInterface
     public function getSlideMapper()
     {
         if (null === $this->slideMapper) {
-            $this->slideMapper = $this->getServiceManager()->get('playgroundcms_slide_mapper');
+            $this->slideMapper = $this->serviceLocator->get('playgroundcms_slide_mapper');
         }
 
         return $this->slideMapper;
@@ -146,29 +158,6 @@ class Slide extends EventProvider implements ServiceManagerAwareInterface
     public function setSlideMapper($slideMapper)
     {
         $this->slideMapper = $slideMapper;
-
-        return $this;
-    }
-
-    /**
-     * Retrieve service manager instance
-     *
-     * @return ServiceManager
-     */
-    public function getServiceManager()
-    {
-        return $this->serviceManager;
-    }
-
-    /**
-     * Set service manager instance
-     *
-     * @param  ServiceManager $serviceManager
-     * @return User
-     */
-    public function setServiceManager(ServiceManager $serviceManager)
-    {
-        $this->serviceManager = $serviceManager;
 
         return $this;
     }

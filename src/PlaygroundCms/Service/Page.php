@@ -3,7 +3,6 @@
 namespace PlaygroundCms\Service;
 
 use Zend\Form\Form;
-use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Stdlib\Hydrator\ClassMethods;
 use ZfcBase\EventManager\EventProvider;
@@ -12,8 +11,9 @@ use PlaygroundCms\Mapper\PageInterface as PageMapperInterface;
 use PlaygroundCms\Entity\Page as EntityPage;
 use DoctrineModule\Validator\NoObjectExists as NoObjectExistsValidator;
 use Zend\Stdlib\ErrorHandler;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
-class Page extends EventProvider implements ServiceManagerAwareInterface
+class Page extends EventProvider
 {
 
     /**
@@ -31,10 +31,21 @@ class Page extends EventProvider implements ServiceManagerAwareInterface
      */
     protected $options;
 
+    /**
+     *
+     * @var ServiceManager
+     */
+    protected $serviceLocator;
+
+    public function __construct(ServiceLocatorInterface $locator)
+    {
+        $this->serviceLocator = $locator;
+    }
+
     public function create($page, array $data)
     {
-        $entityManager = $this->getServiceManager()->get('doctrine.entitymanager.orm_default');
-        $form  = $this->getServiceManager()->get('playgroundcms_page_form');
+        $entityManager = $this->serviceLocator->get('doctrine.entitymanager.orm_default');
+        $form  = $this->serviceLocator->get('playgroundcms_page_form');
         $form->get('publicationDate')->setOptions(array('format' => 'Y-m-d'));
         $form->get('closeDate')->setOptions(array('format' => 'Y-m-d'));
 
@@ -125,8 +136,8 @@ class Page extends EventProvider implements ServiceManagerAwareInterface
 
     public function edit($page, array $data)
     {
-        $entityManager = $this->getServiceManager()->get('doctrine.entitymanager.orm_default');
-        $form  = $this->getServiceManager()->get('playgroundcms_page_form');
+        $entityManager = $this->serviceLocator->get('doctrine.entitymanager.orm_default');
+        $form  = $this->serviceLocator->get('playgroundcms_page_form');
         $form->get('publicationDate')->setOptions(array('format' => 'Y-m-d'));
         $form->get('closeDate')->setOptions(array('format' => 'Y-m-d'));
         $form->bind($page);
@@ -214,7 +225,7 @@ class Page extends EventProvider implements ServiceManagerAwareInterface
      */
     public function getActivePages($displayHome = true, $category = null)
     {
-        $em = $this->getServiceManager()->get('doctrine.entitymanager.orm_default');
+        $em = $this->serviceLocator->get('doctrine.entitymanager.orm_default');
         $today = new \DateTime("now");
         //$today->format('Y-m-d H:i:s');
         $today = $today->format('Y-m-d') . ' 23:59:59';
@@ -267,7 +278,7 @@ class Page extends EventProvider implements ServiceManagerAwareInterface
      */
     public function getActiveSliderPages()
     {
-        $em = $this->getServiceManager()->get('doctrine.entitymanager.orm_default');
+        $em = $this->serviceLocator->get('doctrine.entitymanager.orm_default');
         $today = new \DateTime("now");
         //$today->format('Y-m-d H:i:s');
         $today = $today->format('Y-m-d') . ' 23:59:59';
@@ -310,7 +321,7 @@ class Page extends EventProvider implements ServiceManagerAwareInterface
     public function getPageMapper()
     {
         if (null === $this->pageMapper) {
-            $this->pageMapper = $this->getServiceManager()->get('playgroundcms_page_mapper');
+            $this->pageMapper = $this->serviceLocator->get('playgroundcms_page_mapper');
         }
 
         return $this->pageMapper;
@@ -339,32 +350,9 @@ class Page extends EventProvider implements ServiceManagerAwareInterface
     public function getOptions()
     {
         if (!$this->options instanceof ModuleOptions) {
-            $this->setOptions($this->getServiceManager()->get('playgroundcms_module_options'));
+            $this->setOptions($this->serviceLocator->get('playgroundcms_module_options'));
         }
 
         return $this->options;
-    }
-
-    /**
-     * Retrieve service manager instance
-     *
-     * @return ServiceManager
-     */
-    public function getServiceManager()
-    {
-        return $this->serviceManager;
-    }
-
-    /**
-     * Set service manager instance
-     *
-     * @param  ServiceManager $serviceManager
-     * @return Game
-     */
-    public function setServiceManager(ServiceManager $serviceManager)
-    {
-        $this->serviceManager = $serviceManager;
-
-        return $this;
     }
 }
