@@ -5,6 +5,7 @@ namespace PlaygroundCms\Controller\Admin;
 //use PlaygroundCms\Service\Link as AdminLinkService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 class LinkController extends AbstractActionController
 {
@@ -15,6 +16,22 @@ class LinkController extends AbstractActionController
      * @var UserService
      */
     protected $adminLinkService;
+
+    /**
+     *
+     * @var ServiceManager
+     */
+    protected $serviceLocator;
+
+    public function __construct(ServiceLocatorInterface $locator)
+    {
+        $this->serviceLocator = $locator;
+    }
+
+    public function getServiceLocator()
+    {
+        return $this->serviceLocator;
+    }
 
     public function listAction()
     {

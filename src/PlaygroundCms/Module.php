@@ -56,19 +56,6 @@ class Module
     public function getServiceConfig()
     {
         return array(
-            'aliases' => array(
-                'playgroundcms_doctrine_em' => 'doctrine.entitymanager.orm_default',
-                'playgroundcms_zend_db_adapter' => 'Zend\Db\Adapter\Adapter',
-            ),
-
-            'invokables' => array(
-                'playgroundcms_block_service'     => 'PlaygroundCms\Service\Block',
-                'playgroundcms_dynablock_service' => 'PlaygroundCms\Service\Dynablock',
-                'playgroundcms_page_service'      => 'PlaygroundCms\Service\Page',
-                'playgroundcms_slideshow_service' => 'PlaygroundCms\Service\Slideshow',
-                'playgroundcms_slide_service'     => 'PlaygroundCms\Service\Slide',
-            ),
-
             'factories' => array(
                 'playgroundcms_module_options' => function ($sm) {
                     $config = $sm->get('Configuration');

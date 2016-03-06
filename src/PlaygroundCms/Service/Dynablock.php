@@ -2,15 +2,15 @@
 
 namespace PlaygroundCms\Service;
 
-use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
 use ZfcBase\EventManager\EventProvider;
 use Zend\Stdlib\Hydrator\ClassMethods;
 use PlaygroundCms\Mapper\DynablockInterface as DynablockMapperInterface;
 use PlaygroundCms\Options\ModuleOptions;
 use PlaygroundCms\Entity\Dynablock as EntityDynablock;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
-class Dynablock extends EventProvider implements ServiceManagerAwareInterface
+class Dynablock extends EventProvider
 {
     /**
      * @var DynablockMapperInterface
@@ -39,9 +39,20 @@ class Dynablock extends EventProvider implements ServiceManagerAwareInterface
      */
     protected $options;
 
+    /**
+     *
+     * @var ServiceManager
+     */
+    protected $serviceLocator;
+
+    public function __construct(ServiceLocatorInterface $locator)
+    {
+        $this->serviceLocator = $locator;
+    }
+
     public function create(array $data, EntityDynablock $dynablock)
     {
-        $form  = $this->getServiceManager()->get('playgroundcms_dynablock_form');
+        $form  = $this->serviceLocator->get('playgroundcms_dynablock_form');
         //$form->setHydrator(new ClassMethods());
         $form->bind($dynablock);
         $form->setData($data);
@@ -86,7 +97,7 @@ class Dynablock extends EventProvider implements ServiceManagerAwareInterface
 
     public function edit(array $data, EntityDynablock $dynablock)
     {
-        $form  = $this->getServiceManager()->get('playgroundcms_dynablock_form');
+        $form  = $this->serviceLocator->get('playgroundcms_dynablock_form');
         $form->setHydrator(new ClassMethods());
         $form->bind($dynablock);
         $form->setData($data);
@@ -117,9 +128,9 @@ class Dynablock extends EventProvider implements ServiceManagerAwareInterface
     public function getDynareas()
     {
         if ($this->dynareas == null) {
-            $config = $this->getServiceManager()->get('Config');
+            $config = $this->serviceLocator->get('Config');
             $dynareas = isset($config['dynacms']['dynareas']) ? $config['dynacms']['dynareas'] : null;
-            $results = $this->getServiceManager()->get('application')->getEventManager()->trigger(
+            $results = $this->serviceLocator->get('application')->getEventManager()->trigger(
                 __FUNCTION__,
                 $this,
                 array('dynareas' => $dynareas)
@@ -142,7 +153,7 @@ class Dynablock extends EventProvider implements ServiceManagerAwareInterface
     {
         if ($this->dynablocks == null) {
             $dynablocks = array();
-            $config = $this->getServiceManager()->get('Config');
+            $config = $this->serviceLocator->get('Config');
 
             // Dynablocks described by config
             $dynablocksConfig = isset($config['dynacms']['dynablocks']) ? $config['dynacms']['dynablocks'] : null;
@@ -169,7 +180,7 @@ class Dynablock extends EventProvider implements ServiceManagerAwareInterface
             }
 
             // Dynablocks exposed via listener
-            $results = $this->getServiceManager()->get('application')->getEventManager()->trigger(
+            $results = $this->serviceLocator->get('application')->getEventManager()->trigger(
                 __FUNCTION__,
                 $this,
                 array('dynablocks' => $dynablocks)
@@ -191,7 +202,7 @@ class Dynablock extends EventProvider implements ServiceManagerAwareInterface
     public function getDynablockMapper()
     {
         if (null === $this->dynablockMapper) {
-            $this->dynablockMapper = $this->getServiceManager()->get('PlaygroundCms_dynablock_mapper');
+            $this->dynablockMapper = $this->serviceLocator->get('PlaygroundCms_dynablock_mapper');
         }
 
         return $this->dynablockMapper;
@@ -214,7 +225,7 @@ class Dynablock extends EventProvider implements ServiceManagerAwareInterface
     public function getBlockMapper()
     {
         if (null === $this->blockMapper) {
-            $this->blockMapper = $this->getServiceManager()->get('PlaygroundCms_block_mapper');
+            $this->blockMapper = $this->serviceLocator->get('PlaygroundCms_block_mapper');
         }
 
         return $this->blockMapper;
@@ -237,7 +248,7 @@ class Dynablock extends EventProvider implements ServiceManagerAwareInterface
     public function getOptions()
     {
         if (!$this->options) {
-            $this->setOptions($this->getServiceManager()->get('PlaygroundCms_module_options'));
+            $this->setOptions($this->serviceLocator->get('PlaygroundCms_module_options'));
         }
 
         return $this->options;
@@ -249,28 +260,5 @@ class Dynablock extends EventProvider implements ServiceManagerAwareInterface
     public function setOptions(ModuleOptions $options)
     {
         $this->options = $options;
-    }
-
-    /**
-     * Retrieve service manager instance
-     *
-     * @return ServiceManager
-     */
-    public function getServiceManager()
-    {
-        return $this->serviceManager;
-    }
-
-    /**
-     * Set service manager instance
-     *
-     * @param  ServiceManager $serviceManager
-     * @return Block
-     */
-    public function setServiceManager(ServiceManager $serviceManager)
-    {
-        $this->serviceManager = $serviceManager;
-
-        return $this;
     }
 }

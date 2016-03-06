@@ -5,6 +5,7 @@ namespace PlaygroundCms\Controller\Admin;
 use PlaygroundCms\Service\Page as AdminPageService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 class PageController extends AbstractActionController
 {
@@ -15,6 +16,22 @@ class PageController extends AbstractActionController
      * @var UserService
      */
     protected $adminPageService;
+
+    /**
+     *
+     * @var ServiceManager
+     */
+    protected $serviceLocator;
+
+    public function __construct(ServiceLocatorInterface $locator)
+    {
+        $this->serviceLocator = $locator;
+    }
+
+    public function getServiceLocator()
+    {
+        return $this->serviceLocator;
+    }
 
     public function listAction()
     {
