@@ -42,6 +42,11 @@ class Page extends EventProvider
         $this->serviceLocator = $locator;
     }
 
+    public function getServiceManager()
+    {
+        return $this->serviceLocator;
+    }
+    
     public function create($page, array $data)
     {
         $entityManager = $this->serviceLocator->get('doctrine.entitymanager.orm_default');

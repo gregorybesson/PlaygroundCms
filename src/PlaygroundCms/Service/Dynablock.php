@@ -50,6 +50,11 @@ class Dynablock extends EventProvider
         $this->serviceLocator = $locator;
     }
 
+    public function getServiceManager()
+    {
+        return $this->serviceLocator;
+    }
+
     public function create(array $data, EntityDynablock $dynablock)
     {
         $form  = $this->serviceLocator->get('playgroundcms_dynablock_form');

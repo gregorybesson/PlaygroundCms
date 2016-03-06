@@ -43,6 +43,11 @@ class Block extends EventProvider
         $this->serviceLocator = $locator;
     }
 
+    public function getServiceManager()
+    {
+        return $this->serviceLocator;
+    }
+
     public function create(array $data, EntityBlock $block)
     {
         $form  = $this->serviceLocator->get('playgroundcms_block_form');
