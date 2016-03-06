@@ -49,6 +49,11 @@ class Slideshow extends EventProvider
         $this->serviceLocator = $locator;
     }
 
+    public function getServiceManager()
+    {
+        return $this->serviceLocator;
+    }
+    
     /**
      *
      * This service is ready for create a slideshow
