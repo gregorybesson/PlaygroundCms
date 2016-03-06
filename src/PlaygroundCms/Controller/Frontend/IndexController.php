@@ -4,11 +4,27 @@ namespace PlaygroundCms\Controller\Frontend;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 class IndexController extends AbstractActionController
 {
     protected $pageService;
     protected $options;
+    /**
+     *
+     * @var ServiceManager
+     */
+    protected $serviceLocator;
+
+    public function __construct(ServiceLocatorInterface $locator)
+    {
+        $this->serviceLocator = $locator;
+    }
+
+    public function getServiceLocator()
+    {
+        return $this->serviceLocator;
+    }
 
     public function indexAction()
     {

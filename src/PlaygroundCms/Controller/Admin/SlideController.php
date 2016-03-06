@@ -4,12 +4,29 @@ namespace PlaygroundCms\Controller\Admin;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 class SlideController extends AbstractActionController
 {
     protected $slideService;
     protected $slideshowService;
     protected $slideForm;
+
+    /**
+     *
+     * @var ServiceManager
+     */
+    protected $serviceLocator;
+
+    public function __construct(ServiceLocatorInterface $locator)
+    {
+        $this->serviceLocator = $locator;
+    }
+
+    public function getServiceLocator()
+    {
+        return $this->serviceLocator;
+    }
 
     public function createAction()
     {

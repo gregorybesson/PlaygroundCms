@@ -69,13 +69,13 @@ return array(
     ),
 
     'controllers' => array(
-        'invokables' => array(
-            'playgroundcms'                  => 'PlaygroundCms\Controller\Frontend\IndexController',
-            'playgroundcmsadminpage'         => 'PlaygroundCms\Controller\Admin\PageController',
-            'playgroundcmsadminblock'        => 'PlaygroundCms\Controller\Admin\BlockController',
-            'playgroundcmsadmindynablock'    => 'PlaygroundCms\Controller\Admin\DynablockController',
-            'playgroundcms_admin_slideshow'  => 'PlaygroundCms\Controller\Admin\SlideshowController',
-            'playgroundcms_admin_slide'      => 'PlaygroundCms\Controller\Admin\SlideController',
+        'factories' => array(
+            'playgroundcms'                  => 'PlaygroundCms\Service\Factory\FrontendIndexControllerFactory',
+            'playgroundcmsadminpage'         => 'PlaygroundCms\Service\Factory\AdminPageControllerFactory',
+            'playgroundcmsadminblock'        => 'PlaygroundCms\Service\Factory\AdminBlockControllerFactory',
+            'playgroundcmsadmindynablock'    => 'PlaygroundCms\Service\Factory\AdminDynablockControllerFactory',
+            'playgroundcms_admin_slideshow'  => 'PlaygroundCms\Service\Factory\AdminSlideshowControllerFactory',
+            'playgroundcms_admin_slide'      => 'PlaygroundCms\Service\Factory\AdminSlideControllerFactory',
         ),
     ),
 
@@ -85,11 +85,11 @@ return array(
             'playgroundcms_zend_db_adapter' => 'Zend\Db\Adapter\Adapter',
         ),
         'factories' => array(
-            'playgroundcms_block_service'     => 'PlaygroundCms\Service\BlockFactory',
-            'playgroundcms_dynablock_service' => 'PlaygroundCms\Service\DynablockFactory',
-            'playgroundcms_page_service'      => 'PlaygroundCms\Service\PageFactory',
-            'playgroundcms_slideshow_service' => 'PlaygroundCms\Service\SlideshowFactory',
-            'playgroundcms_slide_service'     => 'PlaygroundCms\Service\SlideFactory',
+            'playgroundcms_block_service'     => 'PlaygroundCms\Service\Factory\BlockFactory',
+            'playgroundcms_dynablock_service' => 'PlaygroundCms\Service\Factory\DynablockFactory',
+            'playgroundcms_page_service'      => 'PlaygroundCms\Service\Factory\PageFactory',
+            'playgroundcms_slideshow_service' => 'PlaygroundCms\Service\Factory\SlideshowFactory',
+            'playgroundcms_slide_service'     => 'PlaygroundCms\Service\Factory\SlideFactory',
         ),
     ),
 
