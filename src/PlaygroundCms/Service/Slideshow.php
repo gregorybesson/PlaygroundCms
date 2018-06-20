@@ -13,6 +13,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class Slideshow
 {
+    use EventManagerAwareTrait;
 
     const SLIDESHOW_INACTIVE = 0;
     const SLIDESHOW_ACTIVE = 1;
