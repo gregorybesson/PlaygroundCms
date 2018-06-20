@@ -3,15 +3,17 @@
 namespace PlaygroundCms\Service;
 
 use Zend\ServiceManager\ServiceManager;
-use ZfcBase\EventManager\EventProvider;
+use Zend\EventManager\EventManagerAwareTrait;
 use Zend\Stdlib\Hydrator\ClassMethods;
 use PlaygroundCms\Mapper\BlockInterface as BlockMapperInterface;
 use PlaygroundCms\Options\ModuleOptions;
 use PlaygroundCms\Entity\Block as EntityBlock;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class Block extends EventProvider
+class Block
 {
+    use EventManagerAwareTrait;
+
     /**
      * @var BlockMapperInterface
      */

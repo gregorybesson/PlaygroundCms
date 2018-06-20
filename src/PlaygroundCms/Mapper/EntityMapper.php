@@ -3,7 +3,7 @@
 namespace PlaygroundCms\Mapper;
 
 use Doctrine\ORM\EntityManager;
-use ZfcBase\Mapper\AbstractDbMapper;
+
 use PlaygroundCms\Options\ModuleOptions;
 
 class EntityMapper

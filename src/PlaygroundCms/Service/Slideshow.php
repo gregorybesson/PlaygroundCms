@@ -6,12 +6,12 @@ use PlaygroundCms\Entity\Slideshow as SlideshowEntity;
 use Zend\Form\Form;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Validator\NotEmpty;
-use ZfcBase\EventManager\EventProvider;
+use Zend\EventManager\EventManagerAwareTrait;
 use DoctrineModule\Validator\NoObjectExists as NoObjectExistsValidator;
 use Zend\Stdlib\ErrorHandler;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class Slideshow extends EventProvider
+class Slideshow
 {
 
     const SLIDESHOW_INACTIVE = 0;

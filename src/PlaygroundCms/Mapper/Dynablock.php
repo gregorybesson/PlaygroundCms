@@ -3,11 +3,11 @@
 namespace PlaygroundCms\Mapper;
 
 use Doctrine\ORM\EntityManager;
-use ZfcBase\Mapper\AbstractDbMapper;
+
 use PlaygroundCms\Options\ModuleOptions;
 use Zend\Stdlib\Hydrator\HydratorInterface;
 
-class Dynablock extends AbstractDbMapper implements DynablockInterface
+class Dynablock implements DynablockInterface
 {
 
     /**

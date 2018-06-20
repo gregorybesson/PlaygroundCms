@@ -5,7 +5,7 @@ namespace PlaygroundCms\Service;
 use Zend\Form\Form;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Stdlib\Hydrator\ClassMethods;
-use ZfcBase\EventManager\EventProvider;
+use Zend\EventManager\EventManagerAwareTrait;
 use PlaygroundCms\Options\ModuleOptions;
 use PlaygroundCms\Mapper\PageInterface as PageMapperInterface;
 use PlaygroundCms\Entity\Page as EntityPage;
@@ -13,8 +13,9 @@ use DoctrineModule\Validator\NoObjectExists as NoObjectExistsValidator;
 use Zend\Stdlib\ErrorHandler;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class Page extends EventProvider
+class Page
 {
+    use EventManagerAwareTrait;
 
     /**
      * @var PageMapperInterface
