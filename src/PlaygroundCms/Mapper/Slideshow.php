@@ -3,7 +3,7 @@
 namespace PlaygroundCms\Mapper;
 
 use Doctrine\ORM\EntityManager;
-use ZfcBase\Mapper\AbstractDbMapper;
+
 
 class Slideshow extends EntityMapper
 {

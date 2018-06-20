@@ -6,13 +6,14 @@ use PlaygroundCms\Entity\Slide as SlideEntity;
 use Zend\Form\Form;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Validator\NotEmpty;
-use ZfcBase\EventManager\EventProvider;
+use Zend\EventManager\EventManagerAwareTrait;
 use DoctrineModule\Validator\NoObjectExists as NoObjectExistsValidator;
 use Zend\Stdlib\ErrorHandler;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class Slide extends EventProvider
+class Slide
 {
+    use EventManagerAwareTrait;
 
     const SLIDE_INACTIVE = 0;
     const SLIDE_ACTIVE = 1;

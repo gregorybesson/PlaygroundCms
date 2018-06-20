@@ -3,15 +3,17 @@
 namespace PlaygroundCms\Service;
 
 use Zend\ServiceManager\ServiceManager;
-use ZfcBase\EventManager\EventProvider;
+use Zend\EventManager\EventManagerAwareTrait;
 use Zend\Stdlib\Hydrator\ClassMethods;
 use PlaygroundCms\Mapper\DynablockInterface as DynablockMapperInterface;
 use PlaygroundCms\Options\ModuleOptions;
 use PlaygroundCms\Entity\Dynablock as EntityDynablock;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class Dynablock extends EventProvider
+class Dynablock
 {
+    use EventManagerAwareTrait;
+
     /**
      * @var DynablockMapperInterface
      */
