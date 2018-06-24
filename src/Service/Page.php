@@ -4,7 +4,7 @@ namespace PlaygroundCms\Service;
 
 use Zend\Form\Form;
 use Zend\ServiceManager\ServiceManager;
-use Zend\Stdlib\Hydrator\ClassMethods;
+use Zend\Hydrator\ClassMethods;
 use Zend\EventManager\EventManagerAwareTrait;
 use PlaygroundCms\Options\ModuleOptions;
 use PlaygroundCms\Mapper\PageInterface as PageMapperInterface;
@@ -12,6 +12,7 @@ use PlaygroundCms\Entity\Page as EntityPage;
 use DoctrineModule\Validator\NoObjectExists as NoObjectExistsValidator;
 use Zend\Stdlib\ErrorHandler;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\EventManager\EventManager;
 
 class Page
 {
@@ -37,6 +38,8 @@ class Page
      * @var ServiceManager
      */
     protected $serviceLocator;
+
+    protected $event;
 
     public function __construct(ServiceLocatorInterface $locator)
     {
@@ -360,5 +363,15 @@ class Page
         }
 
         return $this->options;
+    }
+
+    public function getEventManager()
+    {
+        if ($this->event === NULL) {
+            $this->event = new EventManager(
+                $this->serviceLocator->get('SharedEventManager'), [get_class($this)]
+            );
+        }
+        return $this->event;
     }
 }

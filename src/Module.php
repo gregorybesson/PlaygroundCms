@@ -17,14 +17,14 @@ class Module
 
 
         $options = $serviceManager->get('playgroundcore_module_options');
-        $translator = $serviceManager->get('translator');
+        $translator = $serviceManager->get('MvcTranslator');
         $locale = $options->getLocale();
         if (!empty($locale)) {
             //translator
             $translator->setLocale($locale);
 
             // plugins
-            $translate = $serviceManager->get('viewhelpermanager')->get('translate');
+            $translate = $serviceManager->get('ViewHelperManager')->get('translate');
             $translate->getTranslator()->setLocale($locale);
         }
 
@@ -33,21 +33,7 @@ class Module
 
     public function getConfig()
     {
-        return include __DIR__ . '/../../config/module.config.php';
-    }
-
-    public function getAutoloaderConfig()
-    {
-        return array(
-            /*'Zend\Loader\ClassMapAutoloader' => array(
-                __DIR__ . '/autoload_classmap.php',
-            ),*/
-            'Zend\Loader\StandardAutoloader' => array(
-                'namespaces' => array(
-                    __NAMESPACE__ => __DIR__ . '/../../src/' . __NAMESPACE__,
-                ),
-            ),
-        );
+        return include __DIR__ . '/../config/module.config.php';
     }
 
     /**
@@ -77,6 +63,7 @@ class Module
                         $sm->get('playgroundcms_module_options')
                     );
                     $mapper->setHydrator($sm->get('playgroundcms_page_hydrator'));
+                    $mapper->setEventManager($sm->get('SharedEventManager'));
 
                     return $mapper;
                 },
@@ -93,6 +80,7 @@ class Module
                         $sm->get('playgroundcms_module_options')
                     );
                     $mapper->setHydrator($sm->get('playgroundcms_block_hydrator'));
+                    $mapper->setEventManager($sm->get('SharedEventManager'));
 
                     return $mapper;
                 },
@@ -102,12 +90,13 @@ class Module
                         $sm->get('playgroundcms_doctrine_em'),
                         $sm->get('playgroundcms_module_options')
                     );
+                    $mapper->setEventManager($sm->get('SharedEventManager'));
 
                     return $mapper;
                 },
 
                 'playgroundcms_page_form' => function ($sm) {
-                    $translator = $sm->get('translator');
+                    $translator = $sm->get('MvcTranslator');
                     $form = new Form\Admin\Page(null, $sm, $translator);
                     $page = new Entity\Page();
                     $form->setInputFilter($page->getInputFilter());
@@ -116,21 +105,21 @@ class Module
                 },
 
                 'playgroundcms_block_form' => function ($sm) {
-                    $translator = $sm->get('translator');
+                    $translator = $sm->get('MvcTranslator');
                     $form = new Form\Admin\Block(null, $translator);
 
                     return $form;
                 },
 
                 'playgroundcms_dynablock_form' => function ($sm) {
-                    $translator = $sm->get('translator');
+                    $translator = $sm->get('MvcTranslator');
                     $form = new Form\Admin\Dynablock(null, $translator);
 
                     return $form;
                 },
 
                 'playgroundcms_slideshow_form' => function ($sm) {
-                    $translator = $sm->get('translator');
+                    $translator = $sm->get('MvcTranslator');
                     $form = new Form\Admin\Slideshow(null, $sm, $translator);
 
                     return $form;
@@ -145,7 +134,7 @@ class Module
                 },
 
                 'playgroundcms_slide_form' => function ($sm) {
-                    $translator = $sm->get('translator');
+                    $translator = $sm->get('MvcTranslator');
                     $form = new Form\Admin\Slide(null, $sm, $translator);
 
                     return $form;
@@ -170,21 +159,22 @@ class Module
         return array(
             'factories' => array(
                 'blockWidget' => function ($sm) {
-                    $blockMapper = $sm->getServiceLocator()->get('playgroundcms_block_mapper');
+                    $blockMapper = $sm->get('playgroundcms_block_mapper');
                     
                     return new \PlaygroundCms\View\Helper\Block($blockMapper);
                 },
                 'dynablockWidget' => function ($sm) {
-                    $dynablockMapper = $sm->getServiceLocator()->get('playgroundcms_dynablock_mapper');
+                    $dynablockMapper = $sm->get('playgroundcms_dynablock_mapper');
 
                     return new \PlaygroundCms\View\Helper\Dynablock($dynablockMapper);
                 },
                 // This admin navigation layer gives the authentication layer based on BjyAuthorize ;)
                 'adminMenu' => function ($sm) {
-                    $nav = $sm->get('navigation')->menu('admin_navigation');
-                    $serviceLocator = $sm->getServiceLocator();
-                    $acl = $serviceLocator->get('BjyAuthorize\Service\Authorize')->getAcl();
-                    $role = $serviceLocator->get('BjyAuthorize\Service\Authorize')->getIdentity();
+
+                    $helperPluginManager = $sm->get('ViewHelperManager');
+                    $nav = $helperPluginManager->get('navigation')->menu('admin_navigation');
+                    $acl = $sm->get('BjyAuthorize\Service\Authorize')->getAcl();
+                    $role = $sm->get('BjyAuthorize\Service\Authorize')->getIdentity();
                     $nav->setAcl($acl)
                     ->setRole($role)
                     ->setUseAcl()
@@ -195,7 +185,7 @@ class Module
                     return $nav;
                 },
                 'slideshowWidget' => function ($sm) {
-                    $slideshowService = $sm->getServiceLocator()->get('playgroundcms_slideshow_service');
+                    $slideshowService = $sm->get('playgroundcms_slideshow_service');
                     
                     return new \PlaygroundCms\View\Helper\Slideshow($slideshowService);
                 }

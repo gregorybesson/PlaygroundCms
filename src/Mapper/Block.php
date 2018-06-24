@@ -5,10 +5,12 @@ namespace PlaygroundCms\Mapper;
 use Doctrine\ORM\EntityManager;
 
 use PlaygroundCms\Options\ModuleOptions;
-use Zend\Stdlib\Hydrator\HydratorInterface;
+use Zend\Hydrator\HydratorInterface;
+use Zend\EventManager\EventManager;
 
-class Dynablock implements DynablockInterface
+class Block implements BlockInterface
 {
+    protected $tableName  = 'cms_block';
 
     /**
      * @var \Doctrine\ORM\EntityManager
@@ -20,15 +22,40 @@ class Dynablock implements DynablockInterface
      */
     protected $options;
 
+    protected $hydrator;
+
+    protected $event;
+
     public function __construct(EntityManager $em, ModuleOptions $options)
     {
         $this->em      = $em;
         $this->options = $options;
     }
 
+    /**
+     * @return HydratorInterface
+     */
+    public function getHydrator()
+    {
+        if (!$this->hydrator) {
+            $this->hydrator = new ClassMethods(false);
+        }
+        return $this->hydrator;
+    }
+
+    /**
+     * @param HydratorInterface $hydrator
+     * @return AbstractDbMapper
+     */
+    public function setHydrator(HydratorInterface $hydrator)
+    {
+        $this->hydrator = $hydrator;
+        return $this;
+    }
+
     public function findAll()
     {
-        $er = $this->em->getRepository($this->options->getDynablockEntityClass());
+        $er = $this->em->getRepository($this->options->getBlockEntityClass());
 
         return $er->findAll();
     }
@@ -39,7 +66,7 @@ class Dynablock implements DynablockInterface
      */
     public function findById($id)
     {
-        $er = $this->em->getRepository($this->options->getDynablockEntityClass());
+        $er = $this->em->getRepository($this->options->getBlockEntityClass());
         $entity = $er->find($id);
 
         $this->getEventManager()->trigger('find', $this, array('entity' => $entity));
@@ -53,42 +80,12 @@ class Dynablock implements DynablockInterface
      */
     public function findByIdentifier($identifier)
     {
-        $er = $this->em->getRepository($this->options->getDynablockEntityClass());
+        $er = $this->em->getRepository($this->options->getBlockEntityClass());
         $entity = $er->findOneBy(array('identifier' => $identifier));
 
+        $this->getEventManager()->trigger('find', $this, array('entity' => $entity));
+
         return $entity;
-    }
-
-    /**
-     * Find entity by integer id or string identifier
-     *
-     * @param $identifier
-     * @return object
-     * @throws \Exception
-     */
-    public function findByDynarea($dynarea)
-    {
-        $er = $this->em->getRepository($this->options->getDynablockEntityClass());
-
-        $entities = $er->findBy(array('dynarea' => $dynarea), array('position' => 'ASC'));
-
-        return $entities;
-    }
-
-    /**
-     *
-     *
-     * @param $identifier
-     * @return object
-     * @throws \Exception
-     */
-    public function findActiveDynablocks()
-    {
-        $er = $this->em->getRepository($this->options->getDynablockEntityClass());
-
-        $entities = $er->findBy(array(), array('is_active' => 'DESC', 'dynarea' => 'ASC'));
-
-        return $entities;
     }
 
     /**
@@ -110,22 +107,21 @@ class Dynablock implements DynablockInterface
 
         return $entity;
     }
-    public function clear($dynarea)
+
+    public function findBy($array)
     {
-        $dynablocks = $this->findByDynarea($dynarea);
+        $er = $this->em->getRepository($this->options->getBlockEntityClass());
 
-        foreach ($dynablocks as $dynablock) {
-            $this->remove($dynablock);
-        }
+        return $er->findBy($array);
+    }
+    
+    public function findAllBy($sortArray = array())
+    {
+        $er = $this->em->getRepository($this->options->getBlockEntityClass());
 
-        return true;
+        return $er->findBy(array(), $sortArray);
     }
 
-    public function remove($entity)
-    {
-        $this->em->remove($entity);
-        $this->em->flush();
-    }
 
     public function insert($entity, $tableName = null, HydratorInterface $hydrator = null)
     {
@@ -136,6 +132,12 @@ class Dynablock implements DynablockInterface
     {
         return $this->persist($entity);
     }
+    
+    public function remove($entity)
+    {
+        $this->em->remove($entity);
+        $this->em->flush();
+    }
 
     protected function persist($entity)
     {
@@ -143,5 +145,17 @@ class Dynablock implements DynablockInterface
         $this->em->flush();
 
         return $entity;
+    }
+
+    public function setEventManager(\Zend\EventManager\SharedEventManager $events)
+    {
+        $this->event = new EventManager($events, [get_class($this)]);
+
+        return $this;
+    }
+
+    public function getEventManager()
+    {
+        return $this->event;
     }
 }

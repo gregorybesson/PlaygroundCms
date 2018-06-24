@@ -116,7 +116,7 @@ return array(
         	'frontend' => array(
         		'child_routes' => array(
 		            'cms' => array(
-		                'type' => 'Zend\Mvc\Router\Http\Segment',
+		                'type' => 'Zend\Router\Http\Segment',
 		                'options' => array(
 		                    'route'    => 'page[/:pid]',
 		                    'defaults' => array(
@@ -139,7 +139,7 @@ return array(
 		                ),
 		            ),
 		            'winner' => array(
-		                'type' => 'Zend\Mvc\Router\Http\Segment',
+		                'type' => 'Zend\Router\Http\Segment',
 		                'options' => array(
 		                    'route'    => 'les-gagnants',
 		                    'defaults' => array(
@@ -177,7 +177,7 @@ return array(
             'admin' => array(
                 'child_routes' => array(
                     'playgroundcmsadmin' => array(
-                        'type' => 'Literal',
+                        'type' => 'Zend\Router\Http\Literal',
                         'priority' => 1000,
                         'options' => array(
                             'route' => '/cms',
@@ -214,7 +214,7 @@ return array(
                                         ),
                                     ),
                                     'create' => array(
-                                        'type' => 'Literal',
+                                        'type' => 'Zend\Router\Http\Literal',
                                         'options' => array(
                                             'route' => '/create',
                                             'defaults' => array(
@@ -269,7 +269,7 @@ return array(
                                         ),
                                     ),
                                     'create' => array(
-                                        'type' => 'Literal',
+                                        'type' => 'Zend\Router\Http\Literal',
                                         'options' => array(
                                             'route' => '/create',
                                             'defaults' => array(

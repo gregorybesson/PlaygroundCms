@@ -4,8 +4,10 @@ namespace PlaygroundCms\Mapper;
 
 use Doctrine\ORM\EntityManager;
 
+use Zend\EventManager\EventManagerInterface;
+use Zend\EventManager\EventManager;
 use PlaygroundCms\Options\ModuleOptions;
-use Zend\Stdlib\Hydrator\HydratorInterface;
+use Zend\Hydrator\HydratorInterface;
 
 class Page implements PageInterface
 {
@@ -21,10 +23,50 @@ class Page implements PageInterface
      */
     protected $options;
 
+    /**
+     * @var EventManagerInterface
+     */
+    protected $event;
+
+    protected $hydrator;
+
     public function __construct(EntityManager $em, ModuleOptions $options)
     {
         $this->em      = $em;
         $this->options = $options;
+    }
+
+    public function setEventManager(\Zend\EventManager\SharedEventManager $events)
+    {
+        $this->event = new EventManager($events, [get_class($this)]);
+
+        return $this;
+    }
+
+    public function getEventManager()
+    {
+        return $this->event;
+    }
+
+    /**
+     * @return HydratorInterface
+     */
+    public function getHydrator()
+    {
+        if (!$this->hydrator) {
+            $this->hydrator = new ClassMethods(false);
+        }
+        return $this->hydrator;
+    }
+
+    /**
+     * @param HydratorInterface $hydrator
+     * @return AbstractDbMapper
+     */
+    public function setHydrator(HydratorInterface $hydrator)
+    {
+        $this->hydrator = $hydrator;
+        return $this;
     }
 
     public function findAll()

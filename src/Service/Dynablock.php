@@ -4,11 +4,12 @@ namespace PlaygroundCms\Service;
 
 use Zend\ServiceManager\ServiceManager;
 use Zend\EventManager\EventManagerAwareTrait;
-use Zend\Stdlib\Hydrator\ClassMethods;
+use Zend\Hydrator\ClassMethods;
 use PlaygroundCms\Mapper\DynablockInterface as DynablockMapperInterface;
 use PlaygroundCms\Options\ModuleOptions;
 use PlaygroundCms\Entity\Dynablock as EntityDynablock;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\EventManager\EventManager;
 
 class Dynablock
 {
@@ -46,6 +47,8 @@ class Dynablock
      * @var ServiceManager
      */
     protected $serviceLocator;
+
+    protected $event;
 
     public function __construct(ServiceLocatorInterface $locator)
     {
@@ -137,7 +140,7 @@ class Dynablock
         if ($this->dynareas == null) {
             $config = $this->serviceLocator->get('Config');
             $dynareas = isset($config['dynacms']['dynareas']) ? $config['dynacms']['dynareas'] : null;
-            $results = $this->serviceLocator->get('application')->getEventManager()->trigger(
+            $results = $this->serviceLocator->get('Application')->getEventManager()->trigger(
                 __FUNCTION__,
                 $this,
                 array('dynareas' => $dynareas)
@@ -164,12 +167,14 @@ class Dynablock
 
             // Dynablocks described by config
             $dynablocksConfig = isset($config['dynacms']['dynablocks']) ? $config['dynacms']['dynablocks'] : null;
-            foreach ($dynablocksConfig as $block) {
-                $d = new \PlaygroundCms\Entity\Dynablock();
-                $d->setTitle($block['title']);
-                $d->setIdentifier($block['identifier']);
-                $d->setType($block['type']);
-                $dynablocks[] = $d;
+            if (is_array($dynablocksConfig)) {
+                foreach ($dynablocksConfig as $block) {
+                    $d = new \PlaygroundCms\Entity\Dynablock();
+                    $d->setTitle($block['title']);
+                    $d->setIdentifier($block['identifier']);
+                    $d->setType($block['type']);
+                    $dynablocks[] = $d;
+                }
             }
 
             // CMS blocks which are "on_call" = dynablock compatible
@@ -187,7 +192,7 @@ class Dynablock
             }
 
             // Dynablocks exposed via listener
-            $results = $this->serviceLocator->get('application')->getEventManager()->trigger(
+            $results = $this->serviceLocator->get('Application')->getEventManager()->trigger(
                 __FUNCTION__,
                 $this,
                 array('dynablocks' => $dynablocks)
@@ -209,7 +214,7 @@ class Dynablock
     public function getDynablockMapper()
     {
         if (null === $this->dynablockMapper) {
-            $this->dynablockMapper = $this->serviceLocator->get('PlaygroundCms_dynablock_mapper');
+            $this->dynablockMapper = $this->serviceLocator->get('playgroundcms_dynablock_mapper');
         }
 
         return $this->dynablockMapper;
@@ -232,7 +237,7 @@ class Dynablock
     public function getBlockMapper()
     {
         if (null === $this->blockMapper) {
-            $this->blockMapper = $this->serviceLocator->get('PlaygroundCms_block_mapper');
+            $this->blockMapper = $this->serviceLocator->get('playgroundcms_block_mapper');
         }
 
         return $this->blockMapper;
@@ -267,5 +272,15 @@ class Dynablock
     public function setOptions(ModuleOptions $options)
     {
         $this->options = $options;
+    }
+
+    public function getEventManager()
+    {
+        if ($this->event === NULL) {
+            $this->event = new EventManager(
+                $this->serviceLocator->get('SharedEventManager'), [get_class($this)]
+            );
+        }
+        return $this->event;
     }
 }
