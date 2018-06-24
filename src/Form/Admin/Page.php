@@ -226,7 +226,7 @@ class Page extends ProvidesEventsForm
     {
         if ($this->event === NULL) {
             $this->event = new EventManager(
-                $serviceManager->get('SharedEventManager'), [get_class($this)]
+                $this->getServiceManager()->get('SharedEventManager'), [get_class($this)]
             );
         }
         return $this->event;
