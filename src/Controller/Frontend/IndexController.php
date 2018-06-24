@@ -74,7 +74,10 @@ class IndexController extends AbstractActionController
             $paginator = $pages;
         }
 
-        return new ViewModel(array( 'pages' => $paginator));
+        $viewModel = new ViewModel(array( 'pages' => $paginator));
+        //$viewModel->setTemplate('playground-cms/index/list');
+
+        return $viewModel;
     }
 
     public function winnerListAction()
@@ -213,6 +216,6 @@ class IndexController extends AbstractActionController
 
     protected function getViewHelper($helperName)
     {
-        return $this->getServiceLocator()->get('viewhelpermanager')->get($helperName);
+        return $this->getServiceLocator()->get('ViewHelperManager')->get($helperName);
     }
 }

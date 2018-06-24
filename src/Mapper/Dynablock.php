@@ -5,11 +5,11 @@ namespace PlaygroundCms\Mapper;
 use Doctrine\ORM\EntityManager;
 
 use PlaygroundCms\Options\ModuleOptions;
-use Zend\Stdlib\Hydrator\HydratorInterface;
+use Zend\Hydrator\HydratorInterface;
+use Zend\EventManager\EventManager;
 
-class Block implements BlockInterface
+class Dynablock implements DynablockInterface
 {
-    protected $tableName  = 'cms_block';
 
     /**
      * @var \Doctrine\ORM\EntityManager
@@ -21,6 +21,8 @@ class Block implements BlockInterface
      */
     protected $options;
 
+    protected $event;
+
     public function __construct(EntityManager $em, ModuleOptions $options)
     {
         $this->em      = $em;
@@ -29,7 +31,7 @@ class Block implements BlockInterface
 
     public function findAll()
     {
-        $er = $this->em->getRepository($this->options->getBlockEntityClass());
+        $er = $this->em->getRepository($this->options->getDynablockEntityClass());
 
         return $er->findAll();
     }
@@ -40,7 +42,7 @@ class Block implements BlockInterface
      */
     public function findById($id)
     {
-        $er = $this->em->getRepository($this->options->getBlockEntityClass());
+        $er = $this->em->getRepository($this->options->getDynablockEntityClass());
         $entity = $er->find($id);
 
         $this->getEventManager()->trigger('find', $this, array('entity' => $entity));
@@ -54,12 +56,42 @@ class Block implements BlockInterface
      */
     public function findByIdentifier($identifier)
     {
-        $er = $this->em->getRepository($this->options->getBlockEntityClass());
+        $er = $this->em->getRepository($this->options->getDynablockEntityClass());
         $entity = $er->findOneBy(array('identifier' => $identifier));
 
-        $this->getEventManager()->trigger('find', $this, array('entity' => $entity));
-
         return $entity;
+    }
+
+    /**
+     * Find entity by integer id or string identifier
+     *
+     * @param $identifier
+     * @return object
+     * @throws \Exception
+     */
+    public function findByDynarea($dynarea)
+    {
+        $er = $this->em->getRepository($this->options->getDynablockEntityClass());
+
+        $entities = $er->findBy(array('dynarea' => $dynarea), array('position' => 'ASC'));
+
+        return $entities;
+    }
+
+    /**
+     *
+     *
+     * @param $identifier
+     * @return object
+     * @throws \Exception
+     */
+    public function findActiveDynablocks()
+    {
+        $er = $this->em->getRepository($this->options->getDynablockEntityClass());
+
+        $entities = $er->findBy(array(), array('is_active' => 'DESC', 'dynarea' => 'ASC'));
+
+        return $entities;
     }
 
     /**
@@ -81,21 +113,22 @@ class Block implements BlockInterface
 
         return $entity;
     }
-
-    public function findBy($array)
+    public function clear($dynarea)
     {
-        $er = $this->em->getRepository($this->options->getBlockEntityClass());
+        $dynablocks = $this->findByDynarea($dynarea);
 
-        return $er->findBy($array);
-    }
-    
-    public function findAllBy($sortArray = array())
-    {
-        $er = $this->em->getRepository($this->options->getBlockEntityClass());
+        foreach ($dynablocks as $dynablock) {
+            $this->remove($dynablock);
+        }
 
-        return $er->findBy(array(), $sortArray);
+        return true;
     }
 
+    public function remove($entity)
+    {
+        $this->em->remove($entity);
+        $this->em->flush();
+    }
 
     public function insert($entity, $tableName = null, HydratorInterface $hydrator = null)
     {
@@ -106,12 +139,6 @@ class Block implements BlockInterface
     {
         return $this->persist($entity);
     }
-    
-    public function remove($entity)
-    {
-        $this->em->remove($entity);
-        $this->em->flush();
-    }
 
     protected function persist($entity)
     {
@@ -119,5 +146,17 @@ class Block implements BlockInterface
         $this->em->flush();
 
         return $entity;
+    }
+
+    public function setEventManager(\Zend\EventManager\SharedEventManager $events)
+    {
+        $this->event = new EventManager($events, [get_class($this)]);
+
+        return $this;
+    }
+
+    public function getEventManager()
+    {
+        return $this->event;
     }
 }

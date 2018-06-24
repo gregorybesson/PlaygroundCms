@@ -4,11 +4,12 @@ namespace PlaygroundCms\Service;
 
 use Zend\ServiceManager\ServiceManager;
 use Zend\EventManager\EventManagerAwareTrait;
-use Zend\Stdlib\Hydrator\ClassMethods;
+use Zend\Hydrator\ClassMethods;
 use PlaygroundCms\Mapper\BlockInterface as BlockMapperInterface;
 use PlaygroundCms\Options\ModuleOptions;
 use PlaygroundCms\Entity\Block as EntityBlock;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\EventManager\EventManager;
 
 class Block
 {
@@ -39,6 +40,8 @@ class Block
      * @var ServiceManager
      */
     protected $serviceLocator;
+
+    protected $event;
 
     public function __construct(ServiceLocatorInterface $locator)
     {
@@ -110,7 +113,7 @@ class Block
     public function getBlockMapper()
     {
         if (null === $this->blockMapper) {
-            $this->blockMapper = $this->serviceLocator->get('PlaygroundCms_block_mapper');
+            $this->blockMapper = $this->serviceLocator->get('playgroundcms_block_mapper');
         }
 
         return $this->blockMapper;
@@ -133,7 +136,7 @@ class Block
     public function getOptions()
     {
         if (!$this->options) {
-            $this->setOptions($this->serviceLocator->get('PlaygroundCms_module_options'));
+            $this->setOptions($this->serviceLocator->get('playgroundcms_module_options'));
         }
 
         return $this->options;
@@ -145,5 +148,15 @@ class Block
     public function setOptions(ModuleOptions $options)
     {
         $this->options = $options;
+    }
+
+    public function getEventManager()
+    {
+        if ($this->event === NULL) {
+            $this->event = new EventManager(
+                $this->serviceLocator->get('SharedEventManager'), [get_class($this)]
+            );
+        }
+        return $this->event;
     }
 }

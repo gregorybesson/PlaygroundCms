@@ -8,10 +8,12 @@ use ZfcUser\Form\ProvidesEventsForm;
 use Zend\Mvc\I18n\Translator;
 use PlaygroundCore\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 use Zend\ServiceManager\ServiceManager;
+use Zend\EventManager\EventManager;
 
 class Page extends ProvidesEventsForm
 {
     protected $serviceManager;
+    protected $event;
 
     public function __construct($name, ServiceManager $sm, Translator $translator)
     {
@@ -207,9 +209,7 @@ class Page extends ProvidesEventsForm
     {
         $categories = array('' => 'No category');
 
-        $results = $this->getServiceManager()
-            ->get('application')
-            ->getEventManager()
+        $results = $this->getEventManager()
             ->trigger(__FUNCTION__, $this, array(
             'categories' => $categories
             ))
@@ -220,6 +220,16 @@ class Page extends ProvidesEventsForm
         }
 
         return $categories;
+    }
+
+    public function getEventManager()
+    {
+        if ($this->event === NULL) {
+            $this->event = new EventManager(
+                $serviceManager->get('SharedEventManager'), [get_class($this)]
+            );
+        }
+        return $this->event;
     }
 
     public function setServiceManager($serviceManager)
