@@ -6,7 +6,7 @@ return array(
             'playgroundcms_entity' => array(
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
                 'cache' => 'array',
-                'paths' => __DIR__ . '/../src/PlaygroundCms/Entity'
+                'paths' => __DIR__ . '/../src/Entity'
             ),
 
             'orm_default' => array(
