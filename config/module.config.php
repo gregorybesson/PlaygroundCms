@@ -515,6 +515,7 @@ return array(
                 'route' => 'admin/playgroundcmsadmin/pages/list',
                 'resource' => 'cms',
                 'privilege' => 'list',
+                'target' => 'nav-icon icon-book-open',
                 'pages' => array(
                     'elfinder' => array(
                         'label' => 'Your media repository',
