@@ -230,6 +230,10 @@ class Slideshow
      */
     public function getMediaPath()
     {
+        if (!is_dir($this->media_path)) {
+            mkdir($this->media_path, 0777, true);
+        }
+
         return $this->media_path;
     }
 
