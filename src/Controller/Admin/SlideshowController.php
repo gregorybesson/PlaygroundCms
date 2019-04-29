@@ -35,10 +35,12 @@ class SlideshowController extends AbstractActionController
         $slideshows = $this->getSlideshowService()->getSlideshows();
 
         $viewModel = new ViewModel();
-        return $viewModel->setVariables(array(
-            'flashMessages'   => $this->flashMessenger()->getMessages(),
-            'slideshows'      => $slideshows,
-        ));
+        return $viewModel->setVariables(
+            array(
+                'flashMessages'   => $this->flashMessenger()->getMessages(),
+                'slideshows'      => $slideshows,
+            )
+        );
     }
 
     public function createAction()
@@ -106,14 +108,16 @@ class SlideshowController extends AbstractActionController
 
         $viewModel = new ViewModel();
 
-        $slides = $this->getSlideService()->getSlideMapper()->findBy(array('slideshow' => $slideshow));
+        $slides = $this->getSlideService()->getSlideMapper()->findBy(['slideshow' => $slideshow], ['position' => 'ASC']);
 
-        return $viewModel->setVariables(array(
-            'form'          => $form,
-            'slideshowId'   => $slideshowId,
-            'flashMessages' => $this->flashMessenger()->getMessages(),
-            'slides'        => $slides,
-        ));
+        return $viewModel->setVariables(
+            array(
+                'form'          => $form,
+                'slideshowId'   => $slideshowId,
+                'flashMessages' => $this->flashMessenger()->getMessages(),
+                'slides'        => $slides,
+            )
+        );
     }
    
     public function removeAction()

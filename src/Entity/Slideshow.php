@@ -56,7 +56,7 @@ class Slideshow implements InputFilterAwareInterface, Translatable
      /**
      * @var \Doctrine\Common\Collections\Collection
      * @ORM\OneToMany(targetEntity="Slide", mappedBy="slideshow", cascade={"persist","remove"})
-     * )
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     protected $slides;
 
