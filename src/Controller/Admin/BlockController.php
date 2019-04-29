@@ -73,7 +73,7 @@ class BlockController extends AbstractActionController
             if ($block) {
                 $this->flashMessenger()->setNamespace('playgroundcms')->addMessage('The block was created');
 
-                return $this->redirect()->toRoute('admin/playgroundcmsadmin/blocks/list');
+                return $this->redirect()->toUrl($this->adminUrl()->fromRoute('playgroundcmsadmin/blocks/list'));
             }
         }
 
@@ -90,7 +90,7 @@ class BlockController extends AbstractActionController
 
         $blockId = $this->getEvent()->getRouteMatch()->getParam('blockId');
         if (!$blockId) {
-            return $this->redirect()->toRoute('admin/playgroundcmsadmin/blocks/create');
+            return $this->redirect()->toUrl($this->adminUrl()->fromRoute('playgroundcmsadmin/blocks/create'));
         }
 
         $block = $service->getBlockMapper()->findById($blockId);
@@ -110,7 +110,7 @@ class BlockController extends AbstractActionController
             if ($block) {
                 $this->flashMessenger()->setNamespace('playgroundcms')->addMessage('The block was created');
 
-                return $this->redirect()->toRoute('admin/playgroundcmsadmin/blocks/list');
+                return $this->redirect()->toUrl($this->adminUrl()->fromRoute('playgroundcmsadmin/blocks/list'));
             }
         }
 
@@ -122,7 +122,7 @@ class BlockController extends AbstractActionController
         $blockId = $this->getEvent()->getRouteMatch()->getParam('blockId');
 
         if (!$blockId) {
-            return $this->redirect()->toRoute('admin/playgroundcmsadmin/blocks/list');
+            return $this->redirect()->toUrl($this->adminUrl()->fromRoute('playgroundcmsadmin/blocks/list'));
         }
 
         $block = $this->getAdminBlockService()->getBlockMapper()->findById($blockId);
@@ -135,7 +135,7 @@ class BlockController extends AbstractActionController
             }
         }
 
-        return $this->redirect()->toRoute('admin/playgroundcmsadmin/blocks/list');
+        return $this->redirect()->toUrl($this->adminUrl()->fromRoute('playgroundcmsadmin/blocks/list'));
     }
 
     public function setOptions(ModuleOptions $options)

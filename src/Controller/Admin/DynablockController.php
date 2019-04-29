@@ -65,7 +65,7 @@ class DynablockController extends AbstractActionController
     {
         $dynareaId = $this->getEvent()->getRouteMatch()->getParam('dynareaId');
         if (!$dynareaId) {
-            return $this->redirect()->toRoute('admin/playgroundcmsadmin/dynablocks/list');
+            return $this->redirect()->toUrl($this->adminUrl()->fromRoute('playgroundcmsadmin/dynablocks/list'));
         }
         $dynablocksArea = $this->getAdminDynablockService()->getDynablockMapper()->findByDynarea($dynareaId);
 
@@ -97,11 +97,11 @@ class DynablockController extends AbstractActionController
     {
         $dynareaId = $this->getEvent()->getRouteMatch()->getParam('dynareaId');
         if (!$dynareaId) {
-            return $this->redirect()->toRoute('admin/playgroundcmsadmin/dynablocks/list');
+            return $this->redirect()->toUrl($this->adminUrl()->fromRoute('playgroundcmsadmin/dynablocks/list'));
         }
         $this->getAdminDynablockService()->getDynablockMapper()->clear($dynareaId);
 
-        return $this->redirect()->toRoute('admin/playgroundcmsadmin/dynablocks/list');
+        return $this->redirect()->toUrl($this->adminUrl()->fromRoute('playgroundcmsadmin/dynablocks/list'));
     }
 
     public function setOptions(ModuleOptions $options)

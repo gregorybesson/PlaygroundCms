@@ -60,12 +60,14 @@ class SlideshowController extends AbstractActionController
                 $this->flashMessenger()->addMessage('The slideshow "'.$slideshow->getTitle().'" was created');
 
                 if ($data['submit'] === 'slide') {
-                    return $this->redirect()->toRoute(
-                        'admin/playgroundcmsadmin/slide',
-                        array('slideshowId' => $slideshow->getId())
+                    return $this->redirect()->toUrl(
+                        $this->adminUrl()->fromRoute(
+                            'playgroundcmsadmin/slide',
+                            array('slideshowId' => $slideshow->getId())
+                        )
                     );
                 } else {
-                    return $this->redirect()->toRoute('admin/playgroundcmsadmin/slideshow');
+                    return $this->redirect()->toUrl($this->adminUrl()->fromRoute('playgroundcmsadmin/slideshow'));
                 }
             } else {
                 $state = 'alert-danger';
@@ -102,7 +104,7 @@ class SlideshowController extends AbstractActionController
                 $this->flashMessenger()->addMessage(' alert-success');
                 $this->flashMessenger()->addMessage('The slideshow "'.$slideshow->getTitle().'" was edited');
 
-                return $this->redirect()->toRoute('admin/playgroundcmsadmin/slideshow');
+                return $this->redirect()->toUrl($this->adminUrl()->fromRoute('playgroundcmsadmin/slideshow'));
             }
         }
 
@@ -132,7 +134,7 @@ class SlideshowController extends AbstractActionController
         $this->flashMessenger()->addMessage('The slideshow "'.$title.'" was deleted');
         
 
-        return $this->redirect()->toRoute('admin/playgroundcmsadmin/slideshow');
+        return $this->redirect()->toUrl($this->adminUrl()->fromRoute('playgroundcmsadmin/slideshow'));
     }
 
     public function activateAction()
@@ -152,7 +154,7 @@ class SlideshowController extends AbstractActionController
             $this->flashMessenger()->addMessage('The slideshow "'.$slideshow->getTitle().'" was not activated');
         }
 
-        return $this->redirect()->toRoute('admin/playgroundcmsadmin/slideshow');
+        return $this->redirect()->toUrl($this->adminUrl()->fromRoute('playgroundcmsadmin/slideshow'));
     }
 
     public function getSlideshowForm()

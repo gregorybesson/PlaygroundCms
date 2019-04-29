@@ -47,9 +47,11 @@ class SlideController extends AbstractActionController
                 $this->flashMessenger()->addMessage(' alert-success');
                 $this->flashMessenger()->addMessage('The slide "'.$slide->getTitle().'" was created');
 
-                return $this->redirect()->toRoute(
-                    'admin/playgroundcmsadmin/slideshow/edit',
-                    array('slideshowId' => $slideshowId)
+                return $this->redirect()->toUrl(
+                    $this->adminUrl()->fromRoute(
+                        'playgroundcmsadmin/slideshow/edit',
+                        array('slideshowId' => $slideshowId)
+                    )
                 );
             } else {
                 $state = 'alert-danger';
@@ -59,11 +61,13 @@ class SlideController extends AbstractActionController
 
         $viewModel = new ViewModel();
 
-        return $viewModel->setVariables(array(
+        return $viewModel->setVariables(
+            array(
                 'form'          => $form,
                 'slideshowId'   => $slideshowId,
                 'flashMessages' => $this->flashMessenger()->getMessages(),
-            ));
+            )
+        );
     }
 
     public function editAction()
@@ -89,9 +93,11 @@ class SlideController extends AbstractActionController
                 $this->flashMessenger()->addMessage(' alert-success');
                 $this->flashMessenger()->addMessage('The slide "'.$slide->getTitle().'" was edited');
 
-                return $this->redirect()->toRoute(
-                    'admin/playgroundcmsadmin/slideshow/edit',
-                    array('slideshowId' => $slideshowId)
+                return $this->redirect()->toUrl(
+                    $this->adminUrl()->fromRoute(
+                        'playgroundcmsadmin/slideshow/edit',
+                        array('slideshowId' => $slideshowId)
+                    )
                 );
             }
         }
@@ -118,10 +124,12 @@ class SlideController extends AbstractActionController
         
         $this->flashMessenger()->addMessage(' alert-success');
         $this->flashMessenger()->addMessage('The slide "'.$title.'" was deleted');
-        
-        return $this->redirect()->toRoute(
-            'admin/playgroundcmsadmin/slideshow/edit',
-            array('slideshowId' => $slideshowId)
+
+        return $this->redirect()->toUrl(
+            $this->adminUrl()->fromRoute(
+                'playgroundcmsadmin/slideshow/edit',
+                array('slideshowId' => $slideshowId)
+            )
         );
     }
 
@@ -142,7 +150,7 @@ class SlideController extends AbstractActionController
             $this->flashMessenger()->addMessage('The slide "'.$slide->getTitle().'" was not activated');
         }
 
-        return $this->redirect()->toRoute('admin/playgroundcmsadmin/slide');
+        return $this->redirect()->toUrl($this->adminUrl()->fromRoute('playgroundcmsadmin/slide'));
     }
 
     public function getSlideForm()
