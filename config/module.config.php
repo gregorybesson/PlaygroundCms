@@ -492,7 +492,7 @@ return array(
 
     'navigation' => array(
         'default' => array(
-        	'index' => array(
+            'index' => array(
                 'controller' => 'playgroundcms',
                 'action'     => 'index',
             ),
@@ -552,6 +552,48 @@ return array(
                         'resource' => 'cms',
                         'privilege' => 'list',
                         'use_route_match' => true,
+                        'pages' => array(
+                            'playgroundcmsadmin-slideshow-edit' => array(
+                                'label' => 'Editer un slideshow',
+                                'route' => 'admin/playgroundcmsadmin/slideshow/edit',
+                                'privilege' => 'edit',
+                                'use_route_match' => true,
+                                'pages' => array(
+                                    'playgroundcmsadmin-slideshow-edit-slide-create' => array(
+                                        'label' => 'Créer un slide',
+                                        'route' => 'admin/playgroundcmsadmin/slide',
+                                        'privilege' => 'edit',
+                                        'use_route_match' => true,
+                                    ),
+                                    'playgroundcmsadmin-slideshow-edit-slide-edit' => array(
+                                        'label' => 'Editer un slide',
+                                        'route' => 'admin/playgroundcmsadmin/slide/edit',
+                                        'privilege' => 'edit',
+                                        'use_route_match' => true,
+                                    ),
+                                ),
+                            ),
+                            'playgroundcmsadmin-slideshow-create' => array(
+                                'label' => 'Créer un slideshow',
+                                'route' => 'admin/playgroundcmsadmin/slideshow/create',
+                                'privilege' => 'edit',
+                                'use_route_match' => true,
+                                'pages' => array(
+                                    'playgroundcmsadmin-slideshow-edit-slide-create' => array(
+                                        'label' => 'Créer un slide',
+                                        'route' => 'admin/playgroundcmsadmin/slide',
+                                        'privilege' => 'edit',
+                                        'use_route_match' => true,
+                                    ),
+                                    'playgroundcmsadmin-slideshow-edit-slide-edit' => array(
+                                        'label' => 'Editer un slide',
+                                        'route' => 'admin/playgroundcmsadmin/slide/edit',
+                                        'privilege' => 'edit',
+                                        'use_route_match' => true,
+                                    ),
+                                ),
+                            ),
+                        ),
                     ),
                 ),
             ),
