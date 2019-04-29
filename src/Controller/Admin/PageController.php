@@ -84,7 +84,7 @@ class PageController extends AbstractActionController
 
         $this->flashMessenger()->setNamespace('playgroundcms')->addMessage('La page a été créée');
 
-        return $this->redirect()->toRoute('admin/playgroundcmsadmin/pages/list');
+        return $this->redirect()->toUrl($this->adminUrl()->fromRoute('playgroundcmsadmin/pages/list'));
     }
 
     public function editAction()
@@ -92,7 +92,7 @@ class PageController extends AbstractActionController
         $pageId = $this->getEvent()->getRouteMatch()->getParam('pageId');
 
         if (!$pageId) {
-            return $this->redirect()->toRoute('admin/playgroundcmsadmin/pages/list');
+            return $this->redirect()->toUrl($this->adminUrl()->fromRoute('playgroundcmsadmin/pages/list'));
         }
 
         $page = $this->getAdminPageService()->getPageMapper()->findById($pageId);
@@ -119,7 +119,7 @@ class PageController extends AbstractActionController
             if ($page) {
                 $this->flashMessenger()->setNamespace('playgroundcms')->addMessage('La page a été mise à jour');
 
-                return $this->redirect()->toRoute('admin/playgroundcmsadmin/pages/list');
+                return $this->redirect()->toUrl($this->adminUrl()->fromRoute('playgroundcmsadmin/pages/list'));
             }
         }
 
@@ -131,7 +131,7 @@ class PageController extends AbstractActionController
         $pageId = $this->getEvent()->getRouteMatch()->getParam('pageId');
 
         if (!$pageId) {
-            return $this->redirect()->toRoute('admin/playgroundcmsadmin/pages/list');
+            return $this->redirect()->toUrl($this->adminUrl()->fromRoute('playgroundcmsadmin/pages/list'));
         }
 
         $page = $this->getAdminPageService()->getPageMapper()->findById($pageId);
@@ -144,7 +144,7 @@ class PageController extends AbstractActionController
             }
         }
 
-        return $this->redirect()->toRoute('admin/playgroundcmsadmin/pages/list');
+        return $this->redirect()->toUrl($this->adminUrl()->fromRoute('playgroundcmsadmin/pages/list'));
     }
 
     public function setOptions(ModuleOptions $options)
