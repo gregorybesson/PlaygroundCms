@@ -17,7 +17,7 @@
         }
     ],
     "require": {
-        "php": ">=5.5",
+        "php": ">=7.3",
         "laminas/laminas-dependency-plugin": "^2.1",
         "playground/core": "^5.0.0",
         "playground/design": "^5.0.0",
