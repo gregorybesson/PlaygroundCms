@@ -2,7 +2,7 @@
 
 namespace PlaygroundCms\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 use PlaygroundCms\Mapper\Block as BlockMapper;
 
 class Block extends AbstractHelper

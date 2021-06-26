@@ -2,11 +2,11 @@
 
 namespace PlaygroundCms\Form\Admin;
 
-use Zend\Form\Form;
-use Zend\Form\Element;
+use Laminas\Form\Form;
+use Laminas\Form\Element;
 use ZfcUser\Form\ProvidesEventsForm;
-use Zend\Mvc\I18n\Translator;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\Mvc\I18n\Translator;
+use Laminas\ServiceManager\ServiceManager;
 
 class Slide extends ProvidesEventsForm
 {
@@ -21,7 +21,7 @@ class Slide extends ProvidesEventsForm
 
         $this->add(array(
             'name' => 'id',
-            'type' => 'Zend\Form\Element\Hidden',
+            'type' => 'Laminas\Form\Element\Hidden',
             'attributes' => array(
                 'value' => 0
             )
@@ -29,7 +29,7 @@ class Slide extends ProvidesEventsForm
 
         $this->add(array(
             'name' => 'slideshowId',
-            'type' => 'Zend\Form\Element\Hidden',
+            'type' => 'Laminas\Form\Element\Hidden',
             'attributes' => array(
                 'value' => null,
             )
@@ -37,7 +37,7 @@ class Slide extends ProvidesEventsForm
 
         $this->add(array(
             'name' => 'title',
-            'type' => 'Zend\Form\Element\Text',
+            'type' => 'Laminas\Form\Element\Text',
             'options' => array(
                 'label' => $translator->translate('Title', 'playgroundcms'),
             ),
@@ -47,13 +47,13 @@ class Slide extends ProvidesEventsForm
                 'class' => 'form-control',
             ),
             'validator' => array(
-                array('name' => 'Zend\Validator\NotEmpty'),
+                array('name' => 'Laminas\Validator\NotEmpty'),
             )
         ));
 
         $this->add(array(
             'name' => 'subtitle',
-            'type' => 'Zend\Form\Element\Text',
+            'type' => 'Laminas\Form\Element\Text',
             'options' => array(
                 'label' => $translator->translate('Subtitle', 'playgroundcms'),
             ),
@@ -63,12 +63,12 @@ class Slide extends ProvidesEventsForm
                 'class' => 'form-control',
             ),
             'validator' => array(
-                array('name' => 'Zend\Validator\NotEmpty'),
+                array('name' => 'Laminas\Validator\NotEmpty'),
             )
         ));
         $this->add(array(
             'name' => 'link',
-            'type' => 'Zend\Form\Element\Text',
+            'type' => 'Laminas\Form\Element\Text',
             'options' => array(
                 'label' => $translator->translate('Link', 'playgroundcms'),
             ),
@@ -78,13 +78,13 @@ class Slide extends ProvidesEventsForm
                 'class' => 'form-control',
             ),
             'validator' => array(
-                array('name' => 'Zend\Validator\NotEmpty'),
+                array('name' => 'Laminas\Validator\NotEmpty'),
             )
         ));
 
         $this->add(array(
             'name' => 'linkText',
-            'type' => 'Zend\Form\Element\Text',
+            'type' => 'Laminas\Form\Element\Text',
             'options' => array(
                 'label' => $translator->translate('LinkText', 'playgroundcms'),
             ),
@@ -94,12 +94,12 @@ class Slide extends ProvidesEventsForm
                 'class' => 'form-control',
             ),
             'validator' => array(
-                array('name' => 'Zend\Validator\NotEmpty'),
+                array('name' => 'Laminas\Validator\NotEmpty'),
             )
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Textarea',
+            'type' => 'Laminas\Form\Element\Textarea',
             'name' => 'description',
             'options' => array(
                 'label' => $translator->translate('Description', 'playgroundcms')
@@ -113,7 +113,7 @@ class Slide extends ProvidesEventsForm
 
         $this->add(array(
             'name' => 'position',
-            'type' => 'Zend\Form\Element\Text',
+            'type' => 'Laminas\Form\Element\Text',
             'options' => array(
                 'label' => $translator->translate('Position', 'playgroundcms'),
             ),
@@ -123,12 +123,12 @@ class Slide extends ProvidesEventsForm
                 'class' => 'form-control',
             ),
             'validator' => array(
-                array('name' => 'Zend\Validator\NotEmpty'),
+                array('name' => 'Laminas\Validator\NotEmpty'),
             )
          ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\File',
+            'type' => 'Laminas\Form\Element\File',
             'name' => 'uploadFile',
             'options' => array(
                 'label' => $translator->translate('Media', 'playgroundcms'),
@@ -139,7 +139,7 @@ class Slide extends ProvidesEventsForm
 
         $this->add(array(
             'name' => 'media',
-            'type'  => 'Zend\Form\Element\Hidden',
+            'type'  => 'Laminas\Form\Element\Hidden',
             'attributes' => array(
                 'value' => '',
             ),
@@ -147,7 +147,7 @@ class Slide extends ProvidesEventsForm
 
         $this->add(array(
             'name' => 'type',
-            'type' => 'Zend\Form\Element\Radio',
+            'type' => 'Laminas\Form\Element\Radio',
             'options' => array(
                 'label' => $translator->translate('Type', 'playgroundcms'),
                 'value_options' => array(

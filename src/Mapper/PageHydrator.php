@@ -2,7 +2,7 @@
 
 namespace PlaygroundCms\Mapper;
 
-use Zend\Hydrator\ClassMethods;
+use Laminas\Hydrator\ClassMethods;
 use PlaygroundCms\Entity\PageInterface as PageEntityInterface;
 
 class PageHydrator extends ClassMethods

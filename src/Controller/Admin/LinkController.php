@@ -3,9 +3,9 @@
 namespace PlaygroundCms\Controller\Admin;
 
 //use PlaygroundCms\Service\Link as AdminLinkService;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class LinkController extends AbstractActionController
 {

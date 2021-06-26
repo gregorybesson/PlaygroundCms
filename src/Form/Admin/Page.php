@@ -2,13 +2,13 @@
 
 namespace PlaygroundCms\Form\Admin;
 
-use Zend\Form\Form;
-use Zend\Form\Element;
+use Laminas\Form\Form;
+use Laminas\Form\Element;
 use ZfcUser\Form\ProvidesEventsForm;
-use Zend\Mvc\I18n\Translator;
+use Laminas\Mvc\I18n\Translator;
 use PlaygroundCore\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
-use Zend\ServiceManager\ServiceManager;
-use Zend\EventManager\EventManager;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\EventManager\EventManager;
 
 class Page extends ProvidesEventsForm
 {
@@ -27,7 +27,7 @@ class Page extends ProvidesEventsForm
 
         $this->add(array(
             'name' => 'id',
-            'type' => 'Zend\Form\Element\Hidden',
+            'type' => 'Laminas\Form\Element\Hidden',
             'attributes' => array(
                     'value' => 0
             )
@@ -66,7 +66,7 @@ class Page extends ProvidesEventsForm
         ));
         $this->add(array(
                 'name' => 'mainImage',
-                'type' => 'Zend\Form\Element\Hidden',
+                'type' => 'Laminas\Form\Element\Hidden',
                 'attributes' => array(
                         'value' => ''
                 )
@@ -83,7 +83,7 @@ class Page extends ProvidesEventsForm
         ));
         $this->add(array(
                 'name' => 'secondImage',
-                'type' => 'Zend\Form\Element\Hidden',
+                'type' => 'Laminas\Form\Element\Hidden',
                 'attributes' => array(
                         'value' => ''
                 )
@@ -100,7 +100,7 @@ class Page extends ProvidesEventsForm
         ));
 
         $this->add(array(
-                'type' => 'Zend\Form\Element\DateTime',
+                'type' => 'Laminas\Form\Element\DateTime',
                 'name' => 'publicationDate',
                 'options' => array(
                         'label' => $translator->translate('Publishing date', 'playgroundcms'),
@@ -113,7 +113,7 @@ class Page extends ProvidesEventsForm
         ));
 
         $this->add(array(
-                'type' => 'Zend\Form\Element\DateTime',
+                'type' => 'Laminas\Form\Element\DateTime',
                 'name' => 'closeDate',
                 'options' => array(
                     'label' => $translator->translate('Date of close', 'playgroundcms'),
@@ -126,7 +126,7 @@ class Page extends ProvidesEventsForm
         ));
 
         $this->add(array(
-                'type' => 'Zend\Form\Element\Checkbox',
+                'type' => 'Laminas\Form\Element\Checkbox',
                 'name' => 'displayHome',
                 'options' => array(
                     'label' => $translator->translate('Homepage Publish', 'playgroundcms'),
@@ -134,7 +134,7 @@ class Page extends ProvidesEventsForm
         ));
 
         $this->add(array(
-                'type' => 'Zend\Form\Element\Checkbox',
+                'type' => 'Laminas\Form\Element\Checkbox',
                 'name' => 'pushHome',
                 'options' => array(
                     'label' => $translator->translate('Slider Publish', 'playgroundcms'),
@@ -142,7 +142,7 @@ class Page extends ProvidesEventsForm
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
+            'type' => 'Laminas\Form\Element\Select',
             'name' => 'active',
             'options' => array(
                 'value_options' => array(
@@ -154,7 +154,7 @@ class Page extends ProvidesEventsForm
         ));
 
         $this->add(array(
-                'type' => 'Zend\Form\Element\Textarea',
+                'type' => 'Laminas\Form\Element\Textarea',
                 'name' => 'content',
                 'options' => array(
                     'label' => $translator->translate('Block content', 'playgroundcms')
@@ -167,7 +167,7 @@ class Page extends ProvidesEventsForm
         ));
         
         $this->add(array(
-                'type' => 'Zend\Form\Element\Textarea',
+                'type' => 'Laminas\Form\Element\Textarea',
                 'name' => 'heading',
                 'options' => array(
                     'label' => $translator->translate('Heading\'s article', 'playgroundcms')
@@ -180,7 +180,7 @@ class Page extends ProvidesEventsForm
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
+            'type' => 'Laminas\Form\Element\Select',
             'name' => 'category',
             'options' => array(
                 'value_options' => $this->getCmsCategories(),

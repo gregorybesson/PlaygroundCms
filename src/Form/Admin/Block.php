@@ -2,10 +2,10 @@
 
 namespace PlaygroundCms\Form\Admin;
 
-use Zend\Form\Form;
-use Zend\Form\Element;
+use Laminas\Form\Form;
+use Laminas\Form\Element;
 use ZfcUser\Form\ProvidesEventsForm;
-use Zend\Mvc\I18n\Translator;
+use Laminas\Mvc\I18n\Translator;
 
 class Block extends ProvidesEventsForm
 {
@@ -18,7 +18,7 @@ class Block extends ProvidesEventsForm
 
         $this->add(array(
             'name' => 'id',
-            'type'  => 'Zend\Form\Element\Hidden',
+            'type'  => 'Laminas\Form\Element\Hidden',
             'attributes' => array(
                 'value' => 0,
             ),
@@ -45,7 +45,7 @@ class Block extends ProvidesEventsForm
         ));
 
         $this->add(array(
-                'type' => 'Zend\Form\Element\Select',
+                'type' => 'Laminas\Form\Element\Select',
                 'name' => 'is_active',
                 'options' => array(
                     'value_options' => array(
@@ -57,7 +57,7 @@ class Block extends ProvidesEventsForm
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Checkbox',
+            'type' => 'Laminas\Form\Element\Checkbox',
             'name' => 'on_call',
             'options' => array(
                  'label' => $translator->translate('This Block is available for DynaBlock', 'playgroundcms'),
@@ -65,7 +65,7 @@ class Block extends ProvidesEventsForm
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Textarea',
+            'type' => 'Laminas\Form\Element\Textarea',
             'name' => 'content',
             'options' => array(
                 'label' => $translator->translate('Content', 'playgroundcms'),

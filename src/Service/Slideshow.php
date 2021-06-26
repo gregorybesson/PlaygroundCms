@@ -3,13 +3,13 @@
 namespace PlaygroundCms\Service;
 
 use PlaygroundCms\Entity\Slideshow as SlideshowEntity;
-use Zend\Form\Form;
-use Zend\ServiceManager\ServiceManager;
-use Zend\Validator\NotEmpty;
-use Zend\EventManager\EventManagerAwareTrait;
+use Laminas\Form\Form;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\Validator\NotEmpty;
+use Laminas\EventManager\EventManagerAwareTrait;
 use DoctrineModule\Validator\NoObjectExists as NoObjectExistsValidator;
-use Zend\Stdlib\ErrorHandler;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Stdlib\ErrorHandler;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class Slideshow
 {

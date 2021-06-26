@@ -2,11 +2,11 @@
 
 namespace PlaygroundCms\Form\Admin;
 
-use Zend\Form\Form;
-use Zend\Form\Element;
+use Laminas\Form\Form;
+use Laminas\Form\Element;
 use ZfcUser\Form\ProvidesEventsForm;
-use Zend\Mvc\I18n\Translator;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\Mvc\I18n\Translator;
+use Laminas\ServiceManager\ServiceManager;
 
 class Slideshow extends ProvidesEventsForm
 {
@@ -21,7 +21,7 @@ class Slideshow extends ProvidesEventsForm
 
         $this->add(array(
             'name' => 'id',
-            'type' => 'Zend\Form\Element\Hidden',
+            'type' => 'Laminas\Form\Element\Hidden',
             'attributes' => array(
                 'value' => 0
             )
@@ -29,7 +29,7 @@ class Slideshow extends ProvidesEventsForm
 
         $this->add(array(
             'name' => 'title',
-            'type' => 'Zend\Form\Element\Text',
+            'type' => 'Laminas\Form\Element\Text',
             'options' => array(
                 'label' => $translator->translate('Title', 'playgroundcms'),
             ),
@@ -39,13 +39,13 @@ class Slideshow extends ProvidesEventsForm
                 'class' => 'form-control',
             ),
             'validator' => array(
-                array('name' => 'Zend\Validator\NotEmpty'),
+                array('name' => 'Laminas\Validator\NotEmpty'),
             )
         ));
 
         $this->add(array(
             'name' => 'subtitle',
-            'type' => 'Zend\Form\Element\Text',
+            'type' => 'Laminas\Form\Element\Text',
             'options' => array(
                 'label' => $translator->translate('Subtitle', 'playgroundcms'),
             ),
@@ -55,12 +55,12 @@ class Slideshow extends ProvidesEventsForm
                 'class' => 'form-control',
             ),
             'validator' => array(
-                array('name' => 'Zend\Validator\NotEmpty'),
+                array('name' => 'Laminas\Validator\NotEmpty'),
             )
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
+            'type' => 'Laminas\Form\Element\Select',
             'name' => 'active',
             'options' => array(
                 'label' => $translator->translate('Status', 'playgroundcms'),

@@ -11,18 +11,18 @@ $form->prepare();
 <?php echo $this->form()->openTag($form) ?>
     <dl class="zend_form">
     <?php foreach ($form as $element): ?>
-        <?php if (!$element instanceof Zend\Form\Element\Button && !$element instanceof Zend\Form\Element\Hidden): ?>
+        <?php if (!$element instanceof Laminas\Form\Element\Button && !$element instanceof Laminas\Form\Element\Hidden): ?>
             <dt><?php echo $this->formLabel($element) ?></dt>
         <?php endif ?>
-        <?php if ($element instanceof Zend\Form\Element\Button): ?>
+        <?php if ($element instanceof Laminas\Form\Element\Button): ?>
             <dd><?php echo $this->formButton($element) ?></dd>
-        <?php elseif ($element instanceof Zend\Form\Element\Captcha): ?>
+        <?php elseif ($element instanceof Laminas\Form\Element\Captcha): ?>
             <dd><?php echo $this->formCaptcha($element) . $this->formElementErrors($element) ?></dd>
-        <?php elseif ($element instanceof Zend\Form\Element\Select): ?>
+        <?php elseif ($element instanceof Laminas\Form\Element\Select): ?>
             <dd><?php echo $this->formSelect($element) . $this->formElementErrors($element) ?></dd>
-        <?php elseif ($element instanceof Zend\Form\Element\Checkbox): ?>
+        <?php elseif ($element instanceof Laminas\Form\Element\Checkbox): ?>
             <dd><?php echo $this->formCheckbox($element) . $this->formElementErrors($element) ?></dd>
-        <?php elseif ($element instanceof Zend\Form\Element\Textarea): ?>
+        <?php elseif ($element instanceof Laminas\Form\Element\Textarea): ?>
             <dd><?php echo $this->formtextarea($element) . $this->formElementErrors($element) ?></dd>
             <?php $this->QgCKEditor(
                 'content',

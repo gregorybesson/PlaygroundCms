@@ -2,7 +2,7 @@
 namespace PlaygroundCms\Service\Factory;
 
 use PlaygroundCms\Service\Page;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Interop\Container\ContainerInterface;
 
 class PageFactory implements FactoryInterface

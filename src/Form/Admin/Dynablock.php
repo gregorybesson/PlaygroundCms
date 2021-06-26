@@ -2,10 +2,10 @@
 
 namespace PlaygroundCms\Form\Admin;
 
-use Zend\Form\Form;
-use Zend\Form\Element;
+use Laminas\Form\Form;
+use Laminas\Form\Element;
 use ZfcUser\Form\ProvidesEventsForm;
-use Zend\Mvc\I18n\Translator;
+use Laminas\Mvc\I18n\Translator;
 
 class Dynablock extends ProvidesEventsForm
 {
@@ -18,7 +18,7 @@ class Dynablock extends ProvidesEventsForm
 
         $this->add(array(
             'name' => 'id',
-            'type'  => 'Zend\Form\Element\Hidden',
+            'type'  => 'Laminas\Form\Element\Hidden',
             'attributes' => array(
                 'value' => 0,
             ),
@@ -26,7 +26,7 @@ class Dynablock extends ProvidesEventsForm
 
         $this->add(array(
                'name' => 'dynarea',
-               'type'  => 'Zend\Form\Element\Hidden',
+               'type'  => 'Laminas\Form\Element\Hidden',
         ));
 
         $this->add(array(
@@ -60,7 +60,7 @@ class Dynablock extends ProvidesEventsForm
         ));
 
         $this->add(array(
-                'type' => 'Zend\Form\Element\Select',
+                'type' => 'Laminas\Form\Element\Select',
                 'name' => 'type',
                 'options' => array(
                         'value_options' => array(
@@ -72,7 +72,7 @@ class Dynablock extends ProvidesEventsForm
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Checkbox',
+            'type' => 'Laminas\Form\Element\Checkbox',
             'name' => 'is_active',
             'options' => array(
                  'label' => 'Is active',

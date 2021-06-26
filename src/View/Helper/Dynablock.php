@@ -2,10 +2,10 @@
 
 namespace PlaygroundCms\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 use PlaygroundCms\Mapper\Block as BlockMapper;
 use PlaygroundCms\Mapper\Dynablock as DynablockMapper;
-use Zend\View\Model\ViewModel;
+use Laminas\View\Model\ViewModel;
 
 class Dynablock extends AbstractHelper
 {

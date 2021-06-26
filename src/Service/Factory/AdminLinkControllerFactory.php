@@ -2,7 +2,7 @@
 namespace PlaygroundCms\Service\Factory;
 
 use PlaygroundCms\Controller\Admin\LinkController;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Interop\Container\ContainerInterface;
 
 class AdminLinkControllerFactory implements FactoryInterface

@@ -4,9 +4,9 @@ namespace PlaygroundCms\Controller\Admin;
 
 use PlaygroundCms\Service\Block as AdminBlockService;
 use PlaygroundCms\Entity\Block as EntityBlock;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class BlockController extends AbstractActionController
 {
@@ -39,7 +39,7 @@ class BlockController extends AbstractActionController
         $blockMapper = $this->getBlockMapper();
         $blocks = $blockMapper->findAllBy(array('created_at' => 'DESC'));
         if (is_array($blocks)) {
-            $paginator = new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\ArrayAdapter($blocks));
+            $paginator = new \Laminas\Paginator\Paginator(new \Laminas\Paginator\Adapter\ArrayAdapter($blocks));
         } else {
             $paginator = $blocks;
         }

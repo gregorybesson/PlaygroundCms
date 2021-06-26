@@ -2,14 +2,14 @@
 
 namespace PlaygroundCms\Service;
 
-use Zend\ServiceManager\ServiceManager;
-use Zend\EventManager\EventManagerAwareTrait;
-use Zend\Hydrator\ClassMethods;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\EventManager\EventManagerAwareTrait;
+use Laminas\Hydrator\ClassMethods;
 use PlaygroundCms\Mapper\DynablockInterface as DynablockMapperInterface;
 use PlaygroundCms\Options\ModuleOptions;
 use PlaygroundCms\Entity\Dynablock as EntityDynablock;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\EventManager\EventManager;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\EventManager\EventManager;
 
 class Dynablock
 {

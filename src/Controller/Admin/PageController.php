@@ -3,9 +3,9 @@
 namespace PlaygroundCms\Controller\Admin;
 
 use PlaygroundCms\Service\Page as AdminPageService;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class PageController extends AbstractActionController
 {
@@ -40,7 +40,7 @@ class PageController extends AbstractActionController
         $pages = $pageMapper->findAllBy(array('publicationDate' => $filter));
 
         if (is_array($pages)) {
-            $paginator = new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\ArrayAdapter($pages));
+            $paginator = new \Laminas\Paginator\Paginator(new \Laminas\Paginator\Adapter\ArrayAdapter($pages));
             $paginator->setItemCountPerPage(20);
             $paginator->setCurrentPageNumber($this->getEvent()->getRouteMatch()->getParam('p'));
         } else {
