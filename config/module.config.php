@@ -82,7 +82,7 @@ return array(
     'service_manager' => array(
         'aliases' => array(
             'playgroundcms_doctrine_em' => 'doctrine.entitymanager.orm_default',
-            'playgroundcms_zend_db_adapter' => 'Zend\Db\Adapter\Adapter',
+            'playgroundcms_zend_db_adapter' => 'Laminas\Db\Adapter\Adapter',
         ),
         'factories' => array(
             'playgroundcms_block_service'     => 'PlaygroundCms\Service\Factory\BlockFactory',
@@ -116,7 +116,7 @@ return array(
         	'frontend' => array(
         		'child_routes' => array(
 		            'cms' => array(
-		                'type' => 'Zend\Router\Http\Segment',
+		                'type' => 'Laminas\Router\Http\Segment',
 		                'options' => array(
 		                    'route'    => 'page[/:pid]',
 		                    'defaults' => array(
@@ -139,7 +139,7 @@ return array(
 		                ),
 		            ),
 		            'winner' => array(
-		                'type' => 'Zend\Router\Http\Segment',
+		                'type' => 'Laminas\Router\Http\Segment',
 		                'options' => array(
 		                    'route'    => 'les-gagnants',
 		                    'defaults' => array(
@@ -177,7 +177,7 @@ return array(
             'admin' => array(
                 'child_routes' => array(
                     'playgroundcmsadmin' => array(
-                        'type' => 'Zend\Router\Http\Literal',
+                        'type' => 'Laminas\Router\Http\Literal',
                         'priority' => 1000,
                         'options' => array(
                             'route' => '/cms',
@@ -214,7 +214,7 @@ return array(
                                         ),
                                     ),
                                     'create' => array(
-                                        'type' => 'Zend\Router\Http\Literal',
+                                        'type' => 'Laminas\Router\Http\Literal',
                                         'options' => array(
                                             'route' => '/create',
                                             'defaults' => array(
@@ -269,7 +269,7 @@ return array(
                                         ),
                                     ),
                                     'create' => array(
-                                        'type' => 'Zend\Router\Http\Literal',
+                                        'type' => 'Laminas\Router\Http\Literal',
                                         'options' => array(
                                             'route' => '/create',
                                             'defaults' => array(

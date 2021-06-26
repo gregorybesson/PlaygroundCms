@@ -6,7 +6,11 @@ return array(
         'DoctrineDataFixtureModule',
         'PlaygroundCore',
         'PlaygroundDesign',
-        'PlaygroundCms'
+        'PlaygroundCms',
+        'Laminas\Router',
+        'Laminas\Navigation',
+        'Laminas\I18n',
+        'Laminas\Mvc\Plugin\FlashMessenger',
     ),
     'module_listener_options' => array(
         'config_glob_paths'    => array(

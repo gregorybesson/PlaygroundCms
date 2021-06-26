@@ -5,11 +5,11 @@ namespace PlaygroundCmsTest\Entity;
 use PlaygroundCmsTest\Bootstrap;
 use PlaygroundCms\Entity\Page;
 
-class PageTest extends \PHPUnit_Framework_TestCase
+class PageTest extends \PHPUnit\Framework\TestCase
 {
     protected $traceError = true;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->sm = Bootstrap::getServiceManager();
         $this->em = $this->sm->get('doctrine.entitymanager.orm_default');
@@ -42,7 +42,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("some content", $page->getContent());
         $this->assertEquals("a heading", $page->getHeading());
         $this->assertEquals(1, $page->getCategory());
-        $this->assertInternalType('integer', $page->getCategory());
+        $this->assertIsInt($page->getCategory());
         $this->assertTrue($page->getActive());
         $this->assertTrue($page->getPushHome());
 
@@ -52,7 +52,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($page->getActive());
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         $dbh = $this->em->getConnection();
         unset($this->sm);

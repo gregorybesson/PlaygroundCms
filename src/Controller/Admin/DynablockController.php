@@ -3,9 +3,9 @@
 namespace PlaygroundCms\Controller\Admin;
 
 use PlaygroundCms\Service\Dynablock as AdminDynablockService;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class DynablockController extends AbstractActionController
 {
@@ -48,7 +48,7 @@ class DynablockController extends AbstractActionController
         }
 
         if (is_array($activeDynareas)) {
-            $paginator = new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\ArrayAdapter($activeDynareas));
+            $paginator = new \Laminas\Paginator\Paginator(new \Laminas\Paginator\Adapter\ArrayAdapter($activeDynareas));
             $paginator->setItemCountPerPage(10);
             $paginator->setCurrentPageNumber($this->getEvent()->getRouteMatch()->getParam('p'));
         } else {

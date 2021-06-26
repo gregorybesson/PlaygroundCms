@@ -5,8 +5,8 @@ namespace PlaygroundCms\Mapper;
 use Doctrine\ORM\EntityManager;
 
 use PlaygroundCms\Options\ModuleOptions;
-use Zend\Hydrator\HydratorInterface;
-use Zend\EventManager\EventManager;
+use Laminas\Hydrator\HydratorInterface;
+use Laminas\EventManager\EventManager;
 
 class Dynablock implements DynablockInterface
 {
@@ -148,7 +148,7 @@ class Dynablock implements DynablockInterface
         return $entity;
     }
 
-    public function setEventManager(\Zend\EventManager\SharedEventManager $events)
+    public function setEventManager(\Laminas\EventManager\SharedEventManager $events)
     {
         $this->event = new EventManager($events, [get_class($this)]);
 

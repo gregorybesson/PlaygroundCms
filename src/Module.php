@@ -2,9 +2,9 @@
 
 namespace PlaygroundCms;
 
-use Zend\Mvc\ModuleRouteListener;
-use Zend\Mvc\MvcEvent;
-use Zend\Validator\AbstractValidator;
+use Laminas\Mvc\ModuleRouteListener;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Validator\AbstractValidator;
 
 class Module
 {

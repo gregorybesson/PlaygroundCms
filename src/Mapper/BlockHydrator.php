@@ -2,7 +2,7 @@
 
 namespace PlaygroundCms\Mapper;
 
-use Zend\Hydrator\ClassMethods;
+use Laminas\Hydrator\ClassMethods;
 use PlaygroundCms\Entity\BlockInterface as BlockEntityInterface;
 
 class BlockHydrator extends ClassMethods

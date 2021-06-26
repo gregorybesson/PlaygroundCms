@@ -4,10 +4,10 @@ namespace PlaygroundCms\Mapper;
 
 use Doctrine\ORM\EntityManager;
 
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\EventManager;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\EventManager\EventManager;
 use PlaygroundCms\Options\ModuleOptions;
-use Zend\Hydrator\HydratorInterface;
+use Laminas\Hydrator\HydratorInterface;
 
 class Page implements PageInterface
 {
@@ -36,7 +36,7 @@ class Page implements PageInterface
         $this->options = $options;
     }
 
-    public function setEventManager(\Zend\EventManager\SharedEventManager $events)
+    public function setEventManager(\Laminas\EventManager\SharedEventManager $events)
     {
         $this->event = new EventManager($events, [get_class($this)]);
 

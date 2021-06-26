@@ -2,9 +2,9 @@
 
 namespace PlaygroundCms\Controller\Frontend;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class IndexController extends AbstractActionController
 {
@@ -67,7 +67,7 @@ class IndexController extends AbstractActionController
         $pages = $this->getPageService()->getActivePages(false, $category);
 
         if (is_array($pages)) {
-            $paginator = new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\ArrayAdapter($pages));
+            $paginator = new \Laminas\Paginator\Paginator(new \Laminas\Paginator\Adapter\ArrayAdapter($pages));
             $paginator->setItemCountPerPage(25);
             $paginator->setCurrentPageNumber($this->getEvent()->getRouteMatch()->getParam('p'));
         } else {
@@ -85,7 +85,7 @@ class IndexController extends AbstractActionController
         $pages = $this->getPageService()->getActivePages(false);
 
         if (is_array($pages)) {
-            $paginator = new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\ArrayAdapter($pages));
+            $paginator = new \Laminas\Paginator\Paginator(new \Laminas\Paginator\Adapter\ArrayAdapter($pages));
             $paginator->setItemCountPerPage(7);
             $paginator->setCurrentPageNumber($this->getEvent()->getRouteMatch()->getParam('p'));
         } else {
