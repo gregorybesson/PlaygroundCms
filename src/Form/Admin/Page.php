@@ -4,7 +4,7 @@ namespace PlaygroundCms\Form\Admin;
 
 use Laminas\Form\Form;
 use Laminas\Form\Element;
-use ZfcUser\Form\ProvidesEventsForm;
+use LmcUser\Form\ProvidesEventsForm;
 use Laminas\Mvc\I18n\Translator;
 use PlaygroundCore\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 use Laminas\ServiceManager\ServiceManager;
