@@ -14,7 +14,7 @@ class BlockHydrator extends ClassMethods
      * @return array
      * @throws Exception\InvalidArgumentException
      */
-    public function extract($object)
+    public function extract(object $object): array
     {
         if (!$object instanceof BlockEntityInterface) {
             throw new Exception\InvalidArgumentException(

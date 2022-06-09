@@ -4,9 +4,9 @@ return array(
     'doctrine' => array(
         'driver' => array(
             'playgroundcms_entity' => array(
-                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                'class' => \Doctrine\ORM\Mapping\Driver\AnnotationDriver::class,
                 'cache' => 'array',
-                'paths' => __DIR__ . '/../src/Entity'
+                'paths' => [__DIR__ . '/../src/Entity']
             ),
 
             'orm_default' => array(
@@ -16,14 +16,14 @@ return array(
             )
         )
     ),
-    
+
     'bjyauthorize' => array(
         'resource_providers' => array(
             'BjyAuthorize\Provider\Resource\Config' => array(
                 'cms' => array(),
             ),
         ),
-    
+
         'rule_providers' => array(
             'BjyAuthorize\Provider\Rule\Config' => array(
                 'allow' => array(
@@ -34,7 +34,7 @@ return array(
 
         'guards' => array(
             'BjyAuthorize\Guard\Controller' => array(
-        
+
                 array('controller' => 'playgroundcms', 'roles' => array('guest', 'user')),
 
                 //Admin
@@ -367,7 +367,7 @@ return array(
                                         'action'     => 'list',
                                     ),
                                 ),
-                                'may_terminate' => true, 
+                                'may_terminate' => true,
                                 'child_routes' => array(
                                     'create' => array(
                                         'type' => 'Segment',
@@ -417,7 +417,7 @@ return array(
                                                 'slideshowId' => '[0-9]*',
                                             ),
                                         ),
-                                    ),                                    
+                                    ),
                                 ),
                             ),
                             'slide' => array(
@@ -432,7 +432,7 @@ return array(
                                         'slideshowId' => '[0-9]*',
                                     ),
                                 ),
-                                'may_terminate' => true, 
+                                'may_terminate' => true,
                                 'child_routes' => array(
                                     'edit' => array(
                                         'type' => 'Segment',
