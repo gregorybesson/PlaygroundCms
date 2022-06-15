@@ -24,6 +24,11 @@ class Block implements BlockInterface, InputFilterAwareInterface, Translatable
 
     protected $locale;
 
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
+    }
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer");
@@ -339,10 +344,5 @@ class Block implements BlockInterface, InputFilterAwareInterface, Translatable
         }
 
         return $this->inputFilter;
-    }
-
-    public function setTranslatableLocale($locale)
-    {
-        $this->locale = $locale;
     }
 }
